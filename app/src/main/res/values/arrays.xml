@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="array_orden">
+        <item>Mejor puntuación primero</item>
+        <item>Peor puntuación primero</item>
+        <item>A-Z</item>
+        <item>Z-A</item>
+    </array>
+</resources>
