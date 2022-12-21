@@ -53,21 +53,23 @@
         android:ems="10"
         android:inputType="textEmailAddress" />
 
-    <TextView
-        android:id="@+id/tv_contrasena"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtPassText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="5dp"
-        android:text="Contraseña" />
+        android:layout_marginTop="25dp"
+        app:boxBackgroundColor="#00FFFFFF"
+        app:passwordToggleEnabled="true">
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:ems="10"
-        android:inputType="textPassword" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:hint="Contraseña:"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/btn_iniciarSesion"
@@ -94,11 +96,14 @@
 
         <Button
             android:id="@+id/btn_google"
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_weight="1"
-            android:text="google" />
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/icono_google"
+            android:text="google"
+            android:textColor="@color/el_00867d" />
 
         <Space
             android:layout_width="wrap_content"
@@ -107,11 +112,14 @@
 
         <Button
             android:id="@+id/btn_facebook"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:layout_weight="1"
-            android:text="Facebook" />
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/icono_facebook"
+            android:text="Facebook"
+            android:textColor="@color/el_00867d" />
     </LinearLayout>
 
     <TextView
