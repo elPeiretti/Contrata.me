@@ -1,4 +1,4 @@
-package com.example.contratame;
+package com.example.contratame.Actividades;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,9 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 
 
+import com.example.contratame.R;
+import com.example.contratame.ServiciosRecyclerAdapter;
+import com.example.contratame.ServiciosRepository;
 import com.example.contratame.databinding.ActivityResutladosServiciosBinding;
 import com.example.contratame.modelo.Servicio;
 
@@ -59,7 +62,7 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Grupo servicio");
         //TODO Acá tendríamos que ver de pasar de la primera pantalla a esta cual es ese grupo y mostrarlo
 

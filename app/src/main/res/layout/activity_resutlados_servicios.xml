@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ResutladosServicios">
+    tools:context=".Actividades.ResutladosServicios">
 
     <include
         android:id="@+id/toolbar"
@@ -14,8 +14,9 @@
 
     <SearchView
         android:id="@+id/txtBusqueda"
+        style="@android:style/Widget.Material.SearchView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
     </SearchView>
 
