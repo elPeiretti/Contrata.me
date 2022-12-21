@@ -7,35 +7,13 @@
     android:orientation="vertical"
     tools:context=".ResutladosServicios">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="7"
-            android:text="Grupo Servicio"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        />
 
     <SearchView
+        android:id="@+id/txtBusqueda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -90,7 +68,8 @@
                 android:id="@+id/recyclerServicios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp">
+                android:layout_margin="5dp"
+                >
 
             </androidx.recyclerview.widget.RecyclerView>
 
