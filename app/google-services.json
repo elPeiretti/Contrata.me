@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "367821377453",
+    "project_id": "contratame-8fd7a",
+    "storage_bucket": "contratame-8fd7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367821377453:android:47a74dc56829d1f2131b24",
+        "android_client_info": {
+          "package_name": "com.example.contratame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367821377453-kd4psg38sd0ifku5fsjoe8vgkmhcn4a6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9pK-RixhBMDe_XvO1RgXYNYYHnTKD9NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367821377453-kd4psg38sd0ifku5fsjoe8vgkmhcn4a6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
