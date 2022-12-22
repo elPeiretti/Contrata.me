@@ -14,7 +14,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/iconocolor" />
+        app:srcCompat="@drawable/icono_sin_fondo" />
 
     <TextView
         android:id="@+id/tv_contratame"
@@ -43,6 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:textSize="14dp"
         android:text="Email" />
 
     <EditText
@@ -53,11 +56,21 @@
         android:ems="10"
         android:inputType="textEmailAddress" />
 
+    <TextView
+        android:id="@+id/tv_contrasena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:textSize="14dp"
+        android:text="Contraseña" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtPassText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         app:boxBackgroundColor="#00FFFFFF"
         app:passwordToggleEnabled="true">
 
@@ -66,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="15dp"
-            android:hint="Contraseña:"
+            android:hint=""
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="o puedes igresar con"
+        android:text="o puedes ingresar con"
         android:textAlignment="viewStart" />
 
     <LinearLayout
