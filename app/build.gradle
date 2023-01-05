@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.contratame"
+        applicationId "com.efp.contratame.ar"
         minSdk 26
         targetSdk 32
         versionCode 1
@@ -32,6 +32,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.efp.contratame.ar'
 }
 
 dependencies {

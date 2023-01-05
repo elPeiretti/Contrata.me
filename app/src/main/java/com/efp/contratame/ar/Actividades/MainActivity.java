@@ -1,11 +1,11 @@
-package com.example.contratame.Actividades;
+package com.efp.contratame.ar.Actividades;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.contratame.R;
+import com.efp.contratame.ar.R;
 
 public class MainActivity extends AppCompatActivity {
 

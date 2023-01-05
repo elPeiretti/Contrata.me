@@ -1,16 +1,14 @@
-package com.example.contratame.Actividades;
+package com.efp.contratame.ar.Actividades;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,13 +17,10 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 
 
-import com.example.contratame.R;
-import com.example.contratame.ServiciosRecyclerAdapter;
-import com.example.contratame.ServiciosRepository;
-import com.example.contratame.databinding.ActivityResutladosServiciosBinding;
-import com.example.contratame.modelo.Servicio;
-
-import java.util.List;
+import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.ServiciosRecyclerAdapter;
+import com.efp.contratame.ar.ServiciosRepository;
+import com.efp.contratame.ar.databinding.ActivityResutladosServiciosBinding;
 
 public class ResutladosServicios extends AppCompatActivity implements SearchView.OnQueryTextListener{
 

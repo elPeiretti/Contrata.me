@@ -1,8 +1,6 @@
-package com.example.contratame;
+package com.efp.contratame.ar;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
-import com.example.contratame.databinding.FilaServicioBinding;
-import com.example.contratame.modelo.Servicio;
+import com.efp.contratame.ar.databinding.FilaServicioBinding;
+import com.efp.contratame.ar.modelo.Servicio;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

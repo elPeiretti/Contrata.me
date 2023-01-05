@@ -1,6 +1,4 @@
-package com.example.contratame.modelo;
-
-import android.media.Image;
+package com.efp.contratame.ar.modelo;
 
 import java.util.List;
 

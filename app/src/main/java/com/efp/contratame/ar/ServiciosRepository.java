@@ -1,11 +1,8 @@
-package com.example.contratame;
+package com.efp.contratame.ar;
 
-import android.content.Context;
-import android.media.Image;
-
-import com.example.contratame.modelo.Prestador;
-import com.example.contratame.modelo.Servicio;
-import com.example.contratame.modelo.TiposServicios;
+import com.efp.contratame.ar.modelo.Prestador;
+import com.efp.contratame.ar.modelo.Servicio;
+import com.efp.contratame.ar.modelo.TiposServicios;
 
 import java.util.List;
 

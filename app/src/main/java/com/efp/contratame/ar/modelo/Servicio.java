@@ -1,4 +1,4 @@
-package com.example.contratame.modelo;
+package com.efp.contratame.ar.modelo;
 
 public class Servicio {
     private Prestador prestador;

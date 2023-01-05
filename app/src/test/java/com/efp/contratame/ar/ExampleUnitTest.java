@@ -1,4 +1,4 @@
-package com.example.contratame;
+package com.efp.contratame.ar;
 
 import org.junit.Test;
 
