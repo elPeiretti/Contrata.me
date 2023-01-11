@@ -122,17 +122,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-
         <Button
             android:id="@+id/btn_facebook"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:drawableLeft="@drawable/icono_facebook"
-            android:text="Facebook"
+            android:text="facebook"
             android:textColor="@color/el_00867d" />
+
+
     </LinearLayout>
 
     <TextView

@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".Actividades.ResutladosServicios">
 
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Out" />
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"

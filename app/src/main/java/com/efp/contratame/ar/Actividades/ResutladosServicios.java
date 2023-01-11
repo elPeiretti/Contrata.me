@@ -21,6 +21,8 @@ import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.ServiciosRecyclerAdapter;
 import com.efp.contratame.ar.ServiciosRepository;
 import com.efp.contratame.ar.databinding.ActivityResutladosServiciosBinding;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ResutladosServicios extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
@@ -40,9 +42,20 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         binding = ActivityResutladosServiciosBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        //SACAR
+        binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+            }
+        });
 
         mAdapter= new ServiciosRecyclerAdapter(ServiciosRepository._SERVICIOS, ctx);
         mAdapter.ordenar("Mejor puntuación primero");
@@ -51,6 +64,7 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
         layoutManager = new LinearLayoutManager(ctx);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
+
 
 
         //toolbar
