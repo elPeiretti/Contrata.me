@@ -8,22 +8,29 @@ import java.util.List;
 
 public class ServicioRepository {
 
-    //for debugging purposes
-    public static final List<Servicio> SERVICIO_LIST = List.of(
-            new Servicio(new Prestador("Juan juanes","no imagen"), TiposServicios.AIRE_ACONDICIONADO,
-                    "descripcion2", 5f),
-            new Servicio(new Prestador("Juan juan","no imagen"), TiposServicios.CARPINTERIA,
-                    "descripcion3", 3.5f),
-            new Servicio(new Prestador("Juan john","no imagen"), TiposServicios.CONSTRUCCIÓN,
-                    "descripcion4", 2f),
-            new Servicio(new Prestador("Juan julio","no imagen"), TiposServicios.ELECTRICIDAD,
-                    "descripcion5", 2.3f),
-            new Servicio(new Prestador("Juan juarez","no imagen"), TiposServicios.AIRE_ACONDICIONADO,
-                    "descripcion6", 3.3f),
-            new Servicio(new Prestador("Juan justo","no imagen"), TiposServicios.GASISTA,
-                    "descripcion7", 4.9f),
-            new Servicio(new Prestador("Juan julian","no imagen"), TiposServicios.GASISTA,
-                    "descripcion8", 3.1f)
-    );
+   private static ServicioRepository _REPO = null;
+
+   public static final List<Servicio> _SERVICIOS = List.of(
+           new Servicio(new Prestador("Pedro Gómez", "https://radiojunin.com/wp-content/uploads/2020/11/plomero.jpg"), TiposServicios.PLOMERIA,"Hola hago buenos trabajos de plomeria, contratenme xfi.", 3),
+           new Servicio(new Prestador("Lionel Messi", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "Hola hago buenos trabajos de plomeria, contratenme xfi.", 2),
+           new Servicio(new Prestador("AAA", "https://radiojunin.com/wp-content/uploads/2020/11/plomero.jpg"), TiposServicios.PLOMERIA,"Hola hago buenos trabajos de plomeria, contratenme xfi.", 3),
+           new Servicio(new Prestador("BBB", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "Hola hago buenos trabajos de plomeria, contratenme xfi.", 1),
+           new Servicio(new Prestador("Pedro Gómez", "https://radiojunin.com/wp-content/uploads/2020/11/plomero.jpg"), TiposServicios.PLOMERIA,"Hola hago buenos trabajos de plomeria, contratenme xfi.", 5),
+           new Servicio(new Prestador("Lionel Mes", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "Hola hago buenos trabajos de plomeria, contratenme xfi.", 2),
+           new Servicio(new Prestador("Lionel M", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc1", 2),
+           new Servicio(new Prestador("Lionel", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc2", 2),
+           new Servicio(new Prestador("Lio Messi", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc3", 2),
+           new Servicio(new Prestador("L Messi", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc4", 2),
+           new Servicio(new Prestador("Lucas Messi", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc5", 2),
+           new Servicio(new Prestador("Lionel Massa", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc6", 2),
+           new Servicio(new Prestador("Julio Pepe", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc7", 2),
+           new Servicio(new Prestador("Esteban Quito", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc8", 2),
+           new Servicio(new Prestador("Juan Carlos", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc7", 2),
+           new Servicio(new Prestador("John Charles", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TiposServicios.ELECTRICIDAD, "desc10", 2)
+   );
+
+
+
+
 
 }

@@ -17,8 +17,8 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.ServiciosRecyclerAdapter;
-import com.efp.contratame.ar.ServiciosRepository;
 import com.efp.contratame.ar.databinding.ActivityResutladosServiciosBinding;
+import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
 
 public class ResutladosServicios extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
@@ -42,7 +42,7 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
         View view = binding.getRoot();
         setContentView(view);
 
-        mAdapter= new ServiciosRecyclerAdapter(ServiciosRepository._SERVICIOS, ctx);
+        mAdapter= new ServiciosRecyclerAdapter(ServicioRepository._SERVICIOS, ctx);
         mAdapter.ordenar("Mejor puntuación primero");
         recyclerView = binding.recyclerServicios;
         recyclerView.setHasFixedSize(true);
