@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.databinding.ActivityIniciarSesionBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,7 +91,7 @@ public class IniciarSesion extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(IniciarSesion.this, "Se ha iniciado sesión con éxito", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent( ctx,MainActivity.class);
+                        Intent intent = new Intent( ctx, MainActivity.class);
                         startActivity(intent);
                     }
                 })
