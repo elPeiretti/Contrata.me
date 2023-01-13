@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityIniciarSesionBinding;
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -56,6 +57,7 @@ public class IniciarSesion extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private CallbackManager callbackManager;
     private Button btnFacebook;
+    private AccessTokenTracker accessTokenTracker;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     @Override
@@ -140,16 +142,18 @@ public class IniciarSesion extends AppCompatActivity {
                 }
             }
         };
-
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                if(currentAccessToken==null){
+                    firebaseAuth.signOut();
+                    LoginManager.getInstance().logOut();
+                }
+            }
+        };
 
     }
-//SACAR
-    @Override
-    protected void onDestroy() {
-        FirebaseAuth.getInstance().signOut();
-        LoginManager.getInstance().logOut();
-        super.onDestroy();
-    }
+
 
     @Override
     protected void onStart() {

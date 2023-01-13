@@ -52,7 +52,7 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
         setContentView(view);
 
         //SACAR
-        binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();

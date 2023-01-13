@@ -74,16 +74,15 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Galeria de imágenes"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="260dp"
-        android:layout_height="190dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/carpintero_que_trabaja_equipo_tabla_madera_tienda_carpinteria_1418_2326" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerImagenes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
 
     <TextView
         android:id="@+id/textView7"

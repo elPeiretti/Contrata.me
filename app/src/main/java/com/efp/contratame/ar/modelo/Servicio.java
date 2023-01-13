@@ -3,17 +3,23 @@ package com.efp.contratame.ar.modelo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Servicio{
     private Prestador prestador;
     private TiposServicios tipo;
     private String descripcion;
     private float puntuacion;
+    private List<String> galeriaImagenes;
 
-    public Servicio(Prestador prestador, TiposServicios tipo, String descripcion, float puntuacion) {
+    public Servicio(Prestador prestador, TiposServicios tipo, String descripcion, float puntuacion, List<String> galeriaImagenes) {
         this.prestador = prestador;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.puntuacion = puntuacion;
+        galeriaImagenes= new ArrayList<>();
+        //TODO
     }
 
 
