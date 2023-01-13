@@ -1,6 +1,9 @@
 package com.efp.contratame.ar.modelo;
 
-public class Servicio {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Servicio{
     private Prestador prestador;
     private TiposServicios tipo;
     private String descripcion;
@@ -12,6 +15,7 @@ public class Servicio {
         this.descripcion = descripcion;
         this.puntuacion = puntuacion;
     }
+
 
     public float getPuntuacion() {
         return puntuacion;
@@ -44,4 +48,6 @@ public class Servicio {
     public void setTipo(TiposServicios tipo) {
         this.tipo = tipo;
     }
+
+
 }
