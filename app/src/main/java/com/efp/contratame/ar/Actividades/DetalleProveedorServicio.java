@@ -15,6 +15,8 @@ import com.efp.contratame.ar.GaleriaRecyclerAdapter;
 import com.efp.contratame.ar.ServiciosRepository;
 import com.efp.contratame.ar.databinding.ActivityDetalleProveedorServicioBinding;
 
+import java.util.ArrayList;
+
 public class DetalleProveedorServicio extends AppCompatActivity {
 
     private ActivityDetalleProveedorServicioBinding binding;
@@ -37,9 +39,10 @@ public class DetalleProveedorServicio extends AppCompatActivity {
         binding.ratingBar2.setRating(extra.getFloat("puntuacion"));
         String EDteamImage = extra.getString("imagen");
         Glide.with(binding.imageView.getContext()).load(EDteamImage).into(binding.imageView);
-        binding.tvDescripcion.setText("descripcion");
+        binding.tvDescripcion.setText(extra.getString("descripcion"));
 
-        mAdapter= new GaleriaRecyclerAdapter(ServiciosRepository.galeriaImagenes, ctx);
+
+        mAdapter= new GaleriaRecyclerAdapter((ArrayList<String>) getIntent().getSerializableExtra("listaImagenes"), ctx);
         recyclerView = binding.recyclerImagenes;
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false);

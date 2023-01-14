@@ -27,6 +27,8 @@ import com.efp.contratame.ar.modelo.Servicio;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class ResutladosServicios extends AppCompatActivity implements SearchView.OnQueryTextListener, SelectListener {
 
     private ActivityResutladosServiciosBinding binding;
@@ -138,6 +140,7 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
         intent.putExtra("puntuacion", s.getPuntuacion());
         intent.putExtra("imagen", s.getPrestador().getImagen_perfil());
         intent.putExtra("descripcion", s.getDescripcion());
+        intent.putExtra("listaImagenes", new ArrayList<String>(s.getGaleriaImagenes()));
         startActivity(intent);
     }
 }

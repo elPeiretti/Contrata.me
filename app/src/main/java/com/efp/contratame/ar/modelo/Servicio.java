@@ -18,13 +18,20 @@ public class Servicio{
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.puntuacion = puntuacion;
-        galeriaImagenes= new ArrayList<>();
-        //TODO
+        this.galeriaImagenes= galeriaImagenes;
     }
 
 
     public float getPuntuacion() {
         return puntuacion;
+    }
+
+    public List<String> getGaleriaImagenes() {
+        return galeriaImagenes;
+    }
+
+    public void setGaleriaImagenes(List<String> galeriaImagenes) {
+        this.galeriaImagenes = galeriaImagenes;
     }
 
     public void setPuntuacion(float puntuacion) {
