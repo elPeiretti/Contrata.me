@@ -1,4 +1,4 @@
-package com.efp.contratame.ar;
+package com.efp.contratame.ar.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.efp.contratame.ar.databinding.ItemGaleriaImagenBinding;
+import com.efp.contratame.ar.R;
 
 import java.util.List;
 
@@ -35,7 +35,6 @@ public class GaleriaRecyclerAdapter extends RecyclerView.Adapter<GaleriaRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("IMAGENES", imagenes.get(position));
         Glide.with(holder.imagen.getContext()).load(imagenes.get(position)).into(holder.imagen);
     }
 

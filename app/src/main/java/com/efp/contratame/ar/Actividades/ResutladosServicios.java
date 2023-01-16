@@ -3,6 +3,7 @@ package com.efp.contratame.ar.Actividades;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,7 @@ import android.widget.Spinner;
 
 
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.ServiciosRecyclerAdapter;
+import com.efp.contratame.ar.adapters.ServiciosRecyclerAdapter;
 import com.efp.contratame.ar.ServiciosRepository;
 import com.efp.contratame.ar.auxiliares.SelectListener;
 import com.efp.contratame.ar.databinding.ActivityResutladosServiciosBinding;
@@ -63,16 +64,16 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
                 startActivity(intent);
             }
         });
+        binding.btnMensajes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ctx, Mensajes.class));
+            }
+        });
 
-        mAdapter= new ServiciosRecyclerAdapter(ServiciosRepository._SERVICIOS, ctx, this);
-        mAdapter.ordenar("Mejor puntuación primero");
-        recyclerView = binding.recyclerServicios;
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(ctx);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mAdapter);
 
-        //toolbar
+
+        //TOOLBAR
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -81,6 +82,16 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
         //TODO Acá tendríamos que ver de pasar de la primera pantalla a esta cual es ese grupo y mostrarlo
 
 
+        //RECYCLERVIEW
+        mAdapter= new ServiciosRecyclerAdapter(ServiciosRepository._SERVICIOS, ctx, this);
+        mAdapter.ordenar("Mejor puntuación primero");
+        recyclerView = binding.recyclerServicios;
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(ctx);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(mAdapter);
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),1);
+        recyclerView.addItemDecoration(mDividerItemDecoration);
 
         //Funcionalidad de filtrado
         //TODO

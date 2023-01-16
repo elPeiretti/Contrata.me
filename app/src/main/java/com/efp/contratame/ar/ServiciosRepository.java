@@ -9,7 +9,7 @@ import java.util.List;
 public class ServiciosRepository {
 
    private static ServiciosRepository _REPO = null;
- 
+
    public static List<String> galeriaImagenes= List.of(
            "https://i.pinimg.com/originals/b2/1e/03/b21e03c83670e1badfbb70ff8b59b80f.jpg",
            "https://i.ytimg.com/vi/CCRdNq9E8PQ/maxresdefault.jpg" ,

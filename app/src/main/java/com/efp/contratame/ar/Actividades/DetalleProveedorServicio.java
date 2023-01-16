@@ -11,8 +11,7 @@ import android.view.View;
 
 
 import com.bumptech.glide.Glide;
-import com.efp.contratame.ar.GaleriaRecyclerAdapter;
-import com.efp.contratame.ar.ServiciosRepository;
+import com.efp.contratame.ar.adapters.GaleriaRecyclerAdapter;
 import com.efp.contratame.ar.databinding.ActivityDetalleProveedorServicioBinding;
 
 import java.util.ArrayList;
