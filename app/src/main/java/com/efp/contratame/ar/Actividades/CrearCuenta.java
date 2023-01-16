@@ -1,4 +1,4 @@
-package com.example.contratame.Actividades;
+package com.efp.contratame.ar.Actividades;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.contratame.databinding.ActivityCrearCuentaBinding;
-import com.example.contratame.databinding.ActivityResutladosServiciosBinding;
+import com.efp.contratame.ar.databinding.ActivityCrearCuentaBinding;
+import com.efp.contratame.ar.databinding.ActivityResutladosServiciosBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;

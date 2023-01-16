@@ -1,16 +1,16 @@
-package com.example.contratame.Actividades;
+package com.efp.contratame.ar.Actividades;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,15 +19,18 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 
 
-import com.example.contratame.R;
-import com.example.contratame.ServiciosRecyclerAdapter;
-import com.example.contratame.ServiciosRepository;
-import com.example.contratame.databinding.ActivityResutladosServiciosBinding;
-import com.example.contratame.modelo.Servicio;
+import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.adapters.ServiciosRecyclerAdapter;
+import com.efp.contratame.ar.ServiciosRepository;
+import com.efp.contratame.ar.auxiliares.SelectListener;
+import com.efp.contratame.ar.databinding.ActivityResutladosServiciosBinding;
+import com.efp.contratame.ar.modelo.Servicio;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class ResutladosServicios extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class ResutladosServicios extends AppCompatActivity implements SearchView.OnQueryTextListener, SelectListener {
 
     private ActivityResutladosServiciosBinding binding;
     private RecyclerView recyclerView;
@@ -45,20 +48,32 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         binding = ActivityResutladosServiciosBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        mAdapter= new ServiciosRecyclerAdapter(ServiciosRepository._SERVICIOS, ctx);
-        mAdapter.ordenar("Mejor puntuación primero");
-        recyclerView = binding.recyclerServicios;
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(ctx);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mAdapter);
+        //SACAR
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                Intent intent = new Intent( ctx,IniciarSesion.class);
+                startActivity(intent);
+            }
+        });
+        binding.btnMensajes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ctx, Mensajes.class));
+            }
+        });
 
 
-        //toolbar
+
+        //TOOLBAR
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,8 +82,19 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
         //TODO Acá tendríamos que ver de pasar de la primera pantalla a esta cual es ese grupo y mostrarlo
 
 
+        //RECYCLERVIEW
+        mAdapter= new ServiciosRecyclerAdapter(ServiciosRepository._SERVICIOS, ctx, this);
+        mAdapter.ordenar("Mejor puntuación primero");
+        recyclerView = binding.recyclerServicios;
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(ctx);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(mAdapter);
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),1);
+        recyclerView.addItemDecoration(mDividerItemDecoration);
 
         //Funcionalidad de filtrado
+        //TODO
 
         //Funcionalidad de búsqueda
         txtBusqueda = binding.txtBusqueda;
@@ -116,5 +142,16 @@ public class ResutladosServicios extends AppCompatActivity implements SearchView
     public boolean onQueryTextChange(String s) {
         mAdapter.filtrado(s);
         return false;
+    }
+
+    @Override
+    public void onItemClicked(Servicio s) {
+        Intent intent = new Intent( ResutladosServicios.this,DetalleProveedorServicio.class);
+        intent.putExtra("nombre", s.getPrestador().getNombre());
+        intent.putExtra("puntuacion", s.getPuntuacion());
+        intent.putExtra("imagen", s.getPrestador().getImagen_perfil());
+        intent.putExtra("descripcion", s.getDescripcion());
+        intent.putExtra("listaImagenes", new ArrayList<String>(s.getGaleriaImagenes()));
+        startActivity(intent);
     }
 }

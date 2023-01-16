@@ -1,4 +1,4 @@
-package com.example.contratame.modelo;
+package com.efp.contratame.ar.modelo;
 
 public enum TiposServicios {
     INSTALACIONES, CONSTRUCCIÓN, AIRE_ACONDICIONADO, CARPINTERIA, PINTURA, PLOMERIA,

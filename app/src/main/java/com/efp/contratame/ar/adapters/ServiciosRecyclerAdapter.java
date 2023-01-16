@@ -1,8 +1,6 @@
-package com.example.contratame;
+package com.efp.contratame.ar.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,28 +14,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
-import com.example.contratame.databinding.FilaServicioBinding;
-import com.example.contratame.modelo.Servicio;
+import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.auxiliares.SelectListener;
+import com.efp.contratame.ar.modelo.Servicio;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecyclerAdapter.ServiciosViewHolder> {
+public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecyclerAdapter.ServiciosViewHolder>{
 
     private Context ctx;
     private List<Servicio> serviciosDataSet;
     private List<Servicio> listaOriginal;
+    private SelectListener listener;
 
-    public ServiciosRecyclerAdapter(List<Servicio> dataSet, Context context) {
+    public ServiciosRecyclerAdapter(List<Servicio> dataSet, Context context, SelectListener listener) {
         this.serviciosDataSet = dataSet;
         this.ctx = context;
         listaOriginal = new ArrayList<>();
         listaOriginal.addAll(serviciosDataSet);
+        this.listener=listener;
     }
 
     @NonNull
@@ -55,6 +54,13 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
 
         String EDteamImage = serviciosDataSet.get(position).getPrestador().getImagen_perfil();
         Glide.with(holder.imagen.getContext()).load(EDteamImage).into(holder.imagen);
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClicked(serviciosDataSet.get(position));
+            }
+        });
+
     }
 
     @Override
@@ -107,13 +113,15 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
 
 
 
-    public class ServiciosViewHolder extends RecyclerView.ViewHolder{
+
+    public class ServiciosViewHolder extends RecyclerView.ViewHolder {
 
         CardView card;
         ImageView imagen;
         TextView nombrePersona;
         TextView descripcion;
         RatingBar puntuacion;
+
 
         public ServiciosViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -122,6 +130,7 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
             nombrePersona= itemView.findViewById(R.id.nombre_persona);
             descripcion = itemView.findViewById(R.id.descrpcion);
             puntuacion = itemView.findViewById(R.id.ratingBar);
+
         }
     }
 
