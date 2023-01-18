@@ -137,11 +137,13 @@ public class IniciarSesion extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    startActivity(new Intent(IniciarSesion.this,MainActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                   // startActivity(new Intent(IniciarSesion.this,MainActivity.class)
+                    //        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             }
         };
+
+
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {

@@ -8,7 +8,7 @@
     android:paddingHorizontal="15dp"
     android:paddingVertical="10dp"
     app:layoutDescription="@xml/activity_detalle_proveedor_servicio_scene"
-    tools:context=".Actividades.DetalleProveedorServicio">
+    tools:context=".Actividades.DetalleProveedorServicioFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/resultadosServiciosFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -25,4 +25,26 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detalleProveedorServicioFragment"
+        android:name="com.efp.contratame.ar.Actividades.DetalleProveedorServicioFragment"
+        android:label="fragment_detalle_proveedor_servicio"
+        tools:layout="@layout/fragment_detalle_proveedor_servicio" />
+    <fragment
+        android:id="@+id/resultadosServiciosFragment"
+        android:name="com.efp.contratame.ar.Actividades.ResultadosServiciosFragment"
+        android:label="fragment_resultados_servicios"
+        tools:layout="@layout/fragment_resultados_servicios" >
+        <action
+            android:id="@+id/action_resultadosServiciosFragment_to_detalleProveedorServicioFragment2"
+            app:destination="@id/detalleProveedorServicioFragment" />
+        <action
+            android:id="@+id/action_resultadosServiciosFragment_to_mensajesFragment2"
+            app:destination="@id/mensajesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mensajesFragment"
+        android:name="com.efp.contratame.ar.Actividades.MensajesFragment"
+        android:label="fragment_mensajes"
+        tools:layout="@layout/fragment_mensajes" />
 </navigation>

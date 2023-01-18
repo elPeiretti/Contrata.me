@@ -15,12 +15,6 @@
         android:theme="@style/Theme.Contratame"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".Mensajes"
-            android:exported="false" />
-        <activity
-            android:name=".Actividades.DetalleProveedorServicio"
-            android:exported="false" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -42,13 +36,7 @@
             android:name=".Actividades.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".Actividades.ResutladosServicios"
-            android:exported="true" />
-        <activity
             android:name=".Actividades.CrearCuenta"
-            android:exported="true" />
-        <activity
-            android:name=".Actividades.Mensajes"
             android:exported="true" />
     </application>
 
