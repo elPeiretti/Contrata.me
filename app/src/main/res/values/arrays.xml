@@ -6,4 +6,22 @@
         <item>A-Z</item>
         <item>Z-A</item>
     </array>
+    <string-array name="rubros">
+        <item>Instalaciones</item>
+        <item>Construcción</item>
+        <item>Aire acondicionado</item>
+        <item>Carpintería</item>
+        <item>Pintura</item>
+        <item>Plomería</item>
+        <item>Electricidad</item>
+        <item>Limpieza</item>
+        <item>Jardinería</item>
+        <item>Costurería</item>
+        <item>Gasista</item>
+        <item>Cerrajería</item>
+        <item>Transporte</item>
+        <item>Belleza</item>
+        <item>Seguridad</item>
+
+    </string-array>
 </resources>

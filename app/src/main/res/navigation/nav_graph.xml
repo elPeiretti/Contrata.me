@@ -41,10 +41,18 @@
         <action
             android:id="@+id/action_resultadosServiciosFragment_to_mensajesFragment2"
             app:destination="@id/mensajesFragment" />
+        <action
+            android:id="@+id/action_resultadosServiciosFragment_to_crearRequerimientoFragment"
+            app:destination="@id/crearRequerimientoFragment" />
     </fragment>
     <fragment
         android:id="@+id/mensajesFragment"
         android:name="com.efp.contratame.ar.Actividades.MensajesFragment"
         android:label="fragment_mensajes"
         tools:layout="@layout/fragment_mensajes" />
+    <fragment
+        android:id="@+id/crearRequerimientoFragment"
+        android:name="com.efp.contratame.ar.Actividades.CrearRequerimientoFragment"
+        android:label="fragment_crear_requerimiento"
+        tools:layout="@layout/fragment_crear_requerimiento" />
 </navigation>

@@ -92,6 +92,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
                              Bundle savedInstanceState) {
         binding = FragmentResultadosServiciosBinding.inflate(inflater, container, false);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Grupo Servicio");
+        //TODO PONER EL NOMBRE DEL GRUPO QUE ELIGE
         viewModel = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
 
@@ -136,9 +137,13 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
             }
         });
 
-        //Comunicacion entre fragmentos
+        binding.btnCrearRequerimiento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(ResultadosServiciosFragment.this).navigate(R.id.action_resultadosServiciosFragment_to_crearRequerimientoFragment);
 
-
+            }
+        });
 
         return binding.getRoot();
     }
