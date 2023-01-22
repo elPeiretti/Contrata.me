@@ -5,12 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Actividades.ResutladosServicios">
+    tools:context=".Actividades.ResultadosServiciosFragment">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        />
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log out" />
+
+
+    <Button
+        android:id="@+id/btnMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mensajes" />
+
 
     <SearchView
         android:id="@+id/txtBusqueda"
@@ -78,7 +87,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnCrearRequerimiento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

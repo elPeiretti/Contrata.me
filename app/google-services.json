@@ -7,12 +7,49 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:367821377453:android:47a74dc56829d1f2131b24",
+        "mobilesdk_app_id": "1:367821377453:android:155fafd938f56243131b24",
         "android_client_info": {
           "package_name": "com.efp.contratame.ar"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "367821377453-kd4psg38sd0ifku5fsjoe8vgkmhcn4a6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9pK-RixhBMDe_XvO1RgXYNYYHnTKD9NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367821377453-kd4psg38sd0ifku5fsjoe8vgkmhcn4a6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367821377453:android:47a74dc56829d1f2131b24",
+        "android_client_info": {
+          "package_name": "com.example.contratame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367821377453-02tv0pqr7hn69ndsppedhhrl7sfvcm5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.contratame",
+            "certificate_hash": "b0ac703ea9c552a0afd7a544fca3dbb50e584e39"
+          }
+        },
         {
           "client_id": "367821377453-kd4psg38sd0ifku5fsjoe8vgkmhcn4a6.apps.googleusercontent.com",
           "client_type": 3

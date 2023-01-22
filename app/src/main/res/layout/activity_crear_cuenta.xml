@@ -3,10 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Actividades.CrearCuenta">
+
+    <ImageView
+        android:id="@+id/icono"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/icono_sin_fondo" />
+
+    <TextView
+        android:id="@+id/tv_contratame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:text="Contrata.me"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_crearCuenta"
@@ -24,6 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:textSize="14dp"
         android:text="Email" />
 
     <EditText
@@ -40,6 +62,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="5dp"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:textSize="14dp"
         android:text="Contraseña" />
 
     <EditText
