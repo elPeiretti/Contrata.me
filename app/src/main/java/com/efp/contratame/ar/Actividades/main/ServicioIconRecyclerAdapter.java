@@ -4,23 +4,26 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.modelo.Servicio;
+import com.efp.contratame.ar.modelo.TipoServicio;
 
 import java.util.List;
 
 public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIconRecyclerAdapter.ViewHolder>{
 
-    private List<Servicio> listaServicios;
+    private List<TipoServicio> listaTipos;
     private LayoutInflater mInflater;
 
-    ServicioIconRecyclerAdapter(Context ctx, List<Servicio> dataSet){
+    ServicioIconRecyclerAdapter(Context ctx, List<TipoServicio> dataSet){
         this.mInflater = LayoutInflater.from(ctx);
-        this.listaServicios = dataSet;
+        this.listaTipos = dataSet;
     }
 
     @NonNull
@@ -31,18 +34,27 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
 
     @Override
     public void onBindViewHolder(@NonNull ServicioIconRecyclerAdapter.ViewHolder holder, int position) {
-        //TODO setear imagen servicio
+        //setear nombre e imagen al tiposervicio
+        holder.nombre.setText(listaTipos.get(position).getNombre());
+        Glide
+                .with(holder.icono.getContext())
+                .load(listaTipos.get(position).getIcono())
+                .into(holder.icono);
     }
 
     @Override
     public int getItemCount() {
-        return listaServicios.size();
+        return listaTipos.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView icono;
+        TextView nombre;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            icono = itemView.findViewById(R.id.service_icon);
+            nombre = itemView.findViewById(R.id.service_name);
         }
     }
 }
