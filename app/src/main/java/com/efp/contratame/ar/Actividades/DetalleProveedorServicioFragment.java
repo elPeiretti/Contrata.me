@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.ServiciosRepository;
 import com.efp.contratame.ar.adapters.GaleriaRecyclerAdapter;

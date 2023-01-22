@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main;
 
 import android.content.Intent;
 import android.os.Bundle;

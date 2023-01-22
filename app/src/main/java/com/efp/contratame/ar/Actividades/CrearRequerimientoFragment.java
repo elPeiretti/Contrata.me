@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.databinding.FragmentCrearRequerimientoBinding;
 
 

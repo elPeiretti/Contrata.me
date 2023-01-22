@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.databinding.ActivityCrearCuentaBinding;
-import com.efp.contratame.ar.databinding.ActivityResutladosServiciosBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -81,7 +81,7 @@ public class CrearCuenta extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(CrearCuenta.this, "Su cuenta fue creada con éxito", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent( ctx,MainActivity.class);
+                        Intent intent = new Intent( ctx, MainActivity.class);
                         startActivity(intent);
                     }
                 })
