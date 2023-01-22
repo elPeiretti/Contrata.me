@@ -20,16 +20,17 @@ import android.widget.Spinner;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.ServiciosRepository;
+import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
 import com.efp.contratame.ar.adapters.ServiciosRecyclerAdapter;
 import com.efp.contratame.ar.auxiliares.MyViewModel;
 import com.efp.contratame.ar.auxiliares.SelectListener;
 import com.efp.contratame.ar.databinding.FragmentResultadosServiciosBinding;
 import com.efp.contratame.ar.modelo.Servicio;
+import com.efp.contratame.ar.modelo.TipoServicio;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +57,11 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     private Spinner spinner;
     private MyViewModel viewModel;
 
+    private TipoServicioGetter getterServicio;
+
+    public interface TipoServicioGetter{
+        public TipoServicio getTipoSeleccionado();
+    }
 
     public ResultadosServiciosFragment() {
         // Required empty public constructor
@@ -89,11 +95,23 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     }
 
     @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if (context instanceof TipoServicioGetter){
+            getterServicio = (TipoServicioGetter) context;
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentResultadosServiciosBinding.inflate(inflater, container, false);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Grupo Servicio");
-        //TODO PONER EL NOMBRE DEL GRUPO QUE ELIGE
+        /*TODO PONER EL NOMBRE DEL GRUPO QUE ELIGE
+            esto esta aca:
+            getterServicio.getTipoSeleccionado().getNombre()
+         */
+
         viewModel = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
 
@@ -153,7 +171,11 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     public void onResume() {
         super.onResume();
         //RECYCLERVIEW
-        mAdapter= new ServiciosRecyclerAdapter(ServiciosRepository._SERVICIOS, ctx, this);
+        //TODO agarrar los servicios de alguna bdd externa?
+
+        mAdapter= new ServiciosRecyclerAdapter(ServicioRepository._SERVICIOS.stream()
+                .filter(s -> s.getTipo().getIdTipoServicio().equals(getterServicio.getTipoSeleccionado().getIdTipoServicio()))
+                .collect(Collectors.toList()), ctx, this);
         mAdapter.ordenar("Mejor puntuación primero");
         recyclerView = binding.recyclerServicios;
         recyclerView.setHasFixedSize(true);

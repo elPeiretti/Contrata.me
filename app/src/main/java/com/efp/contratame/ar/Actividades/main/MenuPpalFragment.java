@@ -1,5 +1,6 @@
 package com.efp.contratame.ar.Actividades.main;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentMenuPpalBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
-import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 
 public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAdapter.OnTipoServicioSelectedListener{
@@ -38,13 +38,22 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if (context instanceof onTipoServicioSelectedListener){
+            listener = (onTipoServicioSelectedListener) context;
+        }
+
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedINstanceState){
         binding = FragmentMenuPpalBinding.inflate(inflater,container,false);
 
         //setup recyclerview
         RecyclerView rv = binding.rvServicios;
         rv.setLayoutManager(new GridLayoutManager(getContext(),3));
-        rvAdapter = new ServicioIconRecyclerAdapter(getContext(), TipoServicioRepository._TIPOSSERVICIOS, this);
+        rvAdapter = new ServicioIconRecyclerAdapter(getContext(), TipoServicioRepository._TIPOSERVICIOS, this);
         rv.setAdapter(rvAdapter);
 
         int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_spacing)/2;

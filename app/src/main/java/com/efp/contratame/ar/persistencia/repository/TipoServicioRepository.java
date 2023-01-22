@@ -1,14 +1,18 @@
 package com.efp.contratame.ar.persistencia.repository;
 
 import com.efp.contratame.ar.modelo.TipoServicio;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TipoServicioRepository {
 
     private static TipoServicioRepository _REPO = null;
 
     // for debugging purposes
-    public static final List<TipoServicio> _TIPOSSERVICIOS = List.of(
+    public static final List<TipoServicio> _TIPOSERVICIOS = List.of(
             new TipoServicio("Servicio 1", "https://assets.stickpng.com/images/6002f9d851c2ec00048c6c78.png"),
             new TipoServicio("Servicio dos", "https://uxwing.com/wp-content/themes/uxwing/download/hand-gestures/good-icon.png"),
             new TipoServicio("Servicio serv", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlUZKpMaRrQBlWOp6paedKAGY9vsTbnhs9SQ&usqp=CAU"),
@@ -27,4 +31,6 @@ public class TipoServicioRepository {
             new TipoServicio("Servicio", "https://cdn-icons-png.flaticon.com/512/891/891948.png"),
             new TipoServicio("Otro", "https://i.pinimg.com/originals/58/0f/13/580f139b3ac232030a812614cfc8585b.png")
     );
+
+    public static final Map<String,TipoServicio> TIPOSERVICIO_MAP = _TIPOSERVICIOS.stream().collect(Collectors.toMap(TipoServicio::getNombre,t -> t));
 }

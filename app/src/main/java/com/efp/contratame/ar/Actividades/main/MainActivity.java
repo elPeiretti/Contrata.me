@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.efp.contratame.ar.Actividades.ResultadosServiciosFragment;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityMainBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
 
-public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener {
+public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener, ResultadosServiciosFragment.TipoServicioGetter {
 
     private Toolbar toolbar;
     private ActivityMainBinding binding;
@@ -57,5 +58,10 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     @Override
     public void onTipoServicioSelected(TipoServicio tp) {
         setTipoServicioSeleccionado(tp);
+    }
+
+    @Override
+    public TipoServicio getTipoSeleccionado() {
+        return tipoServicioSeleccionado;
     }
 }

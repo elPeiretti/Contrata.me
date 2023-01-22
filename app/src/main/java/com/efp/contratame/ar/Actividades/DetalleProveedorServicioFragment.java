@@ -1,7 +1,6 @@
 package com.efp.contratame.ar.Actividades;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,8 +14,6 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
-import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.ServiciosRepository;
 import com.efp.contratame.ar.adapters.GaleriaRecyclerAdapter;
 import com.efp.contratame.ar.auxiliares.MyViewModel;
 import com.efp.contratame.ar.databinding.FragmentDetalleProveedorServicioBinding;
