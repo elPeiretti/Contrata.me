@@ -1,9 +1,11 @@
 package com.efp.contratame.ar.Actividades.main;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +42,14 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
                 .with(holder.icono.getContext())
                 .load(listaTipos.get(position).getIcono())
                 .into(holder.icono);
+
+        //setear listener al icono
+        holder.icono.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Click_ICONO",holder.nombre.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -48,7 +58,7 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView icono;
+        ImageButton icono;
         TextView nombre;
 
         public ViewHolder(@NonNull View itemView) {

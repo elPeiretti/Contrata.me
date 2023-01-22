@@ -6,11 +6,13 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/service_icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        android:layout_width="@dimen/tipo_servicio_icon_size"
+        android:layout_height="@dimen/tipo_servicio_icon_size"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:contentDescription="Esto es un servicio"
+        android:backgroundTint="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/service_name"
