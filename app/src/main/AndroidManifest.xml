@@ -44,10 +44,6 @@
         </activity>
 
         <activity
-            android:name=".Actividades.ResutladosServicios"
-            android:exported="true"/>
-
-        <activity
             android:name=".Actividades.CrearCuenta"
             android:exported="true"/>
     </application>
