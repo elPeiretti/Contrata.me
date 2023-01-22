@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,10 +23,12 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
 
     private List<TipoServicio> listaTipos;
     private LayoutInflater mInflater;
+    private OnTipoServicioSelectedListener comListener;
 
-    ServicioIconRecyclerAdapter(Context ctx, List<TipoServicio> dataSet){
+    ServicioIconRecyclerAdapter(Context ctx, List<TipoServicio> dataSet, OnTipoServicioSelectedListener handler){
         this.mInflater = LayoutInflater.from(ctx);
         this.listaTipos = dataSet;
+        this.comListener = handler;
     }
 
     @NonNull
@@ -47,7 +50,9 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
         holder.icono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Click_ICONO",holder.nombre.getText().toString());
+                //este llama al metodo del fragment, y el del fragment llama al de la actividad, updateando el tiposervicio seleccionado.
+                comListener.onTipoServicioSelected(listaTipos.get(holder.getAdapterPosition()));
+                Navigation.findNavController(view).navigate(R.id.action_menuPpalFragment2_to_resultadosServiciosFragment);
             }
         });
     }
@@ -66,5 +71,9 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
             icono = itemView.findViewById(R.id.service_icon);
             nombre = itemView.findViewById(R.id.service_name);
         }
+    }
+
+    public interface OnTipoServicioSelectedListener {
+        void onTipoServicioSelected(TipoServicio tp);
     }
 }

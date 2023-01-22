@@ -11,11 +11,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityMainBinding;
+import com.efp.contratame.ar.modelo.TipoServicio;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener {
 
     private Toolbar toolbar;
     private ActivityMainBinding binding;
+    private TipoServicio tipoServicioSeleccionado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +28,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -45,4 +46,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setTipoServicioSeleccionado(TipoServicio tp){
+        this.tipoServicioSeleccionado = tp;
+    }
+
+    public TipoServicio getTipoServicioSeleccionado(){
+        return tipoServicioSeleccionado;
+    }
+
+    @Override
+    public void onTipoServicioSelected(TipoServicio tp) {
+        setTipoServicioSeleccionado(tp);
+    }
 }
