@@ -8,12 +8,12 @@ import java.util.List;
 
 public class Servicio{
     private Prestador prestador;
-    private TiposServicios tipo;
+    private TipoServicio tipo;
     private String descripcion;
     private float puntuacion;
     private List<String> galeriaImagenes;
 
-    public Servicio(Prestador prestador, TiposServicios tipo, String descripcion, float puntuacion, List<String> galeriaImagenes) {
+    public Servicio(Prestador prestador, TipoServicio tipo, String descripcion, float puntuacion, List<String> galeriaImagenes) {
         this.prestador = prestador;
         this.tipo = tipo;
         this.descripcion = descripcion;
@@ -54,11 +54,11 @@ public class Servicio{
         this.prestador = prestador;
     }
 
-    public TiposServicios getTipo() {
+    public TipoServicio getTipo() {
         return tipo;
     }
 
-    public void setTipo(TiposServicios tipo) {
+    public void setTipo(TipoServicio tipo) {
         this.tipo = tipo;
     }
 
