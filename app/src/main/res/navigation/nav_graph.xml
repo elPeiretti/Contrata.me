@@ -3,28 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/resultadosServiciosFragment">
+    app:startDestination="@id/menuPpalFragment2">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.efp.contratame.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.efp.contratame.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
     <fragment
         android:id="@+id/detalleProveedorServicioFragment"
         android:name="com.efp.contratame.ar.Actividades.DetalleProveedorServicioFragment"
@@ -55,4 +35,12 @@
         android:name="com.efp.contratame.ar.Actividades.CrearRequerimientoFragment"
         android:label="fragment_crear_requerimiento"
         tools:layout="@layout/fragment_crear_requerimiento" />
+    <fragment
+        android:id="@+id/menuPpalFragment2"
+        android:name="com.efp.contratame.ar.Actividades.main.MenuPpalFragment"
+        android:label="MenuPpalFragment" >
+        <action
+            android:id="@+id/action_menuPpalFragment2_to_resultadosServiciosFragment"
+            app:destination="@id/resultadosServiciosFragment" />
+    </fragment>
 </navigation>
