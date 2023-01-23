@@ -15,19 +15,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.modelo.Servicio;
 import com.efp.contratame.ar.modelo.TipoServicio;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIconRecyclerAdapter.ViewHolder>{
 
     private List<TipoServicio> listaTipos;
+    private List<TipoServicio> listaOriginal;
     private LayoutInflater mInflater;
     private OnTipoServicioSelectedListener comListener;
 
     ServicioIconRecyclerAdapter(Context ctx, List<TipoServicio> dataSet, OnTipoServicioSelectedListener handler){
         this.mInflater = LayoutInflater.from(ctx);
         this.listaTipos = dataSet;
+        listaOriginal = new ArrayList<>();
+        listaOriginal.addAll(listaTipos);
         this.comListener = handler;
     }
 
@@ -60,6 +66,23 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
     @Override
     public int getItemCount() {
         return listaTipos.size();
+    }
+
+    public void filtrado(String s) {
+        int longitud = s.length();
+        if(longitud==0){
+           listaTipos=listaOriginal;
+
+            //TODO Capaz podríamos mostrar un mensaje que diga "no se encontraron resultados para la búsqueda"
+        }else{
+            List<TipoServicio> coleccion =  new ArrayList<TipoServicio>();
+            coleccion= listaTipos.stream()
+                    .filter(i -> i.getNombre().toLowerCase().contains(s.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            listaTipos=coleccion;
+        }
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

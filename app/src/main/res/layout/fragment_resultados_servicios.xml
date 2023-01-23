@@ -25,7 +25,10 @@
         android:id="@+id/txtBusqueda"
         style="@android:style/Widget.Material.SearchView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_search"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp">
 
     </SearchView>
 
