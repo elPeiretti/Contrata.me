@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/grupo1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/face"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/nav_mensajes"
+            android:icon="@drawable/icono_facebook"
+            android:title="Mensajes" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/_7571_filter_icon"
+            android:iconTint="@color/teal_700"
+            android:title="Mi Perfil" />
+        <item
+            android:id="@+id/nav_favoritos"
+            android:icon="@drawable/_7571_filter_icon"
+            android:title="Favoritos" />
+        <item
+            android:id="@+id/nav_servicios"
+            android:icon="@drawable/_7571_filter_icon"
+            android:title="Mis Servicios" />
+    </group>
+    <group
+        android:id="@+id/grupo2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_configuraciones"
+            android:icon="@drawable/_7571_filter_icon"
+            android:title="Configuraciones" />
+    </group>
+</menu>

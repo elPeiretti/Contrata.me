@@ -46,13 +46,12 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
         if (context instanceof onTipoServicioSelectedListener){
             listener = (onTipoServicioSelectedListener) context;
         }
-
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedINstanceState){
         binding = FragmentMenuPpalBinding.inflate(inflater,container,false);
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("¿Qué necesitás?");
+        //((MainActivity) getActivity()).getSupportActionBar().setTitle("¿Qué necesitás?");
 
         //setup recyclerview
         RecyclerView rv = binding.rvServicios;
@@ -70,7 +69,6 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
                 outRect.set(spacing,spacing*2,spacing,spacing*2);
             }
         });
-
 
         SearchView txtBusqueda = binding.txtBusqueda;
         txtBusqueda.setOnQueryTextListener(this);
