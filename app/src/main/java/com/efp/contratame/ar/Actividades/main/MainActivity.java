@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,12 +25,14 @@ import com.efp.contratame.ar.modelo.TipoServicio;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener, ResultadosServiciosFragment.TipoServicioGetter {
+public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener, ResultadosServiciosFragment.TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener {
 
     private ActivityMainBinding binding;
     private TipoServicio tipoServicioSeleccionado;
     private AppBarConfiguration mAppBarConfiguration;
     private ActionBarDrawerToggle drawerToggle;
+    private DrawerLayout drawer;
+    private NavController nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +41,11 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        DrawerLayout drawer = binding.drawerLayout;
+        drawer = binding.drawerLayout;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(true);
+        //nav = Navigation.findNavController(binding.navView);
+
         drawerToggle = new ActionBarDrawerToggle(
             this,
             drawer,
@@ -51,8 +55,11 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         drawer.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
+        NavigationView navigationView = binding.navView;
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -76,16 +83,6 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         return true;
     }
 
-  /*@Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
     public void setTipoServicioSeleccionado(TipoServicio tp){
         this.tipoServicioSeleccionado = tp;
     }
@@ -102,5 +99,33 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     @Override
     public TipoServicio getTipoSeleccionado() {
         return tipoServicioSeleccionado;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_mensajes:
+                Toast.makeText(MainActivity.this, "Se selecciono mensajes", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_servicios:
+                Toast.makeText(MainActivity.this, "Se selecciono servicios", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_configuraciones:
+                Toast.makeText(MainActivity.this, "Se selecciono configuraciones", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_perfil:
+                Toast.makeText(MainActivity.this, "Se selecciono perfil", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_favoritos:
+                Toast.makeText(MainActivity.this, "Se selecciono favoritos", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_inicio:
+                Toast.makeText(MainActivity.this, "Se selecciono inicio", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        setTitle(item.getTitle());
+        drawer.closeDrawers();
+        return false;
     }
 }
