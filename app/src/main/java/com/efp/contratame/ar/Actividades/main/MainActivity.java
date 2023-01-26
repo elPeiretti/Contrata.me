@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -69,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     public void setTipoServicioSeleccionado(TipoServicio tp){
         this.tipoServicioSeleccionado = tp;
