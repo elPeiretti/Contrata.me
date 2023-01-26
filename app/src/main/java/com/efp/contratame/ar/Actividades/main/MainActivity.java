@@ -1,12 +1,14 @@
 package com.efp.contratame.ar.Actividades.main;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     private ActivityMainBinding binding;
     private TipoServicio tipoServicioSeleccionado;
     private AppBarConfiguration mAppBarConfiguration;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +38,30 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        getSupportActionBar().setTitle("Qué necesitas?");
         DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_mensajes, R.id.nav_perfil, R.id.nav_favoritos, R.id.nav_servicios, R.id.nav_configuraciones)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        drawerToggle = new ActionBarDrawerToggle(
+            this,
+            drawer,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close);
+
+        drawer.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -62,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         return true;
     }
 
-    @Override
+  /*@Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch(item.getItemId()) {
             case android.R.id.home:
@@ -70,9 +84,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
+    }*/
 
     public void setTipoServicioSeleccionado(TipoServicio tp){
         this.tipoServicioSeleccionado = tp;
