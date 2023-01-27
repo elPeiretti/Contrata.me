@@ -60,6 +60,7 @@ public class IniciarSesion extends AppCompatActivity {
     private Button btnFacebook;
     private AccessTokenTracker accessTokenTracker;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,15 +120,14 @@ public class IniciarSesion extends AppCompatActivity {
         });
 
 
-
+        //GOOGLE SIGN IN
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("174434494854-j3apseeq97etj17a18lnhm6ftggclf2i.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
+     googleSignInClient = GoogleSignIn.getClient(ctx, googleSignInOptions);
 
-
-       GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(ctx, googleSignInOptions);
 
         binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,17 +137,20 @@ public class IniciarSesion extends AppCompatActivity {
             }
         });
         firebaseAuth = FirebaseAuth.getInstance();
+
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                   // startActivity(new Intent(IniciarSesion.this,MainActivity.class)
-                    //        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    // startActivity(new Intent(IniciarSesion.this,MainActivity.class)
+                      //     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             }
         };
+
+
 
 
         accessTokenTracker = new AccessTokenTracker() {
@@ -189,10 +192,7 @@ public class IniciarSesion extends AppCompatActivity {
             if(accountTask.isSuccessful()){
                 Log.d("GOOGLE", "Task is successful.");
                 try {
-                    // Initialize sign in account
-                    GoogleSignInAccount googleSignInAccount=accountTask
-                            .getResult(ApiException.class);
-                    // Check condition
+                    GoogleSignInAccount googleSignInAccount=accountTask.getResult(ApiException.class);
                     if(googleSignInAccount!=null) {
                        AuthCredential authCredential= GoogleAuthProvider
                                 .getCredential(googleSignInAccount.getIdToken()
@@ -204,12 +204,13 @@ public class IniciarSesion extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         // Check condition
                                         if(task.isSuccessful()){
-                                            // When task is successful
-                                            // Redirect to profile activity
-                                            startActivity(new Intent(IniciarSesion.this
-                                                    ,MainActivity.class)
+                                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                                            Intent intent = new Intent( ctx,MainActivity.class);
+                                            intent.putExtra("email", user.getEmail());
+                                            startActivity(intent
                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                            Log.d("GOOGLE",firebaseAuth.getCurrentUser().getEmail());
+                                            Log.d("GOOGLE",user.getEmail());
+                                            googleSignInClient.signOut();
                                        }
                                         else
                                         {

@@ -1,21 +1,19 @@
 package com.efp.contratame.ar.Actividades.main;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -24,7 +22,6 @@ import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityMainBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener, ResultadosServiciosFragment.TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         setSupportActionBar(binding.appBarMain.toolbar);
         drawer = binding.drawerLayout;
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //nav = Navigation.findNavController(binding.navView);
 
@@ -59,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
 
         NavigationView navigationView = binding.navView;
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView tv = findViewById(R.id.tv_email_drawer);
+        Intent intent = this.getIntent();
+        Bundle extra = intent.getExtras();
+        Log.d("MAIN", extra.getString("email"));
+       // tv.setText(extra.getString("email"));
+
 
     }
 
