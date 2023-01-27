@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         switch (item.getItemId()){
             case R.id.nav_mensajes:
                 Toast.makeText(MainActivity.this, "Se selecciono mensajes", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.mensajesFragment);
                 break;
             case R.id.nav_servicios:
                 Toast.makeText(MainActivity.this, "Se selecciono servicios", Toast.LENGTH_SHORT).show();
@@ -121,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                 break;
             case R.id.nav_inicio:
                 Toast.makeText(MainActivity.this, "Se selecciono inicio", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.menuPpalFragment2);
                 break;
         }
 

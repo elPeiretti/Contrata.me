@@ -118,11 +118,16 @@ public class IniciarSesion extends AppCompatActivity {
             }
         });
 
+
+
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("174434494854-j3apseeq97etj17a18lnhm6ftggclf2i.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
-        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(ctx, googleSignInOptions);
+
+
+
+       GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(ctx, googleSignInOptions);
 
         binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +187,7 @@ public class IniciarSesion extends AppCompatActivity {
             Log.d("GOOGLE", "Got ID token.");
             Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
             if(accountTask.isSuccessful()){
+                Log.d("GOOGLE", "Task is successful.");
                 try {
                     // Initialize sign in account
                     GoogleSignInAccount googleSignInAccount=accountTask
@@ -203,11 +209,10 @@ public class IniciarSesion extends AppCompatActivity {
                                             startActivity(new Intent(IniciarSesion.this
                                                     ,MainActivity.class)
                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                                            Log.d("GOOGLE",firebaseAuth.getCurrentUser().getEmail());
                                        }
                                         else
                                         {
-                                            // When task is unsuccessful
-                                            // Display Toast
                                            Log.d("GOOGLE","Authentication Failed :"+task.getException().getMessage());
                                         }
                                     }
@@ -222,27 +227,6 @@ public class IniciarSesion extends AppCompatActivity {
         }
         }
 
-
-    private void firebaseAutenticacionGoogle(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Log.d("GOOGLE", "Se inicio sesion correctamente en firebase");
-                        Intent intent = new Intent( ctx,MainActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("GOOGLE", "Excepcion firebase");
-
-                    }
-                });
-
-    }
 
 
 
