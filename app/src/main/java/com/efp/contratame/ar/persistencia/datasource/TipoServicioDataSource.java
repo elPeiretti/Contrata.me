@@ -10,4 +10,5 @@ public interface TipoServicioDataSource {
         void onResult(List<TipoServicio> tipos);
     }
 
+    void getAllTipoServicios(GetAllTipoServiciosCallback callback);
 }
