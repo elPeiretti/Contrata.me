@@ -1,16 +1,17 @@
 package com.efp.contratame.ar.persistencia.repository;
 
 import com.efp.contratame.ar.modelo.TipoServicio;
+import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
+import com.efp.contratame.ar.persistencia.retrofit.TipoServicioRetrofitDataSource;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TipoServicioRepository {
+public class TipoServicioRepository implements TipoServicioDataSource {
 
-    private static TipoServicioRepository _REPO = null;
-
+    private TipoServicioDataSource tipoServicioDataSource;
     // for debugging purposes
     public static final List<TipoServicio> _TIPOSERVICIOS = List.of(
             new TipoServicio("Servicio 1", "https://assets.stickpng.com/images/6002f9d851c2ec00048c6c78.png"),
@@ -31,6 +32,19 @@ public class TipoServicioRepository {
             new TipoServicio("Servicio", "https://cdn-icons-png.flaticon.com/512/891/891948.png"),
             new TipoServicio("Otro", "https://i.pinimg.com/originals/58/0f/13/580f139b3ac232030a812614cfc8585b.png")
     );
-
     public static final Map<String,TipoServicio> TIPOSERVICIO_MAP = _TIPOSERVICIOS.stream().collect(Collectors.toMap(TipoServicio::getNombre,t -> t));
+
+    private TipoServicioRepository(){}
+    private TipoServicioRepository(TipoServicioDataSource tipoServicioDataSource){
+        this.tipoServicioDataSource = tipoServicioDataSource;
+    }
+
+    public static TipoServicioDataSource createInstance(){
+        return new TipoServicioRepository(new TipoServicioRetrofitDataSource());
+    }
+
+    @Override
+    public void getAllTipoServicios(GetAllTipoServiciosCallback callback) {
+        tipoServicioDataSource.getAllTipoServicios(callback);
+    }
 }
