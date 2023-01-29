@@ -16,6 +16,12 @@ public class TipoServicio {
         this.icono = icono;
     }
 
+    public TipoServicio(UUID idTipoServicio, String nombre, String icono){
+        this.idTipoServicio = idTipoServicio;
+        this.nombre = nombre;
+        this.icono = icono;
+    }
+
     public String getNombre() {
         return nombre;
     }
