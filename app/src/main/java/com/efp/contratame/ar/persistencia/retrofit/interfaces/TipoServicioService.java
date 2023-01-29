@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 
 public interface TipoServicioService {
 
-    @GET("tiposervicio")
+    @GET("tiposervicio.json")
     Call<List<TipoServicioRF>> getAllTipoServicios();
 
 }
