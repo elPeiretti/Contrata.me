@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         TextView tv = findViewById(R.id.tv_email_drawer);
         Intent intent = this.getIntent();
         Bundle extra = intent.getExtras();
-        Log.d("MAIN", extra.getString("email"));
+        //Log.d("MAIN", extra.getString("email"));
        // tv.setText(extra.getString("email"));
 
 
