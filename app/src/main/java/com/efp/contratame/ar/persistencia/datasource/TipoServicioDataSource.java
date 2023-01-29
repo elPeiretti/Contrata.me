@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface TipoServicioDataSource {
 
-    interface GetAllTipoServicioCallback {
+    interface GetAllTipoServiciosCallback {
         void onError();
         void onResult(List<TipoServicio> tipos);
     }
