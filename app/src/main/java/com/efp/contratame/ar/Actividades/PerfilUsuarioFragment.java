@@ -84,15 +84,7 @@ public class PerfilUsuarioFragment extends Fragment {
         binding = FragmentPerfilUsuarioBinding.inflate(inflater, container, false);
         ctx = this.getContext();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
 
-                Intent intent = new Intent( ctx,IniciarSesion.class);
-                startActivity(intent);
-            }
-        });
 
         binding.tvEmailUsuario.setText(user.getEmail());
         binding.tvNombreSuario.setText(user.getDisplayName());

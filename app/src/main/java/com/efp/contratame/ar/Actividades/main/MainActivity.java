@@ -1,5 +1,7 @@
 package com.efp.contratame.ar.Actividades.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
+import com.efp.contratame.ar.Actividades.IniciarSesion;
 import com.efp.contratame.ar.Actividades.ResultadosServiciosFragment;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityMainBinding;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     private DrawerLayout drawer;
     private NavController nav;
     private  View header;
+    private Context ctx = this;
 
 
     @Override
@@ -133,6 +137,11 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                 break;
             case R.id.nav_inicio:
                 Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.menuPpalFragment2);
+                break;
+            case R.id.nav_cerrar_sesion:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent( ctx, IniciarSesion.class);
+                startActivity(intent);
                 break;
         }
 
