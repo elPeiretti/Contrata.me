@@ -22,6 +22,14 @@ public class Prestador {
         this.imagenPerfil = imagenPerfil;
     }
 
+    public UUID getIdPrestador() {
+        return idPrestador;
+    }
+
+    public void setIdPrestador(UUID idPrestador) {
+        this.idPrestador = idPrestador;
+    }
+
     public String getNombre() {
         return nombre;
     }
