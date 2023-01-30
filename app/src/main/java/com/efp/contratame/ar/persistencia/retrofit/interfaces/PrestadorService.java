@@ -6,12 +6,13 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface PrestadorService {
 
     @GET("prestador.json")
     Call<List<PrestadorRF>> getAllPrestadores();
 
-    @GET("prestador.json")
-    Call<PrestadorRF> getPrestador(String idPrestador);
+    @GET("prestador/{id}.json")
+    Call<PrestadorRF> getPrestador(@Path("id") String idPrestador);
 }

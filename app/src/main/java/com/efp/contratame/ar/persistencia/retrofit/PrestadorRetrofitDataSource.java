@@ -1,14 +1,23 @@
 package com.efp.contratame.ar.persistencia.retrofit;
 
+import androidx.annotation.NonNull;
+
 import com.efp.contratame.ar.persistencia.datasource.PrestadorDataSource;
+import com.efp.contratame.ar.persistencia.retrofit.entity.PrestadorRF;
+import com.efp.contratame.ar.persistencia.retrofit.entity.TipoServicioRF;
 import com.efp.contratame.ar.persistencia.retrofit.interfaces.PrestadorService;
 import com.efp.contratame.ar.persistencia.retrofit.interfaces.TipoServicioService;
+import com.efp.contratame.ar.persistencia.retrofit.mapper.TipoServicioMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
 import java.util.UUID;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,11 +41,54 @@ public class PrestadorRetrofitDataSource implements PrestadorDataSource {
 
     @Override
     public void getAllPrestadores(GetAllPrestadoresCallback callback) {
+        Call<List<PrestadorRF>> reqAsyn = prestadorService.getAllPrestadores();
 
+        reqAsyn.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<List<PrestadorRF>> call, @NonNull Response<List<PrestadorRF>> response) {
+                if(response.code() == 200){
+                    List<PrestadorRF> data = response.body();
+                    if(data == null) {callback.onError(); return;}
+
+                    //TODO onResult de getAllPrestadores (y el mapper tamb)
+                    //callback.onResult(PrestadorMapper.fromEntities(data));
+                }
+                else{
+                    callback.onError();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<PrestadorRF>> call, @NonNull Throwable t) {
+                callback.onError();
+            }
+        });
     }
 
     @Override
     public void getPrestador(UUID idPrestador, GetPrestadorCallback callback) {
+        Call<PrestadorRF> reqAsyn = prestadorService.getPrestador(idPrestador.toString());
 
+        reqAsyn.enqueue(new Callback<>() {
+
+            @Override
+            public void onResponse(@NonNull Call<PrestadorRF> call, @NonNull Response<PrestadorRF> response) {
+                if(response.code() == 200){
+                    PrestadorRF data = response.body();
+                    if(data == null) {callback.onError(); return;}
+
+                    //TODO onResult de getPrestador (y el mapper tamb)
+                    //callback.onResult(PrestadorMapper.fromEntity(data));
+                }
+                else{
+                    callback.onError();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PrestadorRF> call, @NonNull Throwable t) {
+                callback.onError();
+            }
+        });
     }
 }
