@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface PrestadorDataSource {
 
-    interface GetAllPrestadoresCallback{
+    interface GetAllPrestadoresSinServiciosCallback {
         void onError();
         void onResult(List<Prestador> prestadores);
     }
@@ -16,6 +16,6 @@ public interface PrestadorDataSource {
         void onResult(Prestador prestador);
     }
 
-    void getAllPrestadores(GetAllPrestadoresCallback callback);
+    void getAllPrestadoresSinServicios(GetAllPrestadoresSinServiciosCallback callback);
     void getPrestador(UUID idPrestador, GetPrestadorCallback callback);
 }

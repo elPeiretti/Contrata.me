@@ -19,8 +19,8 @@ public class PrestadorRepository implements PrestadorDataSource {
     }
 
     @Override
-    public void getAllPrestadores(GetAllPrestadoresCallback callback) {
-        prestadorDataSource.getAllPrestadores(callback);
+    public void getAllPrestadoresSinServicios(GetAllPrestadoresSinServiciosCallback callback) {
+        prestadorDataSource.getAllPrestadoresSinServicios(callback);
     }
 
     @Override

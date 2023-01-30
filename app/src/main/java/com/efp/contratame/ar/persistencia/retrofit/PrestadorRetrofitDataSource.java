@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.efp.contratame.ar.persistencia.datasource.PrestadorDataSource;
 import com.efp.contratame.ar.persistencia.retrofit.entity.PrestadorRF;
-import com.efp.contratame.ar.persistencia.retrofit.entity.TipoServicioRF;
 import com.efp.contratame.ar.persistencia.retrofit.interfaces.PrestadorService;
-import com.efp.contratame.ar.persistencia.retrofit.interfaces.TipoServicioService;
-import com.efp.contratame.ar.persistencia.retrofit.mapper.TipoServicioMapper;
+import com.efp.contratame.ar.persistencia.retrofit.mapper.PrestadorMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -40,7 +38,7 @@ public class PrestadorRetrofitDataSource implements PrestadorDataSource {
 
 
     @Override
-    public void getAllPrestadores(GetAllPrestadoresCallback callback) {
+    public void getAllPrestadoresSinServicios(GetAllPrestadoresSinServiciosCallback callback) {
         Call<List<PrestadorRF>> reqAsyn = prestadorService.getAllPrestadores();
 
         reqAsyn.enqueue(new Callback<>() {
@@ -51,7 +49,7 @@ public class PrestadorRetrofitDataSource implements PrestadorDataSource {
                     if(data == null) {callback.onError(); return;}
 
                     //TODO onResult de getAllPrestadores (y el mapper tamb)
-                    //callback.onResult(PrestadorMapper.fromEntities(data));
+                    callback.onResult(PrestadorMapper.sinServiciosFromEntities(data));
                 }
                 else{
                     callback.onError();

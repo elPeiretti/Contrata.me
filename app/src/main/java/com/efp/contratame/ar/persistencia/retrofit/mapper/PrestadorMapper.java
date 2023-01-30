@@ -3,19 +3,24 @@ package com.efp.contratame.ar.persistencia.retrofit.mapper;
 import com.efp.contratame.ar.modelo.Prestador;
 import com.efp.contratame.ar.persistencia.retrofit.entity.PrestadorRF;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class PrestadorMapper {
 
-    /* TODO fromEntity y fromEntities
-    public static Prestador fromEntity(PrestadorRF entity, List<>){
+    public static Prestador sinServiciosFromEntity(PrestadorRF entity){
         return new Prestador(
                 UUID.fromString(entity.getIdPrestador()),
                 entity.getNombre(),
-
-                entity.getImagenPerfil(),
-
+                null,
+                entity.getImagenPerfil()
         );
     }
-    */
+
+    public static List<Prestador> sinServiciosFromEntities(List<PrestadorRF> entities){
+        return entities.stream()
+                .map(PrestadorMapper::sinServiciosFromEntity)
+                .collect(Collectors.toList());
+    }
 }

@@ -3,7 +3,6 @@ package com.efp.contratame.ar.persistencia.retrofit;
 import androidx.annotation.NonNull;
 
 import com.efp.contratame.ar.modelo.Prestador;
-import com.efp.contratame.ar.modelo.Servicio;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.PrestadorDataSource;
 import com.efp.contratame.ar.persistencia.datasource.ServicioDataSource;
@@ -45,7 +44,7 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
 
         // Traigo todos los prestadores porque no hice un metodo especifico para traer solo los necesarios
         // Muy ineficiente, pero podria solucionarse de ser necesario
-        PrestadorRepository.createInstance().getAllPrestadores(new PrestadorDataSource.GetAllPrestadoresCallback() {
+        PrestadorRepository.createInstance().getAllPrestadoresSinServicios(new PrestadorDataSource.GetAllPrestadoresSinServiciosCallback() {
             @Override
             public void onError() {
                 callback.onError();
