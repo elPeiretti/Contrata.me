@@ -19,9 +19,6 @@
             android:id="@+id/action_resultadosServiciosFragment_to_detalleProveedorServicioFragment2"
             app:destination="@id/detalleProveedorServicioFragment" />
         <action
-            android:id="@+id/action_resultadosServiciosFragment_to_mensajesFragment2"
-            app:destination="@id/mensajesFragment" />
-        <action
             android:id="@+id/action_resultadosServiciosFragment_to_crearRequerimientoFragment"
             app:destination="@id/crearRequerimientoFragment" />
     </fragment>
@@ -43,4 +40,18 @@
             android:id="@+id/action_menuPpalFragment2_to_resultadosServiciosFragment"
             app:destination="@id/resultadosServiciosFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/perfilUsuarioFragment"
+        android:name="com.efp.contratame.ar.Actividades.PerfilUsuarioFragment"
+        android:label="fragment_perfil_usuario"
+        tools:layout="@layout/fragment_perfil_usuario" >
+        <action
+            android:id="@+id/action_perfilUsuarioFragment_to_cambiarPerfilFragment"
+            app:destination="@id/cambiarPerfilFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarPerfilFragment"
+        android:name="com.efp.contratame.ar.Actividades.CambiarPerfilFragment"
+        android:label="fragment_cambiar_perfil"
+        tools:layout="@layout/fragment_cambiar_perfil" />
 </navigation>

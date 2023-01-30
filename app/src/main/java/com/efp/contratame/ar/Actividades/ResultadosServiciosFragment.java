@@ -118,27 +118,6 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         viewModel = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
 
-        //SACAR
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-
-
-                //VERLO
-                Intent intent = new Intent( ctx,IniciarSesion.class);
-                startActivity(intent);
-            }
-        });
-        binding.btnMensajes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(ResultadosServiciosFragment.this).navigate(R.id.action_resultadosServiciosFragment_to_mensajesFragment2);
-            }
-        });
-
-
         //Funcionalidad de filtrado
         //TODO
 

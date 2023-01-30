@@ -7,19 +7,6 @@
     android:orientation="vertical"
     tools:context=".Actividades.ResultadosServiciosFragment">
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log out" />
-
-
-    <Button
-        android:id="@+id/btnMensajes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mensajes" />
-
 
     <SearchView
         android:id="@+id/txtBusqueda"

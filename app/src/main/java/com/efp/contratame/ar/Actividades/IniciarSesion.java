@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
-import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityIniciarSesionBinding;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -24,11 +23,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.Identity;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -70,6 +64,7 @@ public class IniciarSesion extends AppCompatActivity {
         setContentView(view);
         ctx=this;
 
+
         firebaseAuth= FirebaseAuth.getInstance();
 
         btnLogin = binding.btnIniciarSesion;
@@ -105,7 +100,7 @@ public class IniciarSesion extends AppCompatActivity {
         btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginManager.getInstance().logInWithReadPermissions(IniciarSesion.this, Arrays.asList("public_profile"));
+                LoginManager.getInstance().logInWithReadPermissions(IniciarSesion.this, Arrays.asList("public_profile", "email","user_birthday"));
             }
         });
 
@@ -204,12 +199,22 @@ public class IniciarSesion extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         // Check condition
                                         if(task.isSuccessful()){
-                                            FirebaseUser user = firebaseAuth.getCurrentUser();
                                             Intent intent = new Intent( ctx,MainActivity.class);
+                                          /*  FirebaseUser user = firebaseAuth.getCurrentUser();
                                             intent.putExtra("email", user.getEmail());
+                                            intent.putExtra("imagen_perfil", user.getPhotoUrl().toString());
+                                            intent.putExtra("nombre", user.getDisplayName());
+                                            Log.d("TAMAÑO", String.valueOf(user.getProviderData().size()));
+
+                                            for (UserInfo profile : user.getProviderData()) {
+                                                intent.putExtra("tipo_sesion",  profile.getProviderId());
+                                                Log.d("PROVIDER",  profile.getProviderId());
+                                            }
+
+                                           */
+
                                             startActivity(intent
                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                            Log.d("GOOGLE",user.getEmail());
                                             googleSignInClient.signOut();
                                        }
                                         else
@@ -231,7 +236,7 @@ public class IniciarSesion extends AppCompatActivity {
 
 
 
-    private void validarCampos() {
+    public void validarCampos() {
         email= binding.txtEmail.getText().toString().trim();
         password = binding.txtContrasena.getText().toString().trim();
 
@@ -256,17 +261,24 @@ public class IniciarSesion extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             Intent intent = new Intent( ctx,MainActivity.class);
+                          /*  FirebaseUser user = firebaseAuth.getCurrentUser();
+                            intent.putExtra("imagen_perfil","https://graph.facebook.com/me/picture?access_token="+AccessToken.getCurrentAccessToken().getToken());
+                            intent.putExtra("email", user.getEmail());
+                            intent.putExtra("nombre", user.getDisplayName());
+                            for (UserInfo profile : user.getProviderData()) {
+                                intent.putExtra("tipo_sesion",  profile.getProviderId());
+                                Log.d("PROVIDER",  profile.getProviderId());
+                            }
+
+                           */
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
                             Toast.makeText(IniciarSesion.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                           // updateUI(null);
                         }
                     }
                 });
@@ -279,6 +291,14 @@ public class IniciarSesion extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(IniciarSesion.this, "Se ha iniciado sesión con éxito", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent( ctx, MainActivity.class);
+                        /*FirebaseUser user = firebaseAuth.getCurrentUser();
+                        intent.putExtra("email", user.getEmail());
+                        for (UserInfo profile : user.getProviderData()) {
+                            intent.putExtra("tipo_sesion",  profile.getProviderId());
+                            Log.d("PROVIDER",  profile.getProviderId());
+                        }
+
+                         */
                         startActivity(intent);
                     }
                 })
