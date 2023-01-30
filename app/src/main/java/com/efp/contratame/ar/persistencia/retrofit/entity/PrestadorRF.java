@@ -17,6 +17,14 @@ public class PrestadorRF {
         this.keysServiciosBrindados = keysServiciosBrindados;
     }
 
+    public String getIdPrestador() {
+        return idPrestador;
+    }
+
+    public void setIdPrestador(String idPrestador) {
+        this.idPrestador = idPrestador;
+    }
+
     public String getNombre() {
         return nombre;
     }

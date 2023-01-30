@@ -16,6 +16,6 @@ public interface PrestadorDataSource {
         void onResult(Prestador prestador);
     }
 
-    List<Prestador> getAllPrestadores();
-    Prestador getPrestador(UUID idPrestador);
+    void getAllPrestadores(GetAllPrestadoresCallback callback);
+    void getPrestador(UUID idPrestador, GetPrestadorCallback callback);
 }
