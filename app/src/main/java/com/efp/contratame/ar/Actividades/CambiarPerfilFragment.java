@@ -1,18 +1,25 @@
 package com.efp.contratame.ar.Actividades;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentCambiarPerfilBinding;
+import com.facebook.AccessToken;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +43,7 @@ public class CambiarPerfilFragment extends Fragment {
     private String mParam2;
     private FragmentCambiarPerfilBinding binding;
     private FirebaseUser user;
+    private Uri imagenUri;
 
     public CambiarPerfilFragment() {
         // Required empty public constructor
@@ -73,14 +81,22 @@ public class CambiarPerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentCambiarPerfilBinding.inflate(inflater, container,false);
         user = FirebaseAuth.getInstance().getCurrentUser();
+        imagenUri = user.getPhotoUrl();
         binding.editTextName.setText(user.getDisplayName());
+
+        Glide.with(binding.imagenUsuario.getContext()).load(imagenUri).into(binding.imagenUsuario);
+
+
+
 
         binding.btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setDisplayName(binding.editTextName.getText().toString())
+                        .setPhotoUri(imagenUri)
                         .build();
+                Log.d("IMAGEN", imagenUri.toString());
 
                 user.updateProfile(profileUpdates)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -94,6 +110,31 @@ public class CambiarPerfilFragment extends Fragment {
                         });
             }
         });
+
+        binding.imagenUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGalleryIntent, 1000);
+            }
+        });
+
         return binding.getRoot();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1000){
+            Log.d("IMAGEN", "request code = 1000");
+            if(resultCode == Activity.RESULT_OK){
+                Log.d("IMAGEN", "result code OK");
+                imagenUri = data.getData();
+                Glide.with(binding.imagenUsuario.getContext()).load(imagenUri).into(binding.imagenUsuario);
+
+            }
+        }
+    }
+
+
 }

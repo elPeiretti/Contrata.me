@@ -96,35 +96,9 @@ public class PerfilUsuarioFragment extends Fragment {
 
         binding.tvEmailUsuario.setText(user.getEmail());
         binding.tvNombreSuario.setText(user.getDisplayName());
-        String tipo = user.getProviderData().get(1).getProviderId();
-        if(tipo.equals("facebook.com")) {
-            Glide.with(binding.imagenUsuario.getContext()).load("https://graph.facebook.com/me/picture?access_token="+ AccessToken.getCurrentAccessToken().getToken()).into(binding.imagenUsuario);
-            Log.d("foto", "https://graph.facebook.com/me/picture?access_token="+ AccessToken.getCurrentAccessToken().getToken());
-        }else if (tipo.equals("google.com")){
-            Glide.with(binding.imagenUsuario.getContext()).load(user.getPhotoUrl()).into(binding.imagenUsuario);
-        }else{
-            binding.imagenUsuario.setImageResource(R.drawable.blank_profile_picture_973460_1280);
+        Glide.with(binding.imagenUsuario.getContext()).load(user.getPhotoUrl()).into(binding.imagenUsuario);
 
-/*
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName("Jane Q. User")
-                    .setPhotoUri(Uri.parse("https://concepto.de/wp-content/uploads/2018/08/persona-e1533759204552.jpg"))
-                    .build();
 
-            user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d("USUARIO", "User profile updated.");
-                                binding.tvNombreSuario.setText(user.getDisplayName());
-                                Glide.with(binding.imagenUsuario.getContext()).load(user.getPhotoUrl()).into(binding.imagenUsuario);
-                            }
-                        }
-                    });
-
- */
-        }
 
         binding.btnEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

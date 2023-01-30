@@ -67,27 +67,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
 
         header = navigationView.getHeaderView(0);
         setearValoresDrawer();
-/*
 
-        TextView tv_email = header.findViewById(R.id.tv_email_drawer);
-        TextView tv_nombre = header.findViewById(R.id.tv_nombre_suario);
-        ImageView imagen = header.findViewById(R.id.imagenUsuario);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-        tv_email.setText(user.getEmail());
-        tv_nombre.setText(user.getDisplayName());
-        String tipo = user.getProviderData().get(1).getProviderId();
-        Log.d("GET 1", user.getProviderData().get(1).getProviderId());
-        if(tipo.equals("facebook.com")) {
-            Glide.with(imagen.getContext()).load("https://graph.facebook.com/me/picture?access_token="+ AccessToken.getCurrentAccessToken().getToken()).into(imagen);
-        }else if (tipo.equals("google.com")){
-            Glide.with(imagen.getContext()).load(user.getPhotoUrl()).into(imagen);
-        }else{
-            imagen.setImageResource(R.drawable.blank_profile_picture_973460_1280);
-        }
-
- */
 
     }
 
@@ -170,15 +150,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
 
         tv_email.setText(user.getEmail());
         tv_nombre.setText(user.getDisplayName());
-        String tipo = user.getProviderData().get(1).getProviderId();
-        Log.d("GET 1", user.getProviderData().get(1).getProviderId());
-        if(tipo.equals("facebook.com")) {
-            Glide.with(imagen.getContext()).load("https://graph.facebook.com/me/picture?access_token="+ AccessToken.getCurrentAccessToken().getToken()).into(imagen);
-        }else if (tipo.equals("google.com")){
-            Glide.with(imagen.getContext()).load(user.getPhotoUrl()).into(imagen);
-        }else{
-            imagen.setImageResource(R.drawable.blank_profile_picture_973460_1280);
-        }
+        Glide.with(imagen.getContext()).load(user.getPhotoUrl()).into(imagen);
     }
 
 }
