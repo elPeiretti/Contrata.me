@@ -5,11 +5,11 @@ import java.util.List;
 public class Prestador {
     private String Nombre;
     private List<Servicio> serviciosBrindados;
-    private String imagen_perfil;
+    private String imagenPerfil;
 
-    public Prestador(String nombre, String imagen_perfil) {
+    public Prestador(String nombre, String imagenPerfil) {
         Nombre = nombre;
-        this.imagen_perfil = imagen_perfil;
+        this.imagenPerfil = imagenPerfil;
     }
 
     public String getNombre() {
@@ -28,11 +28,11 @@ public class Prestador {
         this.serviciosBrindados = serviciosBrindados;
     }
 
-    public String getImagen_perfil() {
-        return imagen_perfil;
+    public String getImagenPerfil() {
+        return imagenPerfil;
     }
 
-    public void setImagen_perfil(String imagen_perfil) {
-        this.imagen_perfil = imagen_perfil;
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
     }
 }

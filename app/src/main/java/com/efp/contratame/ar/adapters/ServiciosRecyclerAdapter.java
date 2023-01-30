@@ -52,12 +52,12 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
         holder.descripcion.setText(serviciosDataSet.get(position).getDescripcion());
         holder.puntuacion.setRating(serviciosDataSet.get(position).getPuntuacion());
 
-        String EDteamImage = serviciosDataSet.get(position).getPrestador().getImagen_perfil();
+        String EDteamImage = serviciosDataSet.get(position).getPrestador().getImagenPerfil();
         Glide.with(holder.imagen.getContext()).load(EDteamImage).into(holder.imagen);
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClicked(serviciosDataSet.get(position));
+                listener.onItemClicked(serviciosDataSet.get(holder.getAdapterPosition()));
             }
         });
 
