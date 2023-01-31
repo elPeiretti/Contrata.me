@@ -111,7 +111,11 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
         notifyDataSetChanged();
     }
 
-
+    public void updateData(List<Servicio> servicios) {
+        serviciosDataSet.clear();
+        serviciosDataSet.addAll(servicios);
+        ordenar("Mejor puntuación primero");
+    }
 
 
     public class ServiciosViewHolder extends RecyclerView.ViewHolder {

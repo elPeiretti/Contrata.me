@@ -121,27 +121,6 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         viewModel = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
 
-        //SACAR
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-
-
-                //VERLO
-                Intent intent = new Intent( ctx,IniciarSesion.class);
-                startActivity(intent);
-            }
-        });
-        binding.btnMensajes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(ResultadosServiciosFragment.this).navigate(R.id.action_resultadosServiciosFragment_to_mensajesFragment2);
-            }
-        });
-
-
         //Funcionalidad de filtrado
         //TODO
 
@@ -172,7 +151,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         });
 
         //esto es para que no tire error cuando tardan en llegar los datos de retrofit
-        mAdapter = new ServiciosRecyclerAdapter(List.of(), ctx, this);
+        //------mAdapter = new ServiciosRecyclerAdapter(List.of(), ctx, this);
 
         return binding.getRoot();
     }
@@ -183,6 +162,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         //RECYCLERVIEW
 
         //Carga de servicios
+        mAdapter= new ServiciosRecyclerAdapter(List.of(), ctx, this);
         ServicioRepository.createInstance().getAllServiciosDelTipo(getterServicio.getTipoSeleccionado(),this);
 
         recyclerView = binding.recyclerServicios;
@@ -225,9 +205,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     // METODOS DE GetAllServiciosDelTipoCallback
     @Override
     public void onResult(List<Servicio> servicios) {
-        Log.i("RETROFIT?",servicios.toString());
-        mAdapter = new ServiciosRecyclerAdapter(servicios, ctx, this);
-        mAdapter.ordenar("Mejor puntuación primero");
+        mAdapter.updateData(servicios);
     }
 
     @Override
