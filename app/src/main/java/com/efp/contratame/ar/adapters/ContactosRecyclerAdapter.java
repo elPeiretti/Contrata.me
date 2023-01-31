@@ -44,7 +44,7 @@ public class ContactosRecyclerAdapter extends RecyclerView.Adapter<ContactosRecy
 
     @Override
     public void onBindViewHolder(@NonNull ContactoViewHolder holder, int position) {
-        String EDteamImage = contactosDataSet.get(position).getImagen_perfil();
+        String EDteamImage = contactosDataSet.get(position).getImagenPerfil();
         Glide.with(holder.imagen.getContext()).load(EDteamImage).into(holder.imagen);
         holder.nombre.setText(contactosDataSet.get(position).getNombre());
 

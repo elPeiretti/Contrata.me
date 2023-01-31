@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         NavigationView navigationView = binding.navView;
         navigationView.setNavigationItemSelectedListener(this);
 
+        TextView tv = findViewById(R.id.tv_email_drawer);
+        Intent intent = this.getIntent();
+        Bundle extra = intent.getExtras();
         header = navigationView.getHeaderView(0);
         setearValoresDrawer();
-
 
     }
 

@@ -86,7 +86,7 @@ public class DetalleProveedorServicioFragment extends Fragment {
         viewModel.getSelected().observe(getViewLifecycleOwner(), item -> {
             binding.tvNombre.setText(item.getPrestador().getNombre());
             binding.ratingBar2.setRating(item.getPuntuacion());
-            String EDteamImage = item.getPrestador().getImagen_perfil();
+            String EDteamImage = item.getPrestador().getImagenPerfil();
             Glide.with(binding.imageView.getContext()).load(EDteamImage).into(binding.imageView);
             binding.tvDescripcion.setText(item.getDescripcion());
             galeriImagenes = item.getGaleriaImagenes();

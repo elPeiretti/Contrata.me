@@ -2,19 +2,22 @@ package com.efp.contratame.ar.persistencia.repository;
 
 import com.efp.contratame.ar.modelo.Prestador;
 import com.efp.contratame.ar.modelo.Servicio;
+import com.efp.contratame.ar.modelo.TipoServicio;
+import com.efp.contratame.ar.persistencia.datasource.ServicioDataSource;
+import com.efp.contratame.ar.persistencia.retrofit.ServicioRetrofitDataSource;
 
 import java.util.List;
 
-public class ServicioRepository {
+public class ServicioRepository implements ServicioDataSource {
 
-   private static ServicioRepository _REPO = null;
+    private ServicioDataSource servicioDataSource;
 
-   public static List<String> galeriaImagenes= List.of(
+    public static List<String> galeriaImagenes= List.of(
            "https://i.pinimg.com/originals/b2/1e/03/b21e03c83670e1badfbb70ff8b59b80f.jpg",
            "https://i.ytimg.com/vi/CCRdNq9E8PQ/maxresdefault.jpg" ,
            "https://http2.mlstatic.com/D_NQ_NP_667603-MLA48013518275_102021-O.webp"
-   );
-   public static final List<Servicio> _SERVICIOS = List.of(
+    );
+    public static final List<Servicio> _SERVICIOS = List.of(
            new Servicio(new Prestador("Pedro Gómez", "https://img.freepik.com/foto-gratis/retrato-joven-carpintero-motivado-pie-junto-maquina-trabajar-madera-su-taller-carpinteria_342744-823.jpg?w=2000"), TipoServicioRepository.TIPOSERVICIO_MAP.get("Carpinteria"),"Hola hago buenos trabajos de carpinteria, contratenme xfi.", 3 ,galeriaImagenes ),
            new Servicio(new Prestador("Lionel Messi", "https://www.mndelgolfo.com/blog/wp-content/uploads/2017/09/herramientas-para-electricista.jpg"), TipoServicioRepository.TIPOSERVICIO_MAP.get("Electricista"), "Hola hago buenos trabajos de electricidad, contratenme xfi.", 2,
                    List.of(
@@ -49,11 +52,20 @@ public class ServicioRepository {
                            "https://homesolution.net/blog/wp-content/uploads/2019/02/gasista.jpg_1572130063.jpg",
                            "https://i0.wp.com/easycasa.ar/wp-content/uploads/2021/08/Gas-Gasista-que-hace-1-scaled.jpg?fit=2560%2C1706&ssl=1"
                    ))
-   );
+    );
+
+    private ServicioRepository() {}
+    private ServicioRepository(ServicioDataSource servicioDataSource){
+        this.servicioDataSource = servicioDataSource;
+    }
+
+    public static ServicioDataSource createInstance(){
+        return new ServicioRepository(new ServicioRetrofitDataSource());
+    }
 
 
-
-
-
-
+    @Override
+    public void getAllServiciosDelTipo(TipoServicio tipoServicio, GetAllServiciosDelTipoCallback callback) {
+        servicioDataSource.getAllServiciosDelTipo(tipoServicio, callback);
+    }
 }

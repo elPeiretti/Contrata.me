@@ -15,13 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentMenuPpalBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
+import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 
-public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAdapter.OnTipoServicioSelectedListener, SearchView.OnQueryTextListener{
+import java.util.ArrayList;
+import java.util.List;
+
+public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAdapter.OnTipoServicioSelectedListener, SearchView.OnQueryTextListener, TipoServicioDataSource.GetAllTipoServiciosCallback {
 
     private FragmentMenuPpalBinding binding;
     private ServicioIconRecyclerAdapter rvAdapter;
     private onTipoServicioSelectedListener listener;
+    private RecyclerView rv;
 
     public MenuPpalFragment(){}
 
@@ -59,9 +64,14 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
 
 
         //setup recyclerview
-        RecyclerView rv = binding.rvServicios;
+        rv = binding.rvServicios;
         rv.setLayoutManager(new GridLayoutManager(getContext(),3));
-        rvAdapter = new ServicioIconRecyclerAdapter(getContext(), TipoServicioRepository._TIPOSERVICIOS, this);
+        TipoServicioRepository.createInstance().getAllTipoServicios(this);
+
+        SearchView txtBusqueda = binding.txtBusqueda;
+        txtBusqueda.setOnQueryTextListener(this);
+
+        rvAdapter = new ServicioIconRecyclerAdapter(getContext(), new ArrayList<>(), this);
         rv.setAdapter(rvAdapter);
 
         int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_spacing)/2;
@@ -78,7 +88,6 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
         SearchView txtBusqueda = binding.txtBusqueda;
         txtBusqueda.setOnQueryTextListener(this);
 
-       // ((MainActivity) getActivity()).getSupportActionBar().setTitle("¿Qué necesitás?");
         return binding.getRoot();
     }
 
@@ -96,5 +105,18 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
     public boolean onQueryTextChange(String s) {
         rvAdapter.filtrado(s);
         return false;
+    }
+
+    //metodos de TipoServicioDataSource.GetAllTipoServiciosCallback
+    @Override
+    public void onError() {
+        //TODO
+        Log.e("API_REST","ERROR CARGANDO LOS TIPOS DE SERVICIO");
+    }
+
+    @Override
+    public void onResult(List<TipoServicio> tipos) {
+        tipos.add(TipoServicioRepository.OTRO);
+        rvAdapter.updateData(tipos);
     }
 }

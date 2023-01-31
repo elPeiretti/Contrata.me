@@ -85,6 +85,12 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
         notifyDataSetChanged();
     }
 
+    public void updateData(List<TipoServicio> tipos) {
+        listaTipos.clear();
+        listaTipos.addAll(tipos);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageButton icono;
         TextView nombre;

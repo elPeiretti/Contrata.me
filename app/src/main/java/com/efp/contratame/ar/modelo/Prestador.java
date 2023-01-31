@@ -1,23 +1,41 @@
 package com.efp.contratame.ar.modelo;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Prestador {
-    private String Nombre;
-    private List<Servicio> serviciosBrindados;
-    private String imagen_perfil;
 
-    public Prestador(String nombre, String imagen_perfil) {
-        Nombre = nombre;
-        this.imagen_perfil = imagen_perfil;
+    private UUID idPrestador;
+    private String nombre;
+    private List<Servicio> serviciosBrindados;
+    private String imagenPerfil;
+
+    public Prestador(String nombre, String imagenPerfil) {
+        this.nombre = nombre;
+        this.imagenPerfil = imagenPerfil;
+    }
+
+    public Prestador(UUID idPrestador, String nombre, List<Servicio> serviciosBrindados, String imagenPerfil) {
+        this.idPrestador = idPrestador;
+        this.nombre = nombre;
+        this.serviciosBrindados = serviciosBrindados;
+        this.imagenPerfil = imagenPerfil;
+    }
+
+    public UUID getIdPrestador() {
+        return idPrestador;
+    }
+
+    public void setIdPrestador(UUID idPrestador) {
+        this.idPrestador = idPrestador;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 
     public List<Servicio> getServiciosBrindados() {
@@ -28,11 +46,11 @@ public class Prestador {
         this.serviciosBrindados = serviciosBrindados;
     }
 
-    public String getImagen_perfil() {
-        return imagen_perfil;
+    public String getImagenPerfil() {
+        return imagenPerfil;
     }
 
-    public void setImagen_perfil(String imagen_perfil) {
-        this.imagen_perfil = imagen_perfil;
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
     }
 }
