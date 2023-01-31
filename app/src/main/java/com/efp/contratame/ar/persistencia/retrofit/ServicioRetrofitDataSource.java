@@ -15,7 +15,9 @@ import com.efp.contratame.ar.persistencia.retrofit.mapper.ServicioMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -54,7 +56,12 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
 
             @Override
             public void onResult(List<Prestador> prestadores) {
-                Call<List<ServicioRF>> reqAsyn = servicioService.getAllServiciosDelTipo(tipoServicio.getIdTipoServicio().toString());
+                //solucion al problema de las comillas
+                Map<String, String> opt = new LinkedHashMap<>();
+                opt.put("orderBy","\"keyTipoServicio\"");
+                opt.put("equalTo","\""+tipoServicio.getIdTipoServicio().toString()+"\"");
+
+                Call<List<ServicioRF>> reqAsyn = servicioService.getAllServiciosDelTipo(opt);
                 Log.i("RETRO",reqAsyn.request().url().toString());
                 reqAsyn.enqueue(new Callback<>() {
                     @Override
