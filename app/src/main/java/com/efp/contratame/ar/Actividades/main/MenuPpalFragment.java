@@ -18,6 +18,7 @@ import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAdapter.OnTipoServicioSelectedListener, SearchView.OnQueryTextListener, TipoServicioDataSource.GetAllTipoServiciosCallback {
@@ -64,6 +65,21 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
 
         SearchView txtBusqueda = binding.txtBusqueda;
         txtBusqueda.setOnQueryTextListener(this);
+
+        rvAdapter = new ServicioIconRecyclerAdapter(getContext(), new ArrayList<>(), this);
+        rv.setAdapter(rvAdapter);
+
+        int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_spacing)/2;
+        rv.setPadding(spacing, 0, spacing, 0);
+        rv.setClipToPadding(false);
+        rv.setClipChildren(false);
+        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state){
+                outRect.set(spacing,spacing*2,spacing,spacing*2);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -92,18 +108,6 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
 
     @Override
     public void onResult(List<TipoServicio> tipos) {
-        rvAdapter = new ServicioIconRecyclerAdapter(getContext(), tipos, this);
-        rv.setAdapter(rvAdapter);
-
-        int spacing = getResources().getDimensionPixelSize(R.dimen.recycler_spacing)/2;
-        rv.setPadding(spacing, 0, spacing, 0);
-        rv.setClipToPadding(false);
-        rv.setClipChildren(false);
-        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state){
-                outRect.set(spacing,spacing*2,spacing,spacing*2);
-            }
-        });
+        rvAdapter.updateData(tipos);
     }
 }
