@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class CrearCuenta extends AppCompatActivity {
 
@@ -80,8 +82,8 @@ public class CrearCuenta extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(CrearCuenta.this, "Su cuenta fue creada con éxito", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent( ctx, MainActivity.class);
+                        Toast.makeText(CrearCuenta.this, "Se ha creado su cuenta con éxito, por favor incie sesión", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent( ctx,IniciarSesion.class);
                         startActivity(intent);
                     }
                 })
@@ -89,6 +91,7 @@ public class CrearCuenta extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(CrearCuenta.this, "Se ha producido un error, vuelva a intentarlo más tarde", Toast.LENGTH_SHORT).show();
+                        Log.d("FIREBASE", e.getMessage());
                     }
                 });
     }

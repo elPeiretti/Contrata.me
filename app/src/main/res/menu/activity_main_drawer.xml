@@ -35,5 +35,9 @@
             android:id="@+id/nav_configuraciones"
             android:icon="@drawable/settings"
             android:title="Configuraciones" />
+        <item
+            android:id="@+id/nav_cerrar_sesion"
+            android:icon="@drawable/logout"
+            android:title="Cerrar sesión" />
     </group>
 </menu>

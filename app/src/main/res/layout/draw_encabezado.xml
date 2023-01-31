@@ -13,14 +13,14 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imagen_contacto"
+        android:id="@+id/imagenUsuario"
         android:layout_width="149dp"
         android:layout_height="133dp"
         android:layout_gravity="center"
         android:src="@drawable/carpintero_que_trabaja_equipo_tabla_madera_tienda_carpinteria_1418_2326"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
-        android:id="@+id/tv_nombre"
+        android:id="@+id/tv_nombre_suario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
