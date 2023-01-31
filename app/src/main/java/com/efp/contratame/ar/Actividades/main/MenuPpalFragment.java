@@ -85,7 +85,7 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
             }
         });
 
-        SearchView txtBusqueda = binding.txtBusqueda;
+        txtBusqueda = binding.txtBusqueda;
         txtBusqueda.setOnQueryTextListener(this);
 
         return binding.getRoot();
