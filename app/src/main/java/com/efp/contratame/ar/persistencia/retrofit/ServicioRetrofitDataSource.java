@@ -9,6 +9,8 @@ import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.PrestadorDataSource;
 import com.efp.contratame.ar.persistencia.datasource.ServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.PrestadorRepository;
+import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
+import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 import com.efp.contratame.ar.persistencia.retrofit.entity.ServicioRF;
 import com.efp.contratame.ar.persistencia.retrofit.interfaces.ServicioService;
 import com.efp.contratame.ar.persistencia.retrofit.mapper.ServicioMapper;
@@ -61,7 +63,9 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
                 //solucion al problema de las comillas
                 Map<String, String> opt = new LinkedHashMap<>();
                 opt.put("orderBy","\"keyTipoServicio\"");
-                opt.put("equalTo","\""+tipoServicio.getIdTipoServicio().toString()+"\"");
+                opt.put("equalTo","\""+
+                        (tipoServicio.equals(TipoServicioRepository.OTRO) ? "" : tipoServicio.getIdTipoServicio().toString()) +
+                        "\"");
 
                 Call<Map<String,ServicioRF>> reqAsyn = servicioService.getAllServiciosDelTipo(opt);
                 Log.i("RETRO",reqAsyn.request().url().toString());

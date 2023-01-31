@@ -29,6 +29,7 @@ import com.efp.contratame.ar.auxiliares.SelectListener;
 import com.efp.contratame.ar.databinding.FragmentResultadosServiciosBinding;
 import com.efp.contratame.ar.modelo.Servicio;
 import com.efp.contratame.ar.modelo.TipoServicio;
+import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

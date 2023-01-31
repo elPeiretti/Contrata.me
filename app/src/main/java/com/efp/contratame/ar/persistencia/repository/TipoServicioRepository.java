@@ -7,11 +7,14 @@ import com.efp.contratame.ar.persistencia.retrofit.TipoServicioRetrofitDataSourc
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TipoServicioRepository implements TipoServicioDataSource {
 
     private TipoServicioDataSource tipoServicioDataSource;
+
+    public static final TipoServicio OTRO = new TipoServicio(UUID.fromString("0777fff8-023a-4bfc-a841-799d99fb0868"),"Otro","https://i.pinimg.com/originals/58/0f/13/580f139b3ac232030a812614cfc8585b.png");
     // for debugging purposes
     public static final List<TipoServicio> _TIPOSERVICIOS = List.of(
             new TipoServicio("Servicio 1", "https://assets.stickpng.com/images/6002f9d851c2ec00048c6c78.png"),
