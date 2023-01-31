@@ -81,5 +81,9 @@ public class Servicio{
         this.tipo = tipo;
     }
 
+    @Override
+    public String toString(){
+        return idServicio.toString();
+    }
 
 }

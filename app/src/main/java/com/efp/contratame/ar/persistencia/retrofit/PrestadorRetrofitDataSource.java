@@ -1,5 +1,7 @@
 package com.efp.contratame.ar.persistencia.retrofit;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.efp.contratame.ar.persistencia.datasource.PrestadorDataSource;
@@ -58,6 +60,7 @@ public class PrestadorRetrofitDataSource implements PrestadorDataSource {
 
             @Override
             public void onFailure(@NonNull Call<List<PrestadorRF>> call, @NonNull Throwable t) {
+                Log.e("ERROR_RETROFIT",t.getMessage());
                 callback.onError();
             }
         });
@@ -85,6 +88,7 @@ public class PrestadorRetrofitDataSource implements PrestadorDataSource {
 
             @Override
             public void onFailure(@NonNull Call<PrestadorRF> call, @NonNull Throwable t) {
+                Log.e("ERROR_RETROFIT",t.getMessage());
                 callback.onError();
             }
         });

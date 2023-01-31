@@ -11,6 +11,6 @@ import retrofit2.http.Query;
 public interface ServicioService {
 
     @GET("servicio.json")
-    Call<List<ServicioRF>> getAllServiciosDelTipo(@Query("idTipoServicio") String keyTipoServicio);
+    Call<List<ServicioRF>> getAllServiciosDelTipo(@Query("keyTipoServicio") String keyTipoServicio);
 
 }

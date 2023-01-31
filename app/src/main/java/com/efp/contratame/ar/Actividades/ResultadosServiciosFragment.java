@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.persistencia.datasource.ServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
 import com.efp.contratame.ar.adapters.ServiciosRecyclerAdapter;
 import com.efp.contratame.ar.auxiliares.MyViewModel;
@@ -33,6 +35,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -40,7 +43,7 @@ import java.util.stream.Collectors;
  * Use the {@link ResultadosServiciosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ResultadosServiciosFragment extends Fragment implements SearchView.OnQueryTextListener, SelectListener {
+public class ResultadosServiciosFragment extends Fragment implements SearchView.OnQueryTextListener, SelectListener, ServicioDataSource.GetAllServiciosDelTipoCallback {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -168,6 +171,9 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
             }
         });
 
+        //esto es para que no tire error cuando tardan en llegar los datos de retrofit
+        mAdapter = new ServiciosRecyclerAdapter(List.of(), ctx, this);
+
         return binding.getRoot();
     }
 
@@ -175,12 +181,10 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     public void onResume() {
         super.onResume();
         //RECYCLERVIEW
-        //TODO agarrar los servicios de alguna bdd externa?
 
-        mAdapter= new ServiciosRecyclerAdapter(ServicioRepository._SERVICIOS.stream()
-                .filter(s -> s.getTipo().getIdTipoServicio().equals(getterServicio.getTipoSeleccionado().getIdTipoServicio()))
-                .collect(Collectors.toList()), ctx, this);
-        mAdapter.ordenar("Mejor puntuación primero");
+        //Carga de servicios
+        ServicioRepository.createInstance().getAllServiciosDelTipo(getterServicio.getTipoSeleccionado(),this);
+
         recyclerView = binding.recyclerServicios;
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(ctx);
@@ -217,4 +221,19 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
 
         */
     }
+
+    // METODOS DE GetAllServiciosDelTipoCallback
+    @Override
+    public void onResult(List<Servicio> servicios) {
+        Log.i("RETROFIT?",servicios.toString());
+        mAdapter = new ServiciosRecyclerAdapter(servicios, ctx, this);
+        mAdapter.ordenar("Mejor puntuación primero");
+    }
+
+    @Override
+    public void onError() {
+        //TODO
+        Log.e("ERROR_RETROFIT","No se pudieron cargar los servicios");
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.efp.contratame.ar.persistencia.retrofit;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.efp.contratame.ar.modelo.Prestador;
@@ -53,11 +55,14 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
             @Override
             public void onResult(List<Prestador> prestadores) {
                 Call<List<ServicioRF>> reqAsyn = servicioService.getAllServiciosDelTipo(tipoServicio.getIdTipoServicio().toString());
+                Log.i("RETRO",reqAsyn.request().url().toString());
                 reqAsyn.enqueue(new Callback<>() {
                     @Override
                     public void onResponse(@NonNull Call<List<ServicioRF>> call, @NonNull Response<List<ServicioRF>> response) {
+
                         if (response.code() == 200) {
                             List<ServicioRF> data = response.body();
+
                             if (data == null) {
                                 callback.onError();
                                 return;
@@ -72,6 +77,7 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
 
                     @Override
                     public void onFailure(@NonNull Call<List<ServicioRF>> call, @NonNull Throwable t) {
+                        Log.e("ERROR_RETROFIT",t.getMessage());
                         callback.onError();
                     }
                 });
