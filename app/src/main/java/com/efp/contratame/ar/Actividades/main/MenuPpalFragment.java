@@ -48,10 +48,15 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("¿Qué necesitás?");
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedINstanceState){
         binding = FragmentMenuPpalBinding.inflate(inflater,container,false);
 
-        //((MainActivity) getActivity()).getSupportActionBar().setTitle("¿Qué necesitás?");
 
         //setup recyclerview
         RecyclerView rv = binding.rvServicios;
@@ -72,6 +77,8 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
 
         SearchView txtBusqueda = binding.txtBusqueda;
         txtBusqueda.setOnQueryTextListener(this);
+
+       // ((MainActivity) getActivity()).getSupportActionBar().setTitle("¿Qué necesitás?");
         return binding.getRoot();
     }
 

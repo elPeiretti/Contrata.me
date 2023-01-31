@@ -109,7 +109,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentResultadosServiciosBinding.inflate(inflater, container, false);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Grupo Servicio");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(getterServicio.getTipoSeleccionado().getNombre());
         /*TODO PONER EL NOMBRE DEL GRUPO QUE ELIGE
             esto esta aca:
             getterServicio.getTipoSeleccionado().getNombre()

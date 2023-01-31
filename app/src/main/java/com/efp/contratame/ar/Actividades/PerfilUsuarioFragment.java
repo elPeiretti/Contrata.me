@@ -80,7 +80,8 @@ public class PerfilUsuarioFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
+
         binding = FragmentPerfilUsuarioBinding.inflate(inflater, container, false);
         ctx = this.getContext();
         user = FirebaseAuth.getInstance().getCurrentUser();

@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
 
         setSupportActionBar(binding.appBarMain.toolbar);
         drawer = binding.drawerLayout;
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //nav = Navigation.findNavController(binding.navView);
 
