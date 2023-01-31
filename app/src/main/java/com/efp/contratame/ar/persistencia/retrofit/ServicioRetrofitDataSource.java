@@ -15,9 +15,11 @@ import com.efp.contratame.ar.persistencia.retrofit.mapper.ServicioMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -61,21 +63,21 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
                 opt.put("orderBy","\"keyTipoServicio\"");
                 opt.put("equalTo","\""+tipoServicio.getIdTipoServicio().toString()+"\"");
 
-                Call<List<ServicioRF>> reqAsyn = servicioService.getAllServiciosDelTipo(opt);
+                Call<Map<String,ServicioRF>> reqAsyn = servicioService.getAllServiciosDelTipo(opt);
                 Log.i("RETRO",reqAsyn.request().url().toString());
                 reqAsyn.enqueue(new Callback<>() {
                     @Override
-                    public void onResponse(@NonNull Call<List<ServicioRF>> call, @NonNull Response<List<ServicioRF>> response) {
+                    public void onResponse(@NonNull Call<Map<String,ServicioRF>> call, @NonNull Response<Map<String,ServicioRF>> response) {
 
                         if (response.code() == 200) {
-                            List<ServicioRF> data = response.body();
+                            Map<String,ServicioRF> data = response.body();
 
                             if (data == null) {
                                 callback.onError();
                                 return;
                             }
                             // en "prestadores" tengo todos los prestadores, en "data" los ServicioRF y "tipoServicio" es el tipoServicio
-                            callback.onResult(ServicioMapper.fromEntities(data, tipoServicio, prestadores));
+                            callback.onResult(ServicioMapper.fromEntities(new ArrayList<>(data.values()), tipoServicio, prestadores));
 
                         } else {
                             callback.onError();
@@ -83,7 +85,7 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<List<ServicioRF>> call, @NonNull Throwable t) {
+                    public void onFailure(@NonNull Call<Map<String,ServicioRF>> call, @NonNull Throwable t) {
                         Log.e("ERROR_RETROFIT",t.getMessage());
                         callback.onError();
                     }

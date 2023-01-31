@@ -14,7 +14,7 @@ import retrofit2.http.QueryMap;
 public interface ServicioService {
 
 
-    @GET("servicio.json?")
-    Call<List<ServicioRF>> getAllServiciosDelTipo(@QueryMap Map<String,String> options);
+    @GET("servicio.json")
+    Call<Map<String,ServicioRF>> getAllServiciosDelTipo(@QueryMap Map<String,String> options);
 
 }
