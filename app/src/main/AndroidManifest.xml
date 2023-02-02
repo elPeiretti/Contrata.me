@@ -24,13 +24,26 @@
             android:value="@string/facebook_client_token" />
 
         <activity
-            android:name=".Actividades.IniciarSesion"
+            android:name=".Actividades.SplashScreenActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".Actividades.IniciarSesion"
+            android:exported="true">
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".Actividades.main.MainActivity"
@@ -46,6 +59,8 @@
         <activity
             android:name=".Actividades.CrearCuenta"
             android:exported="true"/>
+
+
     </application>
 
 </manifest>
