@@ -63,7 +63,9 @@ public class CrearCuenta extends AppCompatActivity {
         binding.btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (CrearCuenta.validarCampos(binding.txtEmaillCrear.getText().toString().trim(),binding.txtContrasenaCrear.getText().toString().trim())){
+                email= binding.txtEmaillCrear.getText().toString().trim();
+                password= binding.txtContrasenaCrear.getText().toString().trim();
+                switch (CrearCuenta.validarCampos(email, password)){
                     case 0:
                         firebaseCrearCuenta();
                         break;
@@ -101,7 +103,7 @@ public class CrearCuenta extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(CrearCuenta.this, "Se ha creado su cuenta con éxito, por favor incie sesión", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CrearCuenta.this, "Se ha creado su cuenta con éxito, por favor incie sesión", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent( ctx,IniciarSesion.class);
                         startActivity(intent);
                     }
