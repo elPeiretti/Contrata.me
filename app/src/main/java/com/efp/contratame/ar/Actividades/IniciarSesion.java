@@ -200,19 +200,6 @@ public class IniciarSesion extends AppCompatActivity {
                                         // Check condition
                                         if(task.isSuccessful()){
                                             Intent intent = new Intent( ctx,MainActivity.class);
-                                          /*  FirebaseUser user = firebaseAuth.getCurrentUser();
-                                            intent.putExtra("email", user.getEmail());
-                                            intent.putExtra("imagen_perfil", user.getPhotoUrl().toString());
-                                            intent.putExtra("nombre", user.getDisplayName());
-                                            Log.d("TAMAÑO", String.valueOf(user.getProviderData().size()));
-
-                                            for (UserInfo profile : user.getProviderData()) {
-                                                intent.putExtra("tipo_sesion",  profile.getProviderId());
-                                                Log.d("PROVIDER",  profile.getProviderId());
-                                            }
-
-                                           */
-
                                             startActivity(intent
                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                             googleSignInClient.signOut();
@@ -263,16 +250,6 @@ public class IniciarSesion extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "signInWithCredential:success");
                             Intent intent = new Intent( ctx,MainActivity.class);
-                          /*  FirebaseUser user = firebaseAuth.getCurrentUser();
-                            intent.putExtra("imagen_perfil","https://graph.facebook.com/me/picture?access_token="+AccessToken.getCurrentAccessToken().getToken());
-                            intent.putExtra("email", user.getEmail());
-                            intent.putExtra("nombre", user.getDisplayName());
-                            for (UserInfo profile : user.getProviderData()) {
-                                intent.putExtra("tipo_sesion",  profile.getProviderId());
-                                Log.d("PROVIDER",  profile.getProviderId());
-                            }
-
-                           */
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -291,14 +268,6 @@ public class IniciarSesion extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(IniciarSesion.this, "Se ha iniciado sesión con éxito", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent( ctx, MainActivity.class);
-                        /*FirebaseUser user = firebaseAuth.getCurrentUser();
-                        intent.putExtra("email", user.getEmail());
-                        for (UserInfo profile : user.getProviderData()) {
-                            intent.putExtra("tipo_sesion",  profile.getProviderId());
-                            Log.d("PROVIDER",  profile.getProviderId());
-                        }
-
-                         */
                         startActivity(intent);
                     }
                 })

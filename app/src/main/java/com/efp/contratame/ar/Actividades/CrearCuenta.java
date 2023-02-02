@@ -6,19 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.efp.contratame.ar.auxiliares.ValidadorDeCampos;
 import com.efp.contratame.ar.databinding.ActivityCrearCuentaBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Pattern;
 
 public class CrearCuenta extends AppCompatActivity {
 
@@ -28,6 +27,15 @@ public class CrearCuenta extends AppCompatActivity {
     private String email="";
     private String password="";
     private FirebaseAuth firebaseAuth;
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
 
 
 
@@ -55,7 +63,7 @@ public class CrearCuenta extends AppCompatActivity {
         binding.btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (ValidadorDeCampos.validarCampos(binding.txtEmaillCrear.getText().toString().trim(),binding.txtContrasenaCrear.getText().toString().trim())){
+                switch (CrearCuenta.validarCampos(binding.txtEmaillCrear.getText().toString().trim(),binding.txtContrasenaCrear.getText().toString().trim())){
                     case 0:
                         firebaseCrearCuenta();
                         break;
@@ -72,6 +80,20 @@ public class CrearCuenta extends AppCompatActivity {
             }
         });
     }
+
+
+        public  static int validarCampos(String email, String password) {
+            int rdo = 0;
+            if(email == null || email.isEmpty() || !EMAIL_ADDRESS_PATTERN.matcher(email).matches()){
+                rdo=1;
+            }else if(password.length()==0){
+                rdo=2;
+            }else if(password.length()<6){
+                rdo=3;
+            }
+            return rdo;
+
+        }
 
 
     private void firebaseCrearCuenta() {
