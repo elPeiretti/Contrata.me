@@ -9,7 +9,7 @@
         android:id="@+id/detalleProveedorServicioFragment"
         android:name="com.efp.contratame.ar.Actividades.DetalleProveedorServicioFragment"
         android:label="fragment_detalle_proveedor_servicio"
-        tools:layout="@layout/fragment_detalle_proveedor_servicio" />
+        tools:layout="@layout/fragment_detalle_proveedor_servicio"/>
     <fragment
         android:id="@+id/resultadosServiciosFragment"
         android:name="com.efp.contratame.ar.Actividades.ResultadosServiciosFragment"
@@ -17,10 +17,18 @@
         tools:layout="@layout/fragment_resultados_servicios" >
         <action
             android:id="@+id/action_resultadosServiciosFragment_to_detalleProveedorServicioFragment2"
-            app:destination="@id/detalleProveedorServicioFragment" />
+            app:destination="@id/detalleProveedorServicioFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_resultadosServiciosFragment_to_crearRequerimientoFragment"
-            app:destination="@id/crearRequerimientoFragment" />
+            app:destination="@id/crearRequerimientoFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/mensajesFragment"
@@ -38,7 +46,11 @@
         android:label="MenuPpalFragment" >
         <action
             android:id="@+id/action_menuPpalFragment2_to_resultadosServiciosFragment"
-            app:destination="@id/resultadosServiciosFragment" />
+            app:destination="@id/resultadosServiciosFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/perfilUsuarioFragment"
@@ -47,7 +59,11 @@
         tools:layout="@layout/fragment_perfil_usuario" >
         <action
             android:id="@+id/action_perfilUsuarioFragment_to_cambiarPerfilFragment"
-            app:destination="@id/cambiarPerfilFragment" />
+            app:destination="@id/cambiarPerfilFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/cambiarPerfilFragment"
