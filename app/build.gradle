@@ -52,10 +52,17 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0-M1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0-M1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0-M1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

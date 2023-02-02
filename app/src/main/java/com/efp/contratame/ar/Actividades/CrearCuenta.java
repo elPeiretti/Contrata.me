@@ -13,13 +13,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.auxiliares.ValidadorDeCampos;
 import com.efp.contratame.ar.databinding.ActivityCrearCuentaBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class CrearCuenta extends AppCompatActivity {
 
@@ -56,26 +55,24 @@ public class CrearCuenta extends AppCompatActivity {
         binding.btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validarCampos();
+                switch (ValidadorDeCampos.validarCampos(binding.txtEmaillCrear.getText().toString().trim(),binding.txtContrasenaCrear.getText().toString().trim())){
+                    case 0:
+                        firebaseCrearCuenta();
+                        break;
+                    case 1:
+                        binding.txtEmaillCrear.setError("Formato de email inválido");
+                        break;
+                    case 2:
+                        binding.txtContrasenaCrear.setError("Ingrese una contraseña");
+                        break;
+                    case 3:
+                        binding.txtContrasenaCrear.setError("La contraseña debe tener al menos 6 caracteres");
+                        break;
+                }
             }
         });
     }
 
-    private void validarCampos() {
-        email= binding.txtEmaillCrear.getText().toString().trim();
-        password = binding.txtContrasenaCrear.getText().toString().trim();
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            binding.txtEmaillCrear.setError("Formato de email inválido");
-        }else if(TextUtils.isEmpty(password)){
-            binding.txtContrasenaCrear.setError("Ingrese una contraseña");
-        }else if(password.length()<6){
-            binding.txtContrasenaCrear.setError("La contraseña debe tener al menos 6 caracteres");
-        }else{
-            firebaseCrearCuenta();
-        }
-
-    }
 
     private void firebaseCrearCuenta() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
