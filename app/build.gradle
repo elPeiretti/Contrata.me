@@ -34,7 +34,13 @@ android {
     }
     testOptions {
         unitTests.returnDefaultValues = true
+        unitTests.all{
+            useJUnitPlatform()
+        }
+
     }
+
+
     namespace 'com.efp.contratame.ar'
 }
 
@@ -68,6 +74,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation"org.junit.jupiter:junit-jupiter-params:5.8.1"
 
 
     //retrofit

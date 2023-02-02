@@ -86,7 +86,7 @@ public class CrearCuenta extends AppCompatActivity {
             int rdo = 0;
             if(email == null || email.isEmpty() || !EMAIL_ADDRESS_PATTERN.matcher(email).matches()){
                 rdo=1;
-            }else if(password.length()==0){
+            }else if(password!=null && password.length()==0){
                 rdo=2;
             }else if(password.length()<6){
                 rdo=3;
