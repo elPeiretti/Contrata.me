@@ -12,44 +12,99 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imagenUsuario"
-            android:layout_width="149dp"
-            android:layout_height="133dp"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:src="@drawable/blank_profile_picture_973460_1280"></de.hdodenhof.circleimageview.CircleImageView>
 
         <TextView
-            android:id="@+id/tv_nombre_suario"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:paddingTop="5dp"
-            android:text="Clarisa Espertino"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="3dp"
+            android:text="Email"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_email_usuario"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="clariespertino62@gmail.com" />
+            android:paddingHorizontal="20dp"
+            android:text="clariespertino62@gmail.com"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="3dp"
+            android:background="#A6A6A6"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="10dp" />
+
+        <TextView
+            android:id="@+id/tv9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="Nombre"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_nombre_perfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:text="Clarisa Espertino"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="3dp"
+            android:background="#A6A6A6"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="3dp"
+            android:text="Tipo sesion"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_tipo_sesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:text="tipo"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/btn_editar_perfil"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Editar perfil" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_editar_perfil"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Editar perfil" />
 
 </LinearLayout>

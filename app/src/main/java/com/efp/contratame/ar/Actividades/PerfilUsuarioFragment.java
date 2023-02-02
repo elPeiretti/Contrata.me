@@ -87,9 +87,19 @@ public class PerfilUsuarioFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
+        binding.tvNombrePerfil.setText(user.getDisplayName());
         binding.tvEmailUsuario.setText(user.getEmail());
-        binding.tvNombreSuario.setText(user.getDisplayName());
+        String tipo =user.getProviderData().get(1).getProviderId().toString();
+        if(tipo.equalsIgnoreCase("google.com")){
+            binding.tvTipoSesion.setText("Google");
+        }else  if(tipo.equalsIgnoreCase("facebook.com")){
+            binding.tvTipoSesion.setText("Facebook");
+        }else {
+            binding.tvTipoSesion.setText("Mail y contraseña");
+
+        }
         Glide.with(binding.imagenUsuario.getContext()).load(user.getPhotoUrl()).into(binding.imagenUsuario);
+
 
 
 
