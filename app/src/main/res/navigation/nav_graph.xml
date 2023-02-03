@@ -18,15 +18,15 @@
         <action
             android:id="@+id/action_resultadosServiciosFragment_to_detalleProveedorServicioFragment2"
             app:destination="@id/detalleProveedorServicioFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_resultadosServiciosFragment_to_crearRequerimientoFragment"
             app:destination="@id/crearRequerimientoFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
     </fragment>
@@ -47,8 +47,8 @@
         <action
             android:id="@+id/action_menuPpalFragment2_to_resultadosServiciosFragment"
             app:destination="@id/resultadosServiciosFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
     </fragment>
@@ -60,8 +60,8 @@
         <action
             android:id="@+id/action_perfilUsuarioFragment_to_cambiarPerfilFragment"
             app:destination="@id/cambiarPerfilFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
     </fragment>
