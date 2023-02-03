@@ -77,24 +77,29 @@ public class IniciarSesion extends AppCompatActivity {
 
         //Inicio de sesión con facebook
 
+
         btnFacebook= binding.btnFacebook;
         callbackManager = CallbackManager.Factory.create();
+        if(LoginManager.getInstance()!=null){
+            LoginManager.getInstance().logOut();
+        }
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         handleFacebookAccessToken(loginResult.getAccessToken());
-                    }
+                        Log.d("TAG","procede el login");
 
+                    }
                     @Override
                     public void onCancel() {
-                        // App code
-                    }
+                        Log.d("TAG","cancel");
 
+                    }
                     @Override
                     public void onError(FacebookException exception) {
-                        // App code
+                        Log.d("TAG", exception.getMessage());
                     }
                 });
         btnFacebook.setOnClickListener(new View.OnClickListener() {
