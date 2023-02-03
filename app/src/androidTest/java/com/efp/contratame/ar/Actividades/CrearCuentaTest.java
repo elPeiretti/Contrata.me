@@ -37,7 +37,7 @@ public class CrearCuentaTest {
         String mail = "esteEsUnMail@gmail.com";
         String pass = "123456789";
 
-        //ingresar email y comtrasena
+        //ingresar email y contrasena
         onView(withId(R.id.txt_EmaillCrear)).perform(typeText(mail));
         onView(withId(R.id.txt_contrasenaCrear)).perform(typeText(pass));
         Espresso.closeSoftKeyboard();
@@ -47,6 +47,24 @@ public class CrearCuentaTest {
         onView(withText(mail)).check(matches(isDisplayed()));
         onView(withText(pass)).check(matches(isDisplayed()));
         onView(withId(R.id.rb_cliente)).check(matches(isChecked()));
+        onView(withId(R.id.cb_terminos)).check(matches(isChecked()));
+    }
+
+    @Test
+    public void testLlenarCamposComoPrestador(){
+        String mail = "esteEsUnMail@gmail.com";
+        String pass = "123456789";
+
+        //ingresar email y contrasena
+        onView(withId(R.id.txt_EmaillCrear)).perform(typeText(mail));
+        onView(withId(R.id.txt_contrasenaCrear)).perform(typeText(pass));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.rb_prestador)).perform(click());
+        onView(withId(R.id.cb_terminos)).perform(click());
+
+        onView(withText(mail)).check(matches(isDisplayed()));
+        onView(withText(pass)).check(matches(isDisplayed()));
+        onView(withId(R.id.rb_prestador)).check(matches(isChecked()));
         onView(withId(R.id.cb_terminos)).check(matches(isChecked()));
     }
 }
