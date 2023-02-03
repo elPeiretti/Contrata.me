@@ -72,6 +72,15 @@
                 >
 
             </androidx.recyclerview.widget.RecyclerView>
+            <TextView
+                android:id="@+id/tv_mensaje_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="@string/rv_servicios_no_data"
+                android:textSize="18sp"
+                />
 
         </LinearLayout>
     </ScrollView>

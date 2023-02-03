@@ -206,7 +206,9 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     // METODOS DE GetAllServiciosDelTipoCallback
     @Override
     public void onResult(List<Servicio> servicios) {
-        mAdapter.updateData(servicios);
+            recyclerView.setVisibility(servicios.isEmpty() ? View.GONE : View.VISIBLE);
+            binding.tvMensajeEmpty.setVisibility(servicios.isEmpty() ? View.VISIBLE : View.GONE);
+            mAdapter.updateData(servicios);
     }
 
     @Override
