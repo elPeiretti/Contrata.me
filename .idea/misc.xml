@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER/AndroidStudioProjects/Contrata.me/app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Contrata.me/app/src/main/res/drawable/icono_inicio.xml" value="0.1505" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/Contrata.me/app/src/main/res/drawable/splash_background.xml" value="0.117" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Contrata.me/app/src/main/res/layout/activity_crear_cuenta.xml" value="0.14010416666666667" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Contrata.me/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.25" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/Contrata.me/app/src/main/res/layout/activity_main.xml" value="0.14010416666666667" />
