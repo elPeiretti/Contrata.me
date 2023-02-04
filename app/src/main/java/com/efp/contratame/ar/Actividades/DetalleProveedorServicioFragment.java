@@ -14,11 +14,14 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.ServicioIconRecyclerAdapter;
 import com.efp.contratame.ar.adapters.GaleriaRecyclerAdapter;
 import com.efp.contratame.ar.auxiliares.MyViewModel;
 import com.efp.contratame.ar.databinding.FragmentDetalleProveedorServicioBinding;
+import com.efp.contratame.ar.modelo.Comentario;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +47,8 @@ public class DetalleProveedorServicioFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private Context ctx=this.getContext();
     private List<String> galeriImagenes = new ArrayList<>();
+
+    private RecyclerView rvComentarios;
 
     public DetalleProveedorServicioFragment() {
         // Required empty public constructor
@@ -92,20 +97,15 @@ public class DetalleProveedorServicioFragment extends Fragment {
             galeriImagenes = item.getGaleriaImagenes();
         });
 
-       /* Intent intent = this.getIntent();
-        Bundle extra = intent.getExtras();
 
-        binding.tvNombre.setText(extra.getString("nombre"));
-        binding.ratingBar2.setRating(extra.getFloat("puntuacion"));
-        String EDteamImage = extra.getString("imagen");
-        Glide.with(binding.imageView.getContext()).load(EDteamImage).into(binding.imageView);
-        binding.tvDescripcion.setText(extra.getString("descripcion"));
-
-        */
-
-
-    //    mAdapter= new GaleriaRecyclerAdapter((ArrayList<String>) getIntent().getSerializableExtra("listaImagenes"), ctx);
-
+        rvComentarios = binding.rvComentarios;
+        rvComentarios.setHasFixedSize(true);
+        rvComentarios.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvComentarios.setAdapter(new ComentarioRecyclerAdapter(getContext(),List.of(
+                new Comentario("Juan perez", LocalDate.parse("1992-06-15"),"A ver me gusto mucho :)."),
+                new Comentario("Don perez", LocalDate.parse("2012-02-23"),"A ver me gusto mucho :)."),
+                new Comentario("Seba perez", LocalDate.parse("2023-03-03"),"A ver me gusto mucho :).")
+        )));
 
         return binding.getRoot();
     }
