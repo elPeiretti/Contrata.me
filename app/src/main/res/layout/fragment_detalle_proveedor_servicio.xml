@@ -96,4 +96,12 @@
         android:id="@+id/rv_comentarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_servicio_sin_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:text="@string/rv_servicio_sin_comment" />
 </LinearLayout>

@@ -138,12 +138,16 @@ public class DetalleProveedorServicioFragment extends Fragment implements Coment
     // metodos del callback
     @Override
     public void onResult(List<Comentario> comentarioList) {
+        rvComentarios.setVisibility(comentarioList.isEmpty() ? View.GONE : View.VISIBLE);
+        binding.tvServicioSinComment.setVisibility(comentarioList.isEmpty() ? View.VISIBLE : View.GONE);
         adapterComentario.updateData(comentarioList);
     }
 
     @Override
     public void onError() {
-        Log.e("ERROR_RETROFIT","No se pudieron cargar los comentarios");
+        rvComentarios.setVisibility(View.GONE);
+        binding.tvServicioSinComment.setVisibility(View.VISIBLE);
+        Log.e("ERROR_RETROFIT","No se pudieron cargar los comentarios o no existen comentarios para el servicio");
     }
 
     public interface ServicioGetter {
