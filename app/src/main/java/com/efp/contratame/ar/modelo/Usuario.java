@@ -17,6 +17,14 @@ public class Usuario {
         this.tipo_sesion = tipo_sesion;
     }
 
+    public Usuario(UUID idUsuario, String email, String nombre, String foto_perfil, String tipo_sesion) {
+        this.idUsuario = idUsuario;
+        this.email = email;
+        this.nombre = nombre;
+        this.foto_perfil = foto_perfil;
+        this.tipo_sesion = tipo_sesion;
+    }
+
     public UUID getIdUsuario() {
         return idUsuario;
     }
