@@ -273,7 +273,10 @@ public class IniciarSesion extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(IniciarSesion.this, "Se ha iniciado sesión con éxito", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent( ctx, MainActivity.class);
-                        startActivity(intent);
+
+                        Bundle data = new Bundle();
+                        data.putString("idUsuario",authResult.getUser().getUid());
+                        startActivity(intent, data);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

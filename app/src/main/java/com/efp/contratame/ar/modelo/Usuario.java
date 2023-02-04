@@ -8,21 +8,18 @@ public class Usuario {
     private String email;
     private String nombre;
     private String foto_perfil;
-    private String tipo_sesion; //facebook.com, google.com, firebase
 
-    public Usuario(String email, String nombre, String foto_perfil, String tipo_sesion) {
+    public Usuario(String email, String nombre, String foto_perfil) {
         this.email = email;
         this.nombre = nombre;
         this.foto_perfil = foto_perfil;
-        this.tipo_sesion = tipo_sesion;
     }
 
-    public Usuario(UUID idUsuario, String email, String nombre, String foto_perfil, String tipo_sesion) {
+    public Usuario(UUID idUsuario, String email, String nombre, String foto_perfil) {
         this.idUsuario = idUsuario;
         this.email = email;
         this.nombre = nombre;
         this.foto_perfil = foto_perfil;
-        this.tipo_sesion = tipo_sesion;
     }
 
     public UUID getIdUsuario() {
@@ -31,14 +28,6 @@ public class Usuario {
 
     public void setIdUsuario(UUID idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public void setTipo_sesion(String tipo_sesion) {
-        this.tipo_sesion = tipo_sesion;
-    }
-
-    public String getTipo_sesion() {
-        return tipo_sesion;
     }
 
     public String getEmail() {
