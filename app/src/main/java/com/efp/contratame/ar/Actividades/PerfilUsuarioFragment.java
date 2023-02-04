@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.MenuPpalFragment;
+import com.efp.contratame.ar.Actividades.main.UsuarioGetter;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentPerfilUsuarioBinding;
 import com.efp.contratame.ar.modelo.Usuario;
@@ -34,31 +36,19 @@ import com.google.firebase.auth.UserProfileChangeRequest;
  */
 public class PerfilUsuarioFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private FragmentPerfilUsuarioBinding binding;
     private Context ctx = this.getContext();
-    private FirebaseUser user;
+    private UsuarioGetter usuarioGetter;
 
     public PerfilUsuarioFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PerfilUsuarioFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static PerfilUsuarioFragment newInstance(String param1, String param2) {
         PerfilUsuarioFragment fragment = new PerfilUsuarioFragment();
         Bundle args = new Bundle();
@@ -78,18 +68,25 @@ public class PerfilUsuarioFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context){
+        super.onAttach(context);
+        if (context instanceof UsuarioGetter){
+            usuarioGetter = (UsuarioGetter) context;
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
 
         binding = FragmentPerfilUsuarioBinding.inflate(inflater, container, false);
         ctx = this.getContext();
-        user = FirebaseAuth.getInstance().getCurrentUser();
 
-
-        binding.tvNombrePerfil.setText(user.getDisplayName());
+        Usuario user = usuarioGetter.getCurrentUsuario();
+        binding.tvNombrePerfil.setText(user.getNombre());
         binding.tvEmailUsuario.setText(user.getEmail());
-        String tipo =user.getProviderData().get(1).getProviderId().toString();
+        String tipo = user.getTipoSesion();
         if(tipo.equalsIgnoreCase("google.com")){
             binding.tvTipoSesion.setText("Google");
         }else  if(tipo.equalsIgnoreCase("facebook.com")){
@@ -98,9 +95,7 @@ public class PerfilUsuarioFragment extends Fragment {
             binding.tvTipoSesion.setText("Mail y contraseña");
 
         }
-        Glide.with(binding.imagenUsuario.getContext()).load(user.getPhotoUrl()).into(binding.imagenUsuario);
-
-
+        Glide.with(binding.imagenUsuario.getContext()).load(user.getFoto_perfil()).into(binding.imagenUsuario);
 
 
         binding.btnEditarPerfil.setOnClickListener(new View.OnClickListener() {

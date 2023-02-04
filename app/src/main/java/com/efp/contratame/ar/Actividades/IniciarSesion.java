@@ -274,9 +274,12 @@ public class IniciarSesion extends AppCompatActivity {
                         Toast.makeText(IniciarSesion.this, "Se ha iniciado sesión con éxito", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent( ctx, MainActivity.class);
 
-                        Bundle data = new Bundle();
-                        data.putString("idUsuario",authResult.getUser().getUid());
-                        startActivity(intent, data);
+                        intent.putExtra("idUsuario",authResult.getUser().getUid());
+                        intent.putExtra("nombre", authResult.getUser().getDisplayName() == null ? "" : authResult.getUser().getDisplayName());
+                        intent.putExtra("mail", authResult.getUser().getEmail());
+                        intent.putExtra("foto", authResult.getUser().getPhotoUrl() == null ? "" : authResult.getUser().getPhotoUrl().toString());
+                        intent.putExtra("sesion", "firebase");
+                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
