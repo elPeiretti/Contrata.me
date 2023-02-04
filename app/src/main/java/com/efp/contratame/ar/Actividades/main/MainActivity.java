@@ -23,19 +23,23 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.IniciarSesion;
+import com.efp.contratame.ar.Actividades.PerfilUsuarioFragment;
 import com.efp.contratame.ar.Actividades.ResultadosServiciosFragment;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityMainBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
+import com.efp.contratame.ar.modelo.Usuario;
 import com.facebook.AccessToken;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener, ResultadosServiciosFragment.TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener,
+        ResultadosServiciosFragment.TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener, UsuarioGetter {
 
     private ActivityMainBinding binding;
     private TipoServicio tipoServicioSeleccionado;
+    private Usuario user;
     private AppBarConfiguration mAppBarConfiguration;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawer;
@@ -47,6 +51,14 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle extras = getIntent().getExtras();
+        user = new Usuario(
+                extras.getString("idUsuario"),
+                extras.getString("mail"),
+                extras.getString("nombre"),
+                extras.getString("foto"),
+                extras.getString("sesion"));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -164,4 +176,8 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         Glide.with(imagen.getContext()).load(user.getPhotoUrl()).into(imagen);
     }
 
+    @Override
+    public Usuario getCurrentUsuario() {
+        return user;
+    }
 }
