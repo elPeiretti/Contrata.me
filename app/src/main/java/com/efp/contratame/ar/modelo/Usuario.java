@@ -1,7 +1,10 @@
 package com.efp.contratame.ar.modelo;
 
+import java.util.UUID;
+
 public class Usuario {
 
+    private UUID idUsuario;
     private String email;
     private String nombre;
     private String foto_perfil;
@@ -11,6 +14,18 @@ public class Usuario {
         this.email = email;
         this.nombre = nombre;
         this.foto_perfil = foto_perfil;
+        this.tipo_sesion = tipo_sesion;
+    }
+
+    public UUID getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(UUID idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public void setTipo_sesion(String tipo_sesion) {
         this.tipo_sesion = tipo_sesion;
     }
 
