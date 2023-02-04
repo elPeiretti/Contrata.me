@@ -22,11 +22,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
+import com.efp.contratame.ar.Actividades.DetalleProveedorServicioFragment;
 import com.efp.contratame.ar.Actividades.IniciarSesion;
 import com.efp.contratame.ar.Actividades.PerfilUsuarioFragment;
 import com.efp.contratame.ar.Actividades.ResultadosServiciosFragment;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityMainBinding;
+import com.efp.contratame.ar.modelo.Servicio;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.modelo.Usuario;
 import com.facebook.AccessToken;
@@ -34,8 +36,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.UUID;
+
 public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener,
-        ResultadosServiciosFragment.TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener, UsuarioGetter {
+        ResultadosServiciosFragment.TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener, UsuarioGetter,
+        DetalleProveedorServicioFragment.ServicioGetter, ResultadosServiciosFragment.OnServicioSelectedListener {
 
     private ActivityMainBinding binding;
     private TipoServicio tipoServicioSeleccionado;
@@ -44,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawer;
     private NavController nav;
-    private  View header;
+    private View header;
     private Context ctx = this;
+    private Servicio servicioSeleccionado;
 
 
     @Override
@@ -179,5 +185,15 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     @Override
     public Usuario getCurrentUsuario() {
         return user;
+    }
+
+    @Override
+    public UUID getIdServicioSeleccionado() {
+        return servicioSeleccionado.getIdServicio();
+    }
+
+    @Override
+    public void onServicioSelected(Servicio s) {
+        this.servicioSeleccionado = s;
     }
 }

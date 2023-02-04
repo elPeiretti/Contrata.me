@@ -65,6 +65,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     private MyViewModel viewModel;
 
     private TipoServicioGetter getterServicio;
+    private OnServicioSelectedListener servicioSelectedListener;
 
     public interface TipoServicioGetter{
         public TipoServicio getTipoSeleccionado();
@@ -106,6 +107,9 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         super.onAttach(context);
         if (context instanceof TipoServicioGetter){
             getterServicio = (TipoServicioGetter) context;
+        }
+        if (context instanceof OnServicioSelectedListener){
+            servicioSelectedListener = (OnServicioSelectedListener) context;
         }
     }
 
@@ -187,9 +191,14 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         return false;
     }
 
+    public interface OnServicioSelectedListener {
+        void onServicioSelected(Servicio s);
+    }
+
     @Override
     public void onItemClicked(Servicio s) {
         viewModel.setSelected(s);
+        servicioSelectedListener.onServicioSelected(s);
         NavHostFragment.findNavController(ResultadosServiciosFragment.this).navigate(R.id.action_resultadosServiciosFragment_to_detalleProveedorServicioFragment2);
 
        /* Intent intent = new Intent( ResutladosServicios.this,DetalleProveedorServicio.class);

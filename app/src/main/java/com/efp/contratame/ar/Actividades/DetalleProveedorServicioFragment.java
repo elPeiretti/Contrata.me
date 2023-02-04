@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.MenuPpalFragment;
 import com.efp.contratame.ar.Actividades.main.ServicioIconRecyclerAdapter;
 import com.efp.contratame.ar.adapters.GaleriaRecyclerAdapter;
 import com.efp.contratame.ar.auxiliares.MyViewModel;
@@ -51,7 +52,7 @@ public class DetalleProveedorServicioFragment extends Fragment implements Coment
     private RecyclerView.LayoutManager layoutManager;
     private Context ctx=this.getContext();
     private List<String> galeriImagenes = new ArrayList<>();
-    private UUID idServicioSeleccionado;
+    private ServicioGetter servicioGetter;
 
     private RecyclerView rvComentarios;
     private ComentarioRecyclerAdapter adapterComentario;
@@ -88,6 +89,14 @@ public class DetalleProveedorServicioFragment extends Fragment implements Coment
     }
 
     @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if (context instanceof DetalleProveedorServicioFragment.ServicioGetter){
+            servicioGetter = (DetalleProveedorServicioFragment.ServicioGetter) context;
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDetalleProveedorServicioBinding.inflate(inflater, container, false);
@@ -108,7 +117,9 @@ public class DetalleProveedorServicioFragment extends Fragment implements Coment
         rvComentarios.setLayoutManager(new LinearLayoutManager(getContext()));
         rvComentarios.setAdapter(adapterComentario = new ComentarioRecyclerAdapter(getContext(),new ArrayList<>()));
 
-        ComentarioRepository.createInstance().getAllComentariosDeServicio(UUID.fromString("49566de5-fd7d-43e4-b537-a097a54f1f87"),this);
+        ComentarioRepository
+                .createInstance()
+                .getAllComentariosDeServicio(UUID.fromString(servicioGetter.getIdServicioSeleccionado().toString()),this);
 
         return binding.getRoot();
     }
@@ -133,5 +144,9 @@ public class DetalleProveedorServicioFragment extends Fragment implements Coment
     @Override
     public void onError() {
         Log.e("ERROR_RETROFIT","No se pudieron cargar los comentarios");
+    }
+
+    public interface ServicioGetter {
+        UUID getIdServicioSeleccionado();
     }
 }
