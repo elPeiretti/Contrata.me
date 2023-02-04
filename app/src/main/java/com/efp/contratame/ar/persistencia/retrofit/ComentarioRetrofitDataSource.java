@@ -1,5 +1,7 @@
 package com.efp.contratame.ar.persistencia.retrofit;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.efp.contratame.ar.persistencia.datasource.ComentarioDataSource;
@@ -42,7 +44,7 @@ public class ComentarioRetrofitDataSource implements ComentarioDataSource {
     @Override
     public void getAllComentariosDeServicio(UUID servicio, GetAllComentariosDeServicioCallback callback) {
         Call<List<ComentarioRF>> reqAsyn = comentarioService.getAllComentariosDeServicio(servicio.toString());
-
+        Log.i("RETRO",reqAsyn.request().url().toString());
         reqAsyn.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<ComentarioRF>> call, @NonNull Response<List<ComentarioRF>> response) {
