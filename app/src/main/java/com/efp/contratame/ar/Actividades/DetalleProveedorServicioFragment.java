@@ -8,26 +8,33 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.ServicioIconRecyclerAdapter;
 import com.efp.contratame.ar.adapters.GaleriaRecyclerAdapter;
 import com.efp.contratame.ar.auxiliares.MyViewModel;
 import com.efp.contratame.ar.databinding.FragmentDetalleProveedorServicioBinding;
+import com.efp.contratame.ar.modelo.Comentario;
+import com.efp.contratame.ar.persistencia.datasource.ComentarioDataSource;
+import com.efp.contratame.ar.persistencia.repository.ComentarioRepository;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DetalleProveedorServicioFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetalleProveedorServicioFragment extends Fragment {
+public class DetalleProveedorServicioFragment extends Fragment implements ComentarioDataSource.GetAllComentariosDeServicioCallback {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,6 +51,10 @@ public class DetalleProveedorServicioFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private Context ctx=this.getContext();
     private List<String> galeriImagenes = new ArrayList<>();
+    private UUID idServicioSeleccionado;
+
+    private RecyclerView rvComentarios;
+    private ComentarioRecyclerAdapter adapterComentario;
 
     public DetalleProveedorServicioFragment() {
         // Required empty public constructor
@@ -92,20 +103,12 @@ public class DetalleProveedorServicioFragment extends Fragment {
             galeriImagenes = item.getGaleriaImagenes();
         });
 
-       /* Intent intent = this.getIntent();
-        Bundle extra = intent.getExtras();
+        rvComentarios = binding.rvComentarios;
+        rvComentarios.setHasFixedSize(true);
+        rvComentarios.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvComentarios.setAdapter(adapterComentario = new ComentarioRecyclerAdapter(getContext(),new ArrayList<>()));
 
-        binding.tvNombre.setText(extra.getString("nombre"));
-        binding.ratingBar2.setRating(extra.getFloat("puntuacion"));
-        String EDteamImage = extra.getString("imagen");
-        Glide.with(binding.imageView.getContext()).load(EDteamImage).into(binding.imageView);
-        binding.tvDescripcion.setText(extra.getString("descripcion"));
-
-        */
-
-
-    //    mAdapter= new GaleriaRecyclerAdapter((ArrayList<String>) getIntent().getSerializableExtra("listaImagenes"), ctx);
-
+        ComentarioRepository.createInstance().getAllComentariosDeServicio(UUID.fromString("49566de5-fd7d-43e4-b537-a097a54f1f87"),this);
 
         return binding.getRoot();
     }
@@ -119,5 +122,16 @@ public class DetalleProveedorServicioFragment extends Fragment {
         layoutManager = new LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    // metodos del callback
+    @Override
+    public void onResult(List<Comentario> comentarioList) {
+        adapterComentario.updateData(comentarioList);
+    }
+
+    @Override
+    public void onError() {
+        Log.e("ERROR_RETROFIT","No se pudieron cargar los comentarios");
     }
 }
