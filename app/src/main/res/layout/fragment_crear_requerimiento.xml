@@ -87,8 +87,9 @@
                 android:textColor="@color/teal_700"
                 android:textSize="14dp" />
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
+            <fragment
+                android:id="@+id/google_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="280dp" />
 

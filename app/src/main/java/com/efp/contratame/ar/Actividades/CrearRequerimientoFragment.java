@@ -3,6 +3,7 @@ package com.efp.contratame.ar.Actividades;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,16 +13,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentCrearRequerimientoBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CrearRequerimientoFragment extends Fragment implements TipoServicioDataSource.GetAllTipoServiciosCallback {
+public class CrearRequerimientoFragment extends Fragment implements TipoServicioDataSource.GetAllTipoServiciosCallback, OnMapReadyCallback {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -33,6 +38,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapterRubro;
     private Context ctx= this.getContext();
+    GoogleMap mapa;
 
     public CrearRequerimientoFragment() {
         // Required empty public constructor
@@ -70,6 +76,12 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
 
         //seria mejor guardar en la actividad los tipos servicios cuando los busco para el menu ppal?
         TipoServicioRepository.createInstance().getAllTipoServicios(this);
+
+        //init mapa
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
+        mapFragment.getMapAsync(this);
+
+
         return binding.getRoot();
     }
 
@@ -84,5 +96,10 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
         adapterRubro.addAll(tipos.stream().map(TipoServicio::getNombre).collect(Collectors.toList()));
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mapa = googleMap;
     }
 }
