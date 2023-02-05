@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -33,9 +34,13 @@ import com.efp.contratame.ar.databinding.FragmentCrearRequerimientoBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +113,11 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        //verificar permisos
+        activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+
         binding = FragmentCrearRequerimientoBinding.inflate(inflater, container, false);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Crear requerimiento");
 
@@ -123,7 +133,6 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         //init mapa
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
-
 
         return binding.getRoot();
     }
@@ -144,7 +153,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mapa = googleMap;
-        // verificar permisos
-        activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+
+        //mapa.getUiSettings().setAllGesturesEnabled(false);
+        mapa.setMyLocationEnabled(true);
     }
 }
