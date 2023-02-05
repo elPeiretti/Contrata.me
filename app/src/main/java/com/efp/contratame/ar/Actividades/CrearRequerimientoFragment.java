@@ -13,8 +13,15 @@ import android.widget.Spinner;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.databinding.FragmentCrearRequerimientoBinding;
+import com.efp.contratame.ar.modelo.TipoServicio;
+import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
+import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 
-public class CrearRequerimientoFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CrearRequerimientoFragment extends Fragment implements TipoServicioDataSource.GetAllTipoServiciosCallback {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -26,9 +33,6 @@ public class CrearRequerimientoFragment extends Fragment {
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapterRubro;
     private Context ctx= this.getContext();
-    final String[] arrayRubros = {"Instalaciones", "Construcción", "Aire acondicionado", "Carpintería", "Pintura", "Plomería",
-            "Electricidad", "Limpieza", "Jardinería", "Costurería", "Gasista", "Cerrajería", "Transporte",
-            "Belleza", "Seguridad"};
 
     public CrearRequerimientoFragment() {
         // Required empty public constructor
@@ -59,13 +63,26 @@ public class CrearRequerimientoFragment extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Crear requerimiento");
 
         spinner = binding.spinnerRurbos;
-        adapterRubro = new ArrayAdapter (this.getContext(),
-                android.R.layout.simple_spinner_item,arrayRubros);
+        adapterRubro = new ArrayAdapter<>(this.getContext(),
+                android.R.layout.simple_spinner_item, new ArrayList<>());
         adapterRubro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      //  adapterRubro = new ArrayAdapter<>(ctx, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.rubros));
         spinner.setAdapter(adapterRubro);
+
+        //seria mejor guardar en la actividad los tipos servicios cuando los busco para el menu ppal?
+        TipoServicioRepository.createInstance().getAllTipoServicios(this);
         return binding.getRoot();
     }
 
+    // GetAllTipoServicioCallback
+    @Override
+    public void onError() {
 
+    }
+
+    @Override
+    public void onResult(List<TipoServicio> tipos) {
+        adapterRubro.clear();
+        tipos.add(TipoServicioRepository.OTRO);
+        adapterRubro.addAll(tipos.stream().map(TipoServicio::getNombre).collect(Collectors.toList()));
+    }
 }
