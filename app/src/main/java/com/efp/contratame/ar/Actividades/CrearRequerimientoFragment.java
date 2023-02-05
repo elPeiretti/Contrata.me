@@ -62,23 +62,27 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         CrearRequerimientoFragment ctx = this;
 
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-            if (!result && shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    Log.i("PERMISOS","HAY QUE PEDIR PERMISOS NUEVAMENTE");
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Permisos requeridos")
-                        .setMessage("Para poder crear un nuevo requerimiento," +
-                                " necesitamos conocer tu ubicacion para que los" +
-                                " prestadores puedan saber donde se debe realizar el trabajo.")
-                        .setPositiveButton("Entendido", (dialogInterface, i) -> activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION))
-                        .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+            if (!result) {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Log.i("PERMISOS", "HAY QUE PEDIR PERMISOS NUEVAMENTE");
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Permisos requeridos")
+                            .setMessage("Para poder crear un nuevo requerimiento," +
+                                    " necesitamos conocer tu ubicacion para que los" +
+                                    " prestadores puedan saber donde se debe realizar el trabajo.")
+                            .setPositiveButton("Entendido", (dialogInterface, i) -> {
+                                activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                            })
+                            .setNegativeButton("Volver", (dialogInterface, i) -> {
                                 NavHostFragment.findNavController(ctx).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
-                                Toast.makeText(getActivity(),"Se requieren los permisos de ubicacion para continuar.",Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .create()
-                        .show();
+                                Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
+                            })
+                            .create()
+                            .show();
+                } else {
+                    NavHostFragment.findNavController(ctx).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
+                    Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
