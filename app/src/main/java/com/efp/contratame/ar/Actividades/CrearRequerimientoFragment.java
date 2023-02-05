@@ -1,16 +1,31 @@
 package com.efp.contratame.ar.Actividades;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
@@ -38,10 +53,34 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapterRubro;
     private Context ctx= this.getContext();
-    GoogleMap mapa;
+
+    private GoogleMap mapa;
+    private ActivityResultLauncher<String> activityResultLauncher;
 
     public CrearRequerimientoFragment() {
-        // Required empty public constructor
+
+        CrearRequerimientoFragment ctx = this;
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
+            if (!result && shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Log.i("PERMISOS","HAY QUE PEDIR PERMISOS NUEVAMENTE");
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Permisos requeridos")
+                        .setMessage("Para poder crear un nuevo requerimiento," +
+                                " necesitamos conocer tu ubicacion para que los" +
+                                " prestadores puedan saber donde se debe realizar el trabajo.")
+                        .setPositiveButton("Entendido", (dialogInterface, i) -> activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION))
+                        .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                NavHostFragment.findNavController(ctx).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
+                                Toast.makeText(getActivity(),"Se requieren los permisos de ubicacion para continuar.",Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        });
     }
 
     public static CrearRequerimientoFragment newInstance(String param1, String param2) {
@@ -101,5 +140,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mapa = googleMap;
+        // verificar permisos
+        activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
     }
 }
