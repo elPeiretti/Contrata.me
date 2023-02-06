@@ -103,9 +103,15 @@ public class CrearCuenta extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(CrearCuenta.this, "Se ha creado su cuenta con éxito, por favor incie sesión", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CrearCuenta.this, "Se ha creado su cuenta con éxito", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent( ctx,IniciarSesion.class);
+                        intent.putExtra("idUsuario",authResult.getUser().getUid());
+                        intent.putExtra("nombre", authResult.getUser().getDisplayName() == null ? "" : authResult.getUser().getDisplayName());
+                        intent.putExtra("mail", authResult.getUser().getEmail());
+                        intent.putExtra("foto", authResult.getUser().getPhotoUrl() == null ? "" : authResult.getUser().getPhotoUrl().toString());
+                        intent.putExtra("sesion", "firebase");
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -49,7 +49,6 @@ public class GaleriaRecyclerAdapter extends RecyclerView.Adapter<GaleriaRecycler
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            card = itemView.findViewById(R.id.card);
             imagen = itemView.findViewById(R.id.imagen);
         }
     }

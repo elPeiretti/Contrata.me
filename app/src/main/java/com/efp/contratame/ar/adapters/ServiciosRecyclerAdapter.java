@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
 
         String EDteamImage = serviciosDataSet.get(position).getPrestador().getImagenPerfil();
         Glide.with(holder.imagen.getContext()).load(EDteamImage).into(holder.imagen);
-        holder.card.setOnClickListener(new View.OnClickListener() {
+        holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onItemClicked(serviciosDataSet.get(holder.getAdapterPosition()));
@@ -120,7 +121,7 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
 
     public class ServiciosViewHolder extends RecyclerView.ViewHolder {
 
-        CardView card;
+        LinearLayout layout;
         ImageView imagen;
         TextView nombrePersona;
         TextView descripcion;
@@ -129,7 +130,7 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
 
         public ServiciosViewHolder(@NonNull View itemView) {
             super(itemView);
-            card = itemView.findViewById(R.id.card);
+            layout = itemView.findViewById(R.id.contendor_servicio);
             imagen= itemView.findViewById(R.id.imagen_perfil);
             nombrePersona= itemView.findViewById(R.id.nombre_persona);
             descripcion = itemView.findViewById(R.id.descrpcion);

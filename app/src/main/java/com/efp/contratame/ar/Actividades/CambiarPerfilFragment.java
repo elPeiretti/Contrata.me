@@ -84,7 +84,11 @@ public class CambiarPerfilFragment extends Fragment {
         imagenUri = user.getPhotoUrl();
         binding.editTextName.setText(user.getDisplayName());
 
-        Glide.with(binding.imagenUsuario.getContext()).load(imagenUri).into(binding.imagenUsuario);
+        Glide.with(binding.imagenUsuario.getContext())
+                .load(imagenUri)
+                .placeholder(R.drawable.blank_profile_picture_973460_1280)
+                .error(R.drawable.blank_profile_picture_973460_1280)
+                .into(binding.imagenUsuario);
 
 
 

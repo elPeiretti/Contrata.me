@@ -53,6 +53,7 @@ public class ComentarioRecyclerAdapter extends RecyclerView.Adapter<ComentarioRe
 
         public ComentarioViewHolder(@NonNull View itemView) {
             super(itemView);
+
             usuario = itemView.findViewById(R.id.tv_usuario);
             contenido = itemView.findViewById(R.id.tv_desc_comentario);
             fecha = itemView.findViewById(R.id.tv_fecha_comm);

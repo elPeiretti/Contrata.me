@@ -95,7 +95,12 @@ public class PerfilUsuarioFragment extends Fragment {
             binding.tvTipoSesion.setText("Mail y contraseña");
 
         }
-        Glide.with(binding.imagenUsuario.getContext()).load(user.getFoto_perfil()).into(binding.imagenUsuario);
+
+            Glide.with(binding.imagenUsuario.getContext())
+                    .load(user.getFoto_perfil())
+                    .placeholder(R.drawable.blank_profile_picture_973460_1280)
+                    .error(R.drawable.blank_profile_picture_973460_1280)
+                    .into(binding.imagenUsuario);
 
 
         binding.btnEditarPerfil.setOnClickListener(new View.OnClickListener() {

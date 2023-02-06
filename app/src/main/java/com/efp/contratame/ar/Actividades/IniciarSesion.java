@@ -54,8 +54,9 @@ public class IniciarSesion extends AppCompatActivity {
     private CallbackManager callbackManager;
     private Button btnFacebook;
     private AccessTokenTracker accessTokenTracker;
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private GoogleSignInClient googleSignInClient;
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,37 +141,6 @@ public class IniciarSesion extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseAuthListener = firebaseAuth -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null) {
-                Log.d("user", "user not null");
-                Log.d("user", user.getEmail());
-
-                // startActivity(new Intent(IniciarSesion.this,MainActivity.class)
-                  //     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-               Intent intent = new Intent( ctx,MainActivity.class);
-                intent.putExtra("idUsuario",firebaseAuth.getCurrentUser().getUid());
-                intent.putExtra("nombre", firebaseAuth.getCurrentUser().getDisplayName() == null ? "" : firebaseAuth.getCurrentUser().getDisplayName());
-                intent.putExtra("mail", firebaseAuth.getCurrentUser().getEmail());
-                intent.putExtra("foto", firebaseAuth.getCurrentUser().getPhotoUrl() == null ? "" : firebaseAuth.getCurrentUser().getPhotoUrl().toString());
-                String tipo = user.getProviderData().get(1).getProviderId();
-                if(tipo.equalsIgnoreCase("google.com")){
-                    intent.putExtra("sesion", "google.com");
-                }else  if(tipo.equalsIgnoreCase("facebook.com")){
-                    intent.putExtra("sesion", "facebook.com");
-                }else {
-                    intent.putExtra("sesion", "firebase");
-
-                }
-
-               startActivity(intent);
-            }else{
-                Log.d("user","user is null");
-            }
-        };
-
-
-
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -184,18 +154,6 @@ public class IniciarSesion extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -231,6 +189,7 @@ public class IniciarSesion extends AppCompatActivity {
                                             startActivity(intent
                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                             googleSignInClient.signOut();
+                                            finish();
                                        }
                                         else
                                         {
@@ -284,6 +243,7 @@ public class IniciarSesion extends AppCompatActivity {
                             intent.putExtra("foto", firebaseAuth.getCurrentUser().getPhotoUrl() == null ? "" : firebaseAuth.getCurrentUser().getPhotoUrl().toString());
                             intent.putExtra("sesion", "facebook.com");
                             startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
@@ -308,6 +268,7 @@ public class IniciarSesion extends AppCompatActivity {
                         intent.putExtra("foto", authResult.getUser().getPhotoUrl() == null ? "" : authResult.getUser().getPhotoUrl().toString());
                         intent.putExtra("sesion", "firebase");
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

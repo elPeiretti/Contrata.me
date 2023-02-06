@@ -179,7 +179,11 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
 
         tv_email.setText(user.getEmail());
         tv_nombre.setText(user.getDisplayName());
-        Glide.with(imagen.getContext()).load(user.getPhotoUrl()).into(imagen);
+        Glide.with(imagen.getContext())
+                .load(user.getPhotoUrl())
+                .placeholder(R.drawable.blank_profile_picture_973460_1280)
+                .error(R.drawable.blank_profile_picture_973460_1280)
+                .into(imagen);
     }
 
     @Override

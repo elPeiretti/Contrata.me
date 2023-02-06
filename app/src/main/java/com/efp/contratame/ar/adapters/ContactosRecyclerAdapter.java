@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -77,13 +78,13 @@ public class ContactosRecyclerAdapter extends RecyclerView.Adapter<ContactosRecy
 
     class ContactoViewHolder extends RecyclerView.ViewHolder{
 
-        private CardView card;
+        private LinearLayout layout;
         private CircleImageView imagen;
         private TextView nombre;
         private TextView ultimoMensaje;
         public ContactoViewHolder(@NonNull View itemView) {
             super(itemView);
-            card = itemView.findViewById(R.id.cardView);
+            layout = itemView.findViewById(R.id.contendor_servicio);
             imagen = itemView.findViewById(R.id.imagen_contacto);
             nombre = itemView.findViewById(R.id.tv_nombreContacto);
             ultimoMensaje = itemView.findViewById(R.id.tv_ultimoMensaje);
