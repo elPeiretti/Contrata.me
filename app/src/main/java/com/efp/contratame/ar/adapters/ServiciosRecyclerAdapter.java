@@ -35,8 +35,7 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
     public ServiciosRecyclerAdapter(List<Servicio> dataSet, Context context, SelectListener listener) {
         this.serviciosDataSet = dataSet;
         this.ctx = context;
-        listaOriginal = new ArrayList<>();
-        listaOriginal.addAll(serviciosDataSet);
+        listaOriginal = serviciosDataSet;
         this.listener=listener;
     }
 
@@ -78,7 +77,7 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
             //TODO Capaz podríamos mostrar un mensaje que diga "no se encontraron resultados para la búsqueda"
         }else{
             List<Servicio> coleccion =  new ArrayList<Servicio>();
-            coleccion= serviciosDataSet.stream()
+            coleccion= listaOriginal.stream()
                     .filter(i -> i.getPrestador().getNombre().toLowerCase().contains(txtBuscar.toLowerCase()))
                     .collect(Collectors.toList());
 
