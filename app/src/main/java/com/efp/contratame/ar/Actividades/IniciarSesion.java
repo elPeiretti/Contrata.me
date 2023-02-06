@@ -205,6 +205,11 @@ public class IniciarSesion extends AppCompatActivity {
                                         // Check condition
                                         if(task.isSuccessful()){
                                             Intent intent = new Intent( ctx,MainActivity.class);
+                                            intent.putExtra("idUsuario",firebaseAuth.getCurrentUser().getUid());
+                                            intent.putExtra("nombre", firebaseAuth.getCurrentUser().getDisplayName() == null ? "" : firebaseAuth.getCurrentUser().getDisplayName());
+                                            intent.putExtra("mail", firebaseAuth.getCurrentUser().getEmail());
+                                            intent.putExtra("foto", firebaseAuth.getCurrentUser().getPhotoUrl() == null ? "" : firebaseAuth.getCurrentUser().getPhotoUrl().toString());
+                                            intent.putExtra("sesion", "firebase");
                                             startActivity(intent
                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                             googleSignInClient.signOut();
@@ -255,6 +260,11 @@ public class IniciarSesion extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "signInWithCredential:success");
                             Intent intent = new Intent( ctx,MainActivity.class);
+                            intent.putExtra("idUsuario",firebaseAuth.getCurrentUser().getUid());
+                            intent.putExtra("nombre", firebaseAuth.getCurrentUser().getDisplayName() == null ? "" : firebaseAuth.getCurrentUser().getDisplayName());
+                            intent.putExtra("mail", firebaseAuth.getCurrentUser().getEmail());
+                            intent.putExtra("foto", firebaseAuth.getCurrentUser().getPhotoUrl() == null ? "" : firebaseAuth.getCurrentUser().getPhotoUrl().toString());
+                            intent.putExtra("sesion", "firebase");
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
