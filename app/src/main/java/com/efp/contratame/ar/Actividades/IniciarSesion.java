@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.MenuPpalFragment;
 import com.efp.contratame.ar.databinding.ActivityIniciarSesionBinding;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -139,14 +140,32 @@ public class IniciarSesion extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // startActivity(new Intent(IniciarSesion.this,MainActivity.class)
-                      //     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        firebaseAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                Log.d("user", "user not null");
+                Log.d("user", user.getEmail());
+
+                // startActivity(new Intent(IniciarSesion.this,MainActivity.class)
+                  //     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+               Intent intent = new Intent( ctx,MainActivity.class);
+                intent.putExtra("idUsuario",firebaseAuth.getCurrentUser().getUid());
+                intent.putExtra("nombre", firebaseAuth.getCurrentUser().getDisplayName() == null ? "" : firebaseAuth.getCurrentUser().getDisplayName());
+                intent.putExtra("mail", firebaseAuth.getCurrentUser().getEmail());
+                intent.putExtra("foto", firebaseAuth.getCurrentUser().getPhotoUrl() == null ? "" : firebaseAuth.getCurrentUser().getPhotoUrl().toString());
+                String tipo = user.getProviderData().get(1).getProviderId();
+                if(tipo.equalsIgnoreCase("google.com")){
+                    intent.putExtra("sesion", "google.com");
+                }else  if(tipo.equalsIgnoreCase("facebook.com")){
+                    intent.putExtra("sesion", "facebook.com");
+                }else {
+                    intent.putExtra("sesion", "firebase");
+
                 }
+
+               startActivity(intent);
+            }else{
+                Log.d("user","user is null");
             }
         };
 
@@ -178,7 +197,6 @@ public class IniciarSesion extends AppCompatActivity {
         firebaseAuth.removeAuthStateListener(firebaseAuthListener);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -209,7 +227,7 @@ public class IniciarSesion extends AppCompatActivity {
                                             intent.putExtra("nombre", firebaseAuth.getCurrentUser().getDisplayName() == null ? "" : firebaseAuth.getCurrentUser().getDisplayName());
                                             intent.putExtra("mail", firebaseAuth.getCurrentUser().getEmail());
                                             intent.putExtra("foto", firebaseAuth.getCurrentUser().getPhotoUrl() == null ? "" : firebaseAuth.getCurrentUser().getPhotoUrl().toString());
-                                            intent.putExtra("sesion", "firebase");
+                                            intent.putExtra("sesion", "google.com");
                                             startActivity(intent
                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                             googleSignInClient.signOut();
@@ -264,7 +282,7 @@ public class IniciarSesion extends AppCompatActivity {
                             intent.putExtra("nombre", firebaseAuth.getCurrentUser().getDisplayName() == null ? "" : firebaseAuth.getCurrentUser().getDisplayName());
                             intent.putExtra("mail", firebaseAuth.getCurrentUser().getEmail());
                             intent.putExtra("foto", firebaseAuth.getCurrentUser().getPhotoUrl() == null ? "" : firebaseAuth.getCurrentUser().getPhotoUrl().toString());
-                            intent.putExtra("sesion", "firebase");
+                            intent.putExtra("sesion", "facebook.com");
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.

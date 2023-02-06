@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
+        android:lineSpacingExtra="8sp"
         android:text="Contrata.me"
-        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
