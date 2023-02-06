@@ -4,20 +4,23 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
+    android:gravity="center"
     android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/service_icon"
         android:layout_width="@dimen/tipo_servicio_icon_size"
         android:layout_height="@dimen/tipo_servicio_icon_size"
-        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:backgroundTint="@android:color/transparent"
         android:contentDescription="Esto es un servicio"
-        android:backgroundTint="@android:color/transparent"/>
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <TextView
         android:id="@+id/service_name"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:breakStrategy="simple"
         android:text="servicio"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="12sp" />
 </LinearLayout>
