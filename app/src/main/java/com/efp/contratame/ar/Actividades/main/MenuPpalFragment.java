@@ -3,11 +3,16 @@ package com.efp.contratame.ar.Actividades.main;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -71,8 +76,9 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
         rv.setLayoutManager(new GridLayoutManager(getContext(),3));
         TipoServicioRepository.createInstance().getAllTipoServicios(this);
 
-        SearchView txtBusqueda = binding.txtBusqueda;
+        SearchView txtBusqueda = binding.txBuscar;
         txtBusqueda.setOnQueryTextListener(this);
+
 
         rvAdapter = new ServicioIconRecyclerAdapter(getContext(), new ArrayList<>(), this);
         rv.setAdapter(rvAdapter);
@@ -88,11 +94,13 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
             }
         });
 
-        txtBusqueda = binding.txtBusqueda;
+        txtBusqueda = binding.txBuscar;
         txtBusqueda.setOnQueryTextListener(this);
 
         return binding.getRoot();
     }
+
+
 
     @Override
     public void onTipoServicioSelected(TipoServicio tp) {
@@ -107,8 +115,11 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
     @Override
     public boolean onQueryTextChange(String s) {
         rvAdapter.filtrado(s);
-        return false;
+        //return true;
+
+       return false;
     }
+
 
     //metodos de TipoServicioDataSource.GetAllTipoServiciosCallback
     @Override

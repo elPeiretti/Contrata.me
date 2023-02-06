@@ -32,8 +32,7 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
     ServicioIconRecyclerAdapter(Context ctx, List<TipoServicio> dataSet, OnTipoServicioSelectedListener handler){
         this.mInflater = LayoutInflater.from(ctx);
         this.listaTipos = dataSet;
-        listaOriginal = new ArrayList<>();
-        listaOriginal.addAll(listaTipos);
+        listaOriginal = listaTipos;
         this.comListener = handler;
     }
 
@@ -72,15 +71,17 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
         int longitud = s.length();
         if(longitud==0){
            listaTipos=listaOriginal;
+           Log.d("busqueda 0: ", listaOriginal.size()+"<- lista original, tipos -> "+listaTipos.size());
 
             //TODO Capaz podríamos mostrar un mensaje que diga "no se encontraron resultados para la búsqueda"
         }else{
             List<TipoServicio> coleccion =  new ArrayList<TipoServicio>();
-            coleccion= listaTipos.stream()
+            coleccion= listaOriginal.stream()
                     .filter(i -> i.getNombre().toLowerCase().contains(s.toLowerCase()))
                     .collect(Collectors.toList());
 
             listaTipos=coleccion;
+            Log.d("busqueda !=0: ", listaOriginal.size()+"<- lista original, tipos -> "+listaTipos.size());
         }
         notifyDataSetChanged();
     }

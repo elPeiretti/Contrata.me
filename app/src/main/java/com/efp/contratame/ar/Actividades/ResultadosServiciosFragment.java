@@ -133,6 +133,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         txtBusqueda = binding.txtBusqueda;
         txtBusqueda.setOnQueryTextListener(this);
 
+
         //Funcionalidad de orden
         spinner= binding.spinner;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

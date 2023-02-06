@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <SearchView
-        android:id="@+id/txtBusqueda"
+        android:id="@+id/tx_buscar"
         style="@android:style/Widget.Material.SearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

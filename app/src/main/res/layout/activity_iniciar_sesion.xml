@@ -90,6 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="@color/el_00867d"
         android:text="Iniciar Sesión" />
 
     <TextView
