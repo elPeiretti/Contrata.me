@@ -2,6 +2,7 @@ package com.efp.contratame.ar.Actividades;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.strictmode.FragmentStrictMode;
 
 import android.content.Context;
 import android.content.Intent;
@@ -193,6 +194,10 @@ public class IniciarSesion extends AppCompatActivity {
                                        }
                                         else
                                         {
+                                            if(task.getException().toString().contains("network error")){
+                                                Toast.makeText(IniciarSesion.this, "Debe contar con conexión a internet. Inténtelo más tarde",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
                                            Log.d("GOOGLE","Authentication Failed :"+task.getException().getMessage());
                                         }
                                     }

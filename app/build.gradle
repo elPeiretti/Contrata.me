@@ -58,9 +58,10 @@ dependencies {
     //firebase
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
     implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+    implementation 'com.facebook.android:facebook-android-sdk:12.3.0'
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'androidx.work:work-runtime:2.7.1'
     // Required -- JUnit 4 framework
     testImplementation "junit:junit:4.13.2"
 
