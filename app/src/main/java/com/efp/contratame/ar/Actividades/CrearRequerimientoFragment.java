@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -39,12 +42,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import kotlin.jvm.internal.Lambda;
 
 public class CrearRequerimientoFragment extends Fragment implements TipoServicioDataSource.GetAllTipoServiciosCallback, OnMapReadyCallback {
 
@@ -61,6 +68,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
 
     private GoogleMap mapa;
     private ActivityResultLauncher<String> activityResultLauncher;
+    private boolean permitido = false;
 
     public CrearRequerimientoFragment() {
 
@@ -84,10 +92,11 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                             })
                             .create()
                             .show();
-                } else {
-                    NavHostFragment.findNavController(ctx).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
-                    Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
                 }
+                permitido = false;
+            }
+            else{
+                permitido = true;
             }
         });
     }
@@ -151,10 +160,38 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     }
 
     @Override
+    @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        if (!permitido){
+            NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
+            Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
+            return;
+        }
         mapa = googleMap;
-
-        //mapa.getUiSettings().setAllGesturesEnabled(false);
+        mapa.getUiSettings().setAllGesturesEnabled(false);
         mapa.setMyLocationEnabled(true);
+
+        actualizarUbicacion();
     }
+
+    @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+    public void actualizarUbicacion(){
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        Location currLoc = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
+
+        if(currLoc != null){
+            LatLng pos = new LatLng(currLoc.getLatitude(), currLoc.getLongitude());
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(pos)
+                    .zoom(14.5f)
+                    .bearing(90)
+                    .tilt(40)
+                    .build();
+            mapa.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+        else{
+            Toast.makeText(getActivity(), "Por favor, active la ubicacion.", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
