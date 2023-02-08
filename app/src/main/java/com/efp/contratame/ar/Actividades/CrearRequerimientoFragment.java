@@ -69,6 +69,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private GoogleMap mapa;
     private ActivityResultLauncher<String> activityResultLauncher;
     private boolean permitido = false;
+    private boolean ubicacionOk = false;
 
     public CrearRequerimientoFragment() {
 
@@ -120,9 +121,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         //verificar permisos
         activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -135,6 +135,33 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 android.R.layout.simple_spinner_item, new ArrayList<>());
         adapterRubro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterRubro);
+
+        binding.buttonPublicar.setOnClickListener(view -> {
+            if (!permitido){
+                Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(!ubicacionOk){
+                Toast.makeText(getActivity(), "Actualice su ubicacion para continuar.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            //TODO logica de guardar el requerimiento
+            Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
+            NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
+        });
+
+        binding.buttonDescartar.setOnClickListener(view -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
+        });
+
+        binding.buttonActualizarMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            public void onClick(View view) {
+                actualizarUbicacion();
+            }
+        });
 
         //seria mejor guardar en la actividad los tipos servicios cuando los busco para el menu ppal?
         TipoServicioRepository.createInstance().getAllTipoServicios(this);
@@ -162,20 +189,16 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     @Override
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        if (!permitido){
-            NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
-            Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
-            return;
-        }
         mapa = googleMap;
-        mapa.getUiSettings().setAllGesturesEnabled(false);
-        mapa.setMyLocationEnabled(true);
 
-        actualizarUbicacion();
+        if (permitido)
+            actualizarUbicacion();
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void actualizarUbicacion(){
+
+        mapa.setMyLocationEnabled(true);
         LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         Location currLoc = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
 
@@ -188,9 +211,11 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                     .tilt(40)
                     .build();
             mapa.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            ubicacionOk = true;
         }
         else{
             Toast.makeText(getActivity(), "Por favor, active la ubicacion.", Toast.LENGTH_LONG).show();
+            ubicacionOk = false;
         }
     }
 
