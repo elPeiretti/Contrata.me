@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "367821377453",
+    "firebase_url": "https://contratame-8fd7a-default-rtdb.firebaseio.com",
     "project_id": "contratame-8fd7a",
     "storage_bucket": "contratame-8fd7a.appspot.com"
   },
@@ -12,12 +13,7 @@
           "package_name": "com.efp.contratame.ar"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "367821377453-kd4psg38sd0ifku5fsjoe8vgkmhcn4a6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyB9pK-RixhBMDe_XvO1RgXYNYYHnTKD9NY"
