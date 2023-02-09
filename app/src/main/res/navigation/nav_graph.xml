@@ -39,7 +39,14 @@
         android:id="@+id/crearRequerimientoFragment"
         android:name="com.efp.contratame.ar.Actividades.CrearRequerimientoFragment"
         android:label="fragment_crear_requerimiento"
-        tools:layout="@layout/fragment_crear_requerimiento" />
+        tools:layout="@layout/fragment_crear_requerimiento" >
+        <action
+            android:id="@+id/action_crearRequerimientoFragment_to_resultadosServiciosFragment"
+            app:destination="@id/resultadosServiciosFragment" />
+        <action
+            android:id="@+id/action_crearRequerimientoFragment_to_menuPpalFragment2"
+            app:destination="@id/menuPpalFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/menuPpalFragment2"
         android:name="com.efp.contratame.ar.Actividades.main.MenuPpalFragment"
