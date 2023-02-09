@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -60,16 +61,18 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
 
     private String mParam1;
     private String mParam2;
-
     private FragmentCrearRequerimientoBinding binding;
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapterRubro;
     private Context ctx= this.getContext();
-
+    //cosas para el mapa
     private GoogleMap mapa;
     private ActivityResultLauncher<String> activityResultLauncher;
     private boolean permitido = false;
     private boolean ubicacionOk = false;
+    //cosas para la foto
+    private ActivityResultLauncher<String> fotoGetter;
+    private Uri fotoSeleccionada;
 
     public CrearRequerimientoFragment() {
 
@@ -98,6 +101,19 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             }
             else{
                 permitido = true;
+            }
+        });
+
+        fotoGetter = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+            if (result != null) {
+                fotoSeleccionada = result;
+                binding.buttonAgregarFoto.setImageURI(result);
+            }
+            else if (fotoSeleccionada != null){
+                binding.buttonAgregarFoto.setImageURI(fotoSeleccionada);
+            }
+            else{
+                binding.buttonAgregarFoto.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.foto_presione_aqui));
             }
         });
     }
@@ -135,6 +151,10 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 android.R.layout.simple_spinner_item, new ArrayList<>());
         adapterRubro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterRubro);
+
+        binding.buttonAgregarFoto.setOnClickListener(view -> {
+            fotoGetter.launch("image/*");
+        });
 
         binding.buttonPublicar.setOnClickListener(view -> {
             if (!permitido){
