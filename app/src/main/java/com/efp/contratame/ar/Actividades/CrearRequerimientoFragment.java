@@ -329,9 +329,10 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             ok = false;
             binding.tituloInputLayout.setError("Este campo no puede estar vacio.");
         }
-        if(binding.descripcionEditText.getText().toString().isEmpty())
+        if(binding.descripcionEditText.getText().toString().isEmpty()) {
             ok = false;
             binding.descripcionInputLayout.setError("Este campo no puede estar vacio.");
+        }
 
         return ok;
     }
