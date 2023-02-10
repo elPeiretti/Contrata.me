@@ -7,6 +7,7 @@ public class RequerimientoRF {
     private String titulo;
     private String keyRubro;
     private String descripcion;
+    // imagen en base64
     private String imagen;
     private String UbicLatitud;
     private String UbicLongitud;
