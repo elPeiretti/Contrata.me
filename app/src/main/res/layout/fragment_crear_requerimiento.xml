@@ -79,7 +79,7 @@
                     android:id="@+id/descripcion_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Describa brevemente su necesidad..."
+                    android:hint="Describa brevemente su necesidad.."
                     android:inputType="textMultiLine"
                     android:background="@color/white"
                     android:gravity="start|top"
