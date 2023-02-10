@@ -24,6 +24,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +73,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private boolean permitido = false;
     private boolean ubicacionOk = false;
     //cosas para la foto
-    private ActivityResultLauncher<String> fotoGetter;
+    private final ActivityResultLauncher<String> fotoGetter;
     private Uri fotoSeleccionada;
 
     public CrearRequerimientoFragment() {
@@ -156,6 +158,32 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             fotoGetter.launch("image/*");
         });
 
+        binding.tituloEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                binding.tituloInputLayout
+                        .setError(editable.toString().isEmpty() ? "Este campo no puede estar vacio." : null);
+            }
+        });
+
+        binding.descripcionEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                binding.descripcionInputLayout
+                        .setError(editable.toString().isEmpty() ? "Este campo no puede estar vacio." : null);
+            }
+        });
+
         binding.buttonPublicar.setOnClickListener(view -> {
             if (!permitido){
                 Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
@@ -165,8 +193,13 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 Toast.makeText(getActivity(), "Actualice su ubicacion para continuar.", Toast.LENGTH_LONG).show();
                 return;
             }
+            if(!tituloDescripcionAreOk()){
+                Toast.makeText(getActivity(), "Asegurese de completar todo para continuar.", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             //TODO logica de guardar el requerimiento
+
             Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
             NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
         });
@@ -237,6 +270,19 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             Toast.makeText(getActivity(), "Por favor, active la ubicacion.", Toast.LENGTH_LONG).show();
             ubicacionOk = false;
         }
+    }
+
+    public boolean tituloDescripcionAreOk(){
+        boolean ok = true;
+        if(binding.tituloEditText.getText().toString().isEmpty()) {
+            ok = false;
+            binding.tituloInputLayout.setError("Este campo no puede estar vacio.");
+        }
+        if(binding.descripcionEditText.getText().toString().isEmpty())
+            ok = false;
+            binding.descripcionInputLayout.setError("Este campo no puede estar vacio.");
+
+        return ok;
     }
 
 }

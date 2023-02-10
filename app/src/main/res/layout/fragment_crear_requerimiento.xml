@@ -24,20 +24,22 @@
                 android:paddingBottom="5dp"
                 android:text="Título"
                 android:textColor="@color/teal_700"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titulo_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:paddingBottom="5dp" />
+                app:errorEnabled="true">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titulo_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingrese el servicio que requiere..."
+                    android:inputType="textPersonName"
+                    android:background="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/textView"
@@ -56,7 +58,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="8dp" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -67,16 +69,24 @@
                 android:textColor="@color/teal_700"
                 android:textSize="14dp" />
 
-            <EditText
-                android:id="@+id/editTextTextMultiLine"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descripcion_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:lines="5"
-                android:maxLines="9"
-                android:paddingBottom="5dp" />
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descripcion_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Describa brevemente su necesidad.."
+                    android:inputType="textMultiLine"
+                    android:background="@color/white"
+                    android:gravity="start|top"
+                    android:lines="5"
+                    android:paddingBottom="5dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <ImageButton
                 android:id="@+id/button_agregar_foto"
@@ -88,7 +98,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="10dp" />
 
             <TextView
                 android:id="@+id/textView3"
