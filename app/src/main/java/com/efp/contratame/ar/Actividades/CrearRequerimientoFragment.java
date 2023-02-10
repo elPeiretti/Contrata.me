@@ -236,6 +236,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
             setAlarm();
             NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
+            Toast.makeText(getActivity(), "Requerimiento creado exitosamente", Toast.LENGTH_LONG).show();
         });
 
         binding.buttonDescartar.setOnClickListener(view -> {
