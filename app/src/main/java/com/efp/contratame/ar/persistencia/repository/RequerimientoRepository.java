@@ -21,8 +21,8 @@ public class RequerimientoRepository implements RequerimientoDataSource {
     }
 
     @Override
-    public void saveRequerimiento(Requerimiento req) {
-        reqDataSource.saveRequerimiento(req);
+    public void saveRequerimiento(Requerimiento req, UUID idUsuario) {
+        reqDataSource.saveRequerimiento(req, idUsuario);
     }
 
     @Override
