@@ -87,6 +87,12 @@
                     android:paddingBottom="5dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <ImageButton
+                android:id="@+id/BtnFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:src="@android:drawable/ic_menu_today" />
 
             <ImageButton
                 android:id="@+id/button_agregar_foto"

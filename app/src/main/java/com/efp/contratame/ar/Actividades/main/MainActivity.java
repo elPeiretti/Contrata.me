@@ -1,7 +1,12 @@
 package com.efp.contratame.ar.Actividades.main;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -15,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,6 +28,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
+import com.efp.contratame.ar.Actividades.AlarmReceiver;
 import com.efp.contratame.ar.Actividades.DetalleProveedorServicioFragment;
 import com.efp.contratame.ar.Actividades.IniciarSesion;
 import com.efp.contratame.ar.Actividades.PerfilUsuarioFragment;
@@ -36,6 +43,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener,
@@ -52,12 +60,13 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     private View header;
     private Context ctx = this;
     private Servicio servicioSeleccionado;
-
+    private PendingIntent pendingIntent;
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        createNotificationChannel();
         Bundle extras = getIntent().getExtras();
         user = new Usuario(
                 extras.getString("idUsuario"),
@@ -93,8 +102,21 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         header = navigationView.getHeaderView(0);
         setearValoresDrawer();
 
+
     }
 
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            CharSequence name = "Reminders";
+            String description = "Channel for reminders";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("channelid",name,importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
 
     @Override
@@ -199,5 +221,9 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     @Override
     public void onServicioSelected(Servicio s) {
         this.servicioSeleccionado = s;
+    }
+
+    public Context getCtx() {
+        return ctx;
     }
 }

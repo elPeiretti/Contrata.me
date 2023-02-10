@@ -1,9 +1,13 @@
 package com.efp.contratame.ar.Actividades;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -31,6 +35,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -50,6 +56,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -75,7 +82,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     //cosas para la foto
     private final ActivityResultLauncher<String> fotoGetter;
     private Uri fotoSeleccionada;
-
+    private ImageButton fecha ;
+    private Calendar calendario;
     public CrearRequerimientoFragment() {
 
         CrearRequerimientoFragment ctx = this;
@@ -105,6 +113,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 permitido = true;
             }
         });
+
 
         fotoGetter = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
             if (result != null) {
@@ -184,6 +193,30 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             }
         });
 
+        fecha = binding.BtnFecha;
+        calendario = Calendar.getInstance();
+        fecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DATE);
+                c.setTimeInMillis(calendario.getTimeInMillis()+(1000 * 60 * 60 * 24));
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                            }
+                        },
+                        year, month, day);
+                datePickerDialog.getDatePicker().setMinDate(calendario.getTimeInMillis());
+                datePickerDialog.show();
+            }
+        });
+
         binding.buttonPublicar.setOnClickListener(view -> {
             if (!permitido){
                 Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
@@ -201,6 +234,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             //TODO logica de guardar el requerimiento
 
             Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
+            setAlarm();
             NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
         });
 
@@ -226,6 +260,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         return binding.getRoot();
     }
 
+
+
     // GetAllTipoServicioCallback
     @Override
     public void onError() {
@@ -247,6 +283,20 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         if (permitido)
             actualizarUbicacion();
     }
+
+
+    private void setAlarm() {
+        Context cont = getActivity().getApplicationContext();
+
+        AlarmManager alarmManager = (AlarmManager) cont.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(cont, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(cont, 0, intent,PendingIntent.FLAG_IMMUTABLE);
+        Log.i("Alarm", calendario.toString());
+        calendario.add(Calendar.SECOND, 30);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendario.getTimeInMillis(), pendingIntent);
+        Toast.makeText(cont, "Alarm set successfully", Toast.LENGTH_SHORT).show();
+    }
+
 
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void actualizarUbicacion(){
