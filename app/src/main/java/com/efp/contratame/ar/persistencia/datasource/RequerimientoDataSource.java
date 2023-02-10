@@ -16,6 +16,6 @@ public interface RequerimientoDataSource {
         void onResult(List<Requerimiento> requerimientoList);
     }
 
-    void saveRequerimiento(Requerimiento req);
+    void saveRequerimiento(Requerimiento req, UUID idUsuario);
     void getAllRequerimientosFrom(UUID idUsuario);
 }
