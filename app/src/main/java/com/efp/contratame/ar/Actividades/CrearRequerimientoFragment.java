@@ -256,12 +256,13 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                         (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
                         binding.descripcionEditText.getText().toString(),
                         MediaStore.Images.Media
-                                .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("R.drawable.iconocolor") : fotoSeleccionada),
+                                .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("android.resource://com.efp.contratame.ar/"+R.drawable.iconocolor) : fotoSeleccionada),
                         pos
                 );
                 RequerimientoRepository.createInstance().saveRequerimiento(req,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
 
             } catch (IOException e) {
+                Log.e("error cargando la imagen",e.getMessage());
                 Toast.makeText(getActivity(), "Ha ocurrido un error, intentelo nuevamente.", Toast.LENGTH_LONG).show();
             }
 
