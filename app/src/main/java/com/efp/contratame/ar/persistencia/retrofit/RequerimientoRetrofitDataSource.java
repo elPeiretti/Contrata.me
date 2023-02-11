@@ -47,9 +47,9 @@ public class RequerimientoRetrofitDataSource implements RequerimientoDataSource 
     }
 
     @Override
-    public void saveRequerimiento(Requerimiento req, UUID idUsuario, SaveRequerimientoCallback callback) {
+    public void saveRequerimiento(Requerimiento req, String idUsuario, SaveRequerimientoCallback callback) {
         Call<RequerimientoRF> reqAsyn = requerimientoService
-                .saveRequerimiento(idUsuario.toString(), RequerimientoMapper.toEntity(req));
+                .saveRequerimiento(idUsuario, RequerimientoMapper.toEntity(req));
         reqAsyn.enqueue(new Callback<RequerimientoRF>() {
             @Override
             public void onResponse(@NonNull Call<RequerimientoRF> call, @NonNull Response<RequerimientoRF> response) {
@@ -69,7 +69,7 @@ public class RequerimientoRetrofitDataSource implements RequerimientoDataSource 
     }
 
     @Override
-    public void getAllRequerimientosFrom(UUID idUsuario, GetAllRequerimientosFromCallback callback) {
+    public void getAllRequerimientosFrom(String idUsuario, GetAllRequerimientosFromCallback callback) {
         TipoServicioRepository.createInstance().getAllTipoServicios(new TipoServicioDataSource.GetAllTipoServiciosCallback() {
             @Override
             public void onError() {
@@ -78,7 +78,7 @@ public class RequerimientoRetrofitDataSource implements RequerimientoDataSource 
 
             @Override
             public void onResult(List<TipoServicio> tipos) {
-                Call<Map<String,RequerimientoRF>> reqAsyn = requerimientoService.getAllRequerimientosFrom(idUsuario.toString());
+                Call<Map<String,RequerimientoRF>> reqAsyn = requerimientoService.getAllRequerimientosFrom(idUsuario);
 
                 Log.i("RETRO",reqAsyn.request().url().toString());
                 reqAsyn.enqueue(new Callback<Map<String, RequerimientoRF>>() {
