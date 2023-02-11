@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.auxiliares.EspressoIdlingResource;
 import com.efp.contratame.ar.databinding.FragmentMenuPpalBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
@@ -74,6 +75,7 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
         //setup recyclerview
         rv = binding.rvServicios;
         rv.setLayoutManager(new GridLayoutManager(getContext(),3));
+        EspressoIdlingResource.getInstance().increment(); // PARA TESTING
         TipoServicioRepository.createInstance().getAllTipoServicios(this);
 
         SearchView txtBusqueda = binding.txBuscar;
@@ -132,5 +134,6 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
     public void onResult(List<TipoServicio> tipos) {
         tipos.add(TipoServicioRepository.OTRO);
         rvAdapter.updateData(tipos);
+        EspressoIdlingResource.getInstance().decrement(); // Se usa en test
     }
 }
