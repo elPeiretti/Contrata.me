@@ -6,12 +6,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.PUT;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RequerimientoService {
 
-    @PUT("requerimiento/{id}.json")
+    @POST("requerimiento/{id}.json")
     Call<RequerimientoRF> saveRequerimiento(@Path("id") String idUsuario, @Body RequerimientoRF reqRF);
 
     @GET("requerimiento/{id}.json")
