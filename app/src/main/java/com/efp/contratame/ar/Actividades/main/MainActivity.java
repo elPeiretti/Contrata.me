@@ -23,9 +23,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         super.onCreate(savedInstanceState);
         createNotificationChannel();
         Bundle extras = getIntent().getExtras();
+
         user = new Usuario(
                 extras.getString("idUsuario"),
                 extras.getString("mail"),
@@ -80,6 +83,19 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if(extras.containsKey("fragment")){
+            switch (extras.getString("fragment")){
+                case "presiona la noti":
+                    //jjj
+                    break;
+                case "perfil":
+                    Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.perfilUsuarioFragment);
+                    break;
+                case "presiona mantener":
+                    //kkkk
+                    break;
+            }
+        }
         setSupportActionBar(binding.appBarMain.toolbar);
         drawer = binding.drawerLayout;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

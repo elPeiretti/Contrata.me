@@ -58,6 +58,9 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_menuPpalFragment2_to_perfilUsuarioFragment"
+            app:destination="@id/perfilUsuarioFragment" />
     </fragment>
     <fragment
         android:id="@+id/perfilUsuarioFragment"
