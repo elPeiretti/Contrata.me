@@ -80,7 +80,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private String mParam2;
     private FragmentCrearRequerimientoBinding binding;
     private Spinner spinner;
-    private ArrayAdapter<CharSequence> adapterRubro;
+    private ArrayAdapter<TipoServicio> adapterRubro;
     private Context ctx= this.getContext();
     private UsuarioGetter usuarioGetter;
     //cosas para el mapa
@@ -255,7 +255,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                         binding.tituloEditText.getText().toString(),
                         (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
                         binding.descripcionEditText.getText().toString(),
-                        MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), fotoSeleccionada),
+                        MediaStore.Images.Media
+                                .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("R.drawable.iconocolor") : fotoSeleccionada),
                         pos
                 );
                 RequerimientoRepository.createInstance().saveRequerimiento(req,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
@@ -293,7 +294,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     public void onResult(List<TipoServicio> tipos) {
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
-        adapterRubro.addAll(tipos.stream().map(TipoServicio::getNombre).collect(Collectors.toList()));
+        adapterRubro.addAll(tipos);
     }
 
     // SaveRequerimientoCallback
