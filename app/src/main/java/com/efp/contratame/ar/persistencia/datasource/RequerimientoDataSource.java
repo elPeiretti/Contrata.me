@@ -11,11 +11,11 @@ public interface RequerimientoDataSource {
         void onError();
         void onResult();
     }
-    interface GetAllRequerimientosByFromCallback {
+    interface GetAllRequerimientosFromCallback {
         void onError();
         void onResult(List<Requerimiento> requerimientoList);
     }
 
-    void saveRequerimiento(Requerimiento req, UUID idUsuario);
-    void getAllRequerimientosFrom(UUID idUsuario);
+    void saveRequerimiento(Requerimiento req, UUID idUsuario, SaveRequerimientoCallback callback);
+    void getAllRequerimientosFrom(UUID idUsuario, GetAllRequerimientosFromCallback callback);
 }

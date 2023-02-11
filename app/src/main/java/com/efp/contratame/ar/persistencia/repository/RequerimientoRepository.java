@@ -21,12 +21,12 @@ public class RequerimientoRepository implements RequerimientoDataSource {
     }
 
     @Override
-    public void saveRequerimiento(Requerimiento req, UUID idUsuario) {
-        reqDataSource.saveRequerimiento(req, idUsuario);
+    public void saveRequerimiento(Requerimiento req, UUID idUsuario, SaveRequerimientoCallback callback) {
+        reqDataSource.saveRequerimiento(req, idUsuario, callback);
     }
 
     @Override
-    public void getAllRequerimientosFrom(UUID idUsuario) {
-        reqDataSource.getAllRequerimientosFrom(idUsuario);
+    public void getAllRequerimientosFrom(UUID idUsuario, GetAllRequerimientosFromCallback callback) {
+        reqDataSource.getAllRequerimientosFrom(idUsuario, callback);
     }
 }
