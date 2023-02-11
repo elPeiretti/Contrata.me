@@ -9,8 +9,8 @@ public class RequerimientoRF {
     private String descripcion;
     // imagen en base64
     private String imagen;
-    private String UbicLatitud;
-    private String UbicLongitud;
+    private String ubicLatitud;
+    private String ubicLongitud;
 
     public RequerimientoRF(String idRequerimiento, String titulo, String keyRubro, String descripcion, String imagen, String ubicLatitud, String ubicLongitud) {
         this.idRequerimiento = idRequerimiento;
@@ -18,8 +18,8 @@ public class RequerimientoRF {
         this.keyRubro = keyRubro;
         this.descripcion = descripcion;
         this.imagen = imagen;
-        this.UbicLatitud = ubicLatitud;
-        this.UbicLongitud = ubicLongitud;
+        this.ubicLatitud = ubicLatitud;
+        this.ubicLongitud = ubicLongitud;
     }
 
     public String getIdRequerimiento() {
@@ -63,18 +63,18 @@ public class RequerimientoRF {
     }
 
     public String getUbicLatitud() {
-        return UbicLatitud;
+        return ubicLatitud;
     }
 
     public void setUbicLatitud(String ubicLatitud) {
-        UbicLatitud = ubicLatitud;
+        this.ubicLatitud = ubicLatitud;
     }
 
     public String getUbicLongitud() {
-        return UbicLongitud;
+        return ubicLongitud;
     }
 
     public void setUbicLongitud(String ubicLongitud) {
-        UbicLongitud = ubicLongitud;
+        this.ubicLongitud = ubicLongitud;
     }
 }
