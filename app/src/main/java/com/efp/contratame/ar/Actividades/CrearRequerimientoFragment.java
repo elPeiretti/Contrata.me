@@ -45,6 +45,7 @@ import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.Actividades.main.UsuarioGetter;
 import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.auxiliares.EspressoIdlingResource;
 import com.efp.contratame.ar.databinding.FragmentCrearRequerimientoBinding;
 import com.efp.contratame.ar.modelo.Requerimiento;
 import com.efp.contratame.ar.modelo.TipoServicio;
@@ -263,6 +264,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                                 .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("android.resource://com.efp.contratame.ar/"+R.drawable.iconocolor) : fotoSeleccionada),
                         pos
                 );
+                EspressoIdlingResource.getInstance().increment(); // PARA TEST
                 RequerimientoRepository.createInstance().saveRequerimiento(req,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
 
             } catch (IOException e) {
@@ -285,6 +287,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         });
 
         //seria mejor guardar en la actividad los tipos servicios cuando los busco para el menu ppal?
+        EspressoIdlingResource.getInstance().increment(); // PARA TEST
         TipoServicioRepository.createInstance().getAllTipoServicios(this);
 
         //init mapa
@@ -301,6 +304,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         tipos.add(TipoServicioRepository.OTRO);
         adapterRubro.addAll(tipos);
         binding.spinnerRurbos.setSelection(adapterRubro.getPosition(tipoServicioGetter.getTipoSeleccionado()),true);
+        EspressoIdlingResource.getInstance().decrement(); // PARA TEST
     }
 
     // SaveRequerimientoCallback
@@ -310,6 +314,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         setAlarm();
         NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
         Toast.makeText(getActivity(), "Requerimiento creado exitosamente", Toast.LENGTH_LONG).show();
+        EspressoIdlingResource.getInstance().decrement();
     }
 
     @Override

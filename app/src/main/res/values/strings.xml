@@ -28,4 +28,5 @@
     <string name="rv_servicios_no_data">Lo sentimos, ningun prestador se encuentra ofrenciendo servicios de este tipo en este momento.</string>
     <string name="rv_servicio_sin_comment">No se han realizado comentarios del servicio hasta el momento</string>
 
+    <string name="titulo_toolbar_ppal">¿Qué necesitas?</string>
 </resources>

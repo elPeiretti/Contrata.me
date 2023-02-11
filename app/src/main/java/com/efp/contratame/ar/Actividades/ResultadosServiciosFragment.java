@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.auxiliares.EspressoIdlingResource;
 import com.efp.contratame.ar.persistencia.datasource.ServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
 import com.efp.contratame.ar.adapters.ServiciosRecyclerAdapter;
@@ -168,6 +169,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
 
         //Carga de servicios
         mAdapter= new ServiciosRecyclerAdapter(new ArrayList<>(), ctx, this);
+        EspressoIdlingResource.getInstance().increment(); // Se usa para testing
         ServicioRepository.createInstance().getAllServiciosDelTipo(getterServicio.getTipoSeleccionado(),this);
 
         recyclerView = binding.recyclerServicios;
@@ -218,6 +220,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
             recyclerView.setVisibility(servicios.isEmpty() ? View.GONE : View.VISIBLE);
             binding.tvMensajeEmpty.setVisibility(servicios.isEmpty() ? View.VISIBLE : View.GONE);
             mAdapter.updateData(servicios);
+            EspressoIdlingResource.getInstance().decrement(); // Se usa para testing
     }
 
     @Override

@@ -134,6 +134,6 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
     public void onResult(List<TipoServicio> tipos) {
         tipos.add(TipoServicioRepository.OTRO);
         rvAdapter.updateData(tipos);
-        EspressoIdlingResource.getInstance().decrement();
+        EspressoIdlingResource.getInstance().decrement(); // Se usa en test
     }
 }
