@@ -1,5 +1,7 @@
 package com.efp.contratame.ar.modelo;
 
+import androidx.annotation.Nullable;
+
 import java.util.UUID;
 
 public class TipoServicio {
@@ -49,5 +51,14 @@ public class TipoServicio {
     @Override
     public String toString(){
         return nombre;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof TipoServicio)
+            return idTipoServicio.equals(((TipoServicio) obj).idTipoServicio);
+        else {
+            return super.equals(obj);
+        }
     }
 }

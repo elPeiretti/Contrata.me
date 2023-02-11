@@ -49,7 +49,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements MenuPpalFragment.onTipoServicioSelectedListener,
-        ResultadosServiciosFragment.TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener, UsuarioGetter,
+        TipoServicioGetter, NavigationView.OnNavigationItemSelectedListener, UsuarioGetter,
         DetalleProveedorServicioFragment.ServicioGetter, ResultadosServiciosFragment.OnServicioSelectedListener {
 
     private ActivityMainBinding binding;

@@ -20,6 +20,7 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.persistencia.datasource.ServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
@@ -36,6 +37,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,9 +69,6 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     private TipoServicioGetter getterServicio;
     private OnServicioSelectedListener servicioSelectedListener;
 
-    public interface TipoServicioGetter{
-        public TipoServicio getTipoSeleccionado();
-    }
 
     public ResultadosServiciosFragment() {
         // Required empty public constructor
@@ -168,7 +167,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         //RECYCLERVIEW
 
         //Carga de servicios
-        mAdapter= new ServiciosRecyclerAdapter(List.of(), ctx, this);
+        mAdapter= new ServiciosRecyclerAdapter(new ArrayList<>(), ctx, this);
         ServicioRepository.createInstance().getAllServiciosDelTipo(getterServicio.getTipoSeleccionado(),this);
 
         recyclerView = binding.recyclerServicios;

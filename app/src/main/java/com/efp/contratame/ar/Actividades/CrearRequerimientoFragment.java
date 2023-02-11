@@ -42,6 +42,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.Actividades.main.UsuarioGetter;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentCrearRequerimientoBinding;
@@ -83,6 +84,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private ArrayAdapter<TipoServicio> adapterRubro;
     private Context ctx= this.getContext();
     private UsuarioGetter usuarioGetter;
+    private TipoServicioGetter tipoServicioGetter;
     //cosas para el mapa
     private GoogleMap mapa;
     private ActivityResultLauncher<String> activityResultLauncher;
@@ -163,6 +165,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         super.onAttach(context);
         if (context instanceof UsuarioGetter)
             usuarioGetter = (UsuarioGetter) context;
+        if (context instanceof TipoServicioGetter)
+            tipoServicioGetter = (TipoServicioGetter) context;
     }
 
     @Override
@@ -296,6 +300,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
         adapterRubro.addAll(tipos);
+        binding.spinnerRurbos.setSelection(adapterRubro.getPosition(tipoServicioGetter.getTipoSeleccionado()),true);
     }
 
     // SaveRequerimientoCallback
