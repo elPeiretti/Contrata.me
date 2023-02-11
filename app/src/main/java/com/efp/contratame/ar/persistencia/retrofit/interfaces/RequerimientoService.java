@@ -2,7 +2,7 @@ package com.efp.contratame.ar.persistencia.retrofit.interfaces;
 
 import com.efp.contratame.ar.persistencia.retrofit.entity.RequerimientoRF;
 
-import java.util.List;
+import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -15,5 +15,5 @@ public interface RequerimientoService {
     Call<RequerimientoRF> saveRequerimiento(@Path("id") String idUsuario, @Body RequerimientoRF reqRF);
 
     @GET("requerimiento/{id}.json")
-    Call<List<RequerimientoRF>> getAllRequerimientosFrom(@Path("id") String idUsuario);
+    Call<Map<String,RequerimientoRF>> getAllRequerimientosFrom(@Path("id") String idUsuario);
 }
