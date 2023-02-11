@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.efp.contratame.ar.modelo.Prestador;
 import com.efp.contratame.ar.modelo.Requerimiento;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.retrofit.entity.RequerimientoRF;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class RequerimientoMapper {
 
@@ -31,6 +33,17 @@ public class RequerimientoMapper {
                 foto,
                 new LatLng(Double.parseDouble(entity.getUbicLatitud()), Double.parseDouble(entity.getUbicLongitud()))
         );
+    }
+
+    public static List<Requerimiento> fromEntities(List<RequerimientoRF> entities, List<TipoServicio> tipoServicios){
+        return entities.stream()
+                .map(r -> RequerimientoMapper.fromEntity(
+                        r,
+                        tipoServicios.stream()
+                                .filter(t -> t.getIdTipoServicio().toString().equals(r.getKeyRubro()))
+                                .findFirst()
+                                .orElse(null)))
+                .collect(Collectors.toList());
     }
 
     public static RequerimientoRF toEntity(Requerimiento req){
