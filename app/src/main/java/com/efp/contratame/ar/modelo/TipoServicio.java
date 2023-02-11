@@ -45,4 +45,9 @@ public class TipoServicio {
     public void setIdTipoServicio(UUID id){
         this.idTipoServicio = id;
     }
+
+    @Override
+    public String toString(){
+        return nombre;
+    }
 }

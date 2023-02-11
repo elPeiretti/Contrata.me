@@ -1,5 +1,6 @@
 package com.efp.contratame.ar.modelo;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.UUID;
@@ -10,10 +11,10 @@ public class Requerimiento {
     private String titulo;
     private TipoServicio rubro;
     private String descripcion;
-    private Uri imagen;
+    private Bitmap imagen;
     private LatLng ubicacion;
 
-    public Requerimiento(UUID idRequerimiento, String titulo, TipoServicio rubro, String descripcion, Uri imagen, LatLng ubicacion) {
+    public Requerimiento(UUID idRequerimiento, String titulo, TipoServicio rubro, String descripcion, Bitmap imagen, LatLng ubicacion) {
         this.idRequerimiento = idRequerimiento;
         this.titulo = titulo;
         this.rubro = rubro;
@@ -54,11 +55,11 @@ public class Requerimiento {
         this.descripcion = descripcion;
     }
 
-    public Uri getImagen() {
+    public Bitmap getImagen() {
         return imagen;
     }
 
-    public void setImagen(Uri imagen) {
+    public void setImagen(Bitmap imagen) {
         this.imagen = imagen;
     }
 

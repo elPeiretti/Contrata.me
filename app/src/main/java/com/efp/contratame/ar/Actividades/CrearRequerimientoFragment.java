@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -41,10 +42,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.UsuarioGetter;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentCrearRequerimientoBinding;
+import com.efp.contratame.ar.modelo.Requerimiento;
 import com.efp.contratame.ar.modelo.TipoServicio;
+import com.efp.contratame.ar.persistencia.datasource.RequerimientoDataSource;
 import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
+import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -55,15 +60,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import kotlin.jvm.internal.Lambda;
 
-public class CrearRequerimientoFragment extends Fragment implements TipoServicioDataSource.GetAllTipoServiciosCallback, OnMapReadyCallback {
+public class CrearRequerimientoFragment extends Fragment implements TipoServicioDataSource.GetAllTipoServiciosCallback,
+        OnMapReadyCallback, RequerimientoDataSource.SaveRequerimientoCallback {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -72,18 +80,21 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private String mParam2;
     private FragmentCrearRequerimientoBinding binding;
     private Spinner spinner;
-    private ArrayAdapter<CharSequence> adapterRubro;
+    private ArrayAdapter<TipoServicio> adapterRubro;
     private Context ctx= this.getContext();
+    private UsuarioGetter usuarioGetter;
     //cosas para el mapa
     private GoogleMap mapa;
     private ActivityResultLauncher<String> activityResultLauncher;
     private boolean permitido = false;
     private boolean ubicacionOk = false;
+    private LatLng pos;
     //cosas para la foto
     private final ActivityResultLauncher<String> fotoGetter;
     private Uri fotoSeleccionada;
     private ImageButton fecha ;
     private Calendar calendario;
+
     public CrearRequerimientoFragment() {
 
         CrearRequerimientoFragment ctx = this;
@@ -145,6 +156,13 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof UsuarioGetter)
+            usuarioGetter = (UsuarioGetter) context;
     }
 
     @Override
@@ -231,11 +249,23 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 return;
             }
 
-            //TODO logica de guardar el requerimiento
+            try {
+                Requerimiento req = new Requerimiento(
+                        UUID.randomUUID(),
+                        binding.tituloEditText.getText().toString(),
+                        (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
+                        binding.descripcionEditText.getText().toString(),
+                        MediaStore.Images.Media
+                                .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("android.resource://com.efp.contratame.ar/"+R.drawable.iconocolor) : fotoSeleccionada),
+                        pos
+                );
+                RequerimientoRepository.createInstance().saveRequerimiento(req,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
 
-            Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
-            setAlarm();
-            NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
+            } catch (IOException e) {
+                Log.e("error cargando la imagen",e.getMessage());
+                Toast.makeText(getActivity(), "Ha ocurrido un error, intentelo nuevamente.", Toast.LENGTH_LONG).show();
+            }
+
         });
 
         binding.buttonDescartar.setOnClickListener(view -> {
@@ -260,19 +290,26 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         return binding.getRoot();
     }
 
-
-
     // GetAllTipoServicioCallback
-    @Override
-    public void onError() {
-
-    }
-
     @Override
     public void onResult(List<TipoServicio> tipos) {
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
-        adapterRubro.addAll(tipos.stream().map(TipoServicio::getNombre).collect(Collectors.toList()));
+        adapterRubro.addAll(tipos);
+    }
+
+    // SaveRequerimientoCallback
+    @Override
+    public void onResult() {
+        Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
+        setAlarm();
+        NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
+        Toast.makeText(getActivity(), "Requerimiento creado exitosamente", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onError() {
+        Log.e("ERROR-RETROFIT","SE HA PRODUCIDO UN ERROR CARGANDO/GUARDANDO DATOS");
     }
 
     @Override
@@ -308,7 +345,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         Location currLoc = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
 
         if(currLoc != null){
-            LatLng pos = new LatLng(currLoc.getLatitude(), currLoc.getLongitude());
+            pos = new LatLng(currLoc.getLatitude(), currLoc.getLongitude());
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(pos)
                     .zoom(14.5f)
@@ -330,9 +367,10 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             ok = false;
             binding.tituloInputLayout.setError("Este campo no puede estar vacio.");
         }
-        if(binding.descripcionEditText.getText().toString().isEmpty())
+        if(binding.descripcionEditText.getText().toString().isEmpty()) {
             ok = false;
             binding.descripcionInputLayout.setError("Este campo no puede estar vacio.");
+        }
 
         return ok;
     }

@@ -69,7 +69,7 @@ public class ServicioRetrofitDataSource implements ServicioDataSource {
 
                 Call<Map<String,ServicioRF>> reqAsyn = servicioService.getAllServiciosDelTipo(opt);
                 Log.i("RETRO",reqAsyn.request().url().toString());
-                reqAsyn.enqueue(new Callback<>() {
+                reqAsyn.enqueue(new Callback<Map<String, ServicioRF>>() {
                     @Override
                     public void onResponse(@NonNull Call<Map<String,ServicioRF>> call, @NonNull Response<Map<String,ServicioRF>> response) {
 

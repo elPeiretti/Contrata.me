@@ -37,7 +37,7 @@ public class TipoServicioRetrofitDataSource implements TipoServicioDataSource {
     public void getAllTipoServicios(GetAllTipoServiciosCallback callback) {
         Call<List<TipoServicioRF>> reqAsyn = tsService.getAllTipoServicios();
 
-        reqAsyn.enqueue(new Callback<>() {
+        reqAsyn.enqueue(new Callback<List<TipoServicioRF>>() {
             @Override
             public void onResponse(@NonNull Call<List<TipoServicioRF>> call, @NonNull Response<List<TipoServicioRF>> response) {
                 if(response.code() == 200){
