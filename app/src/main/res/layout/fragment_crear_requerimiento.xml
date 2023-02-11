@@ -36,9 +36,9 @@
                     android:id="@+id/titulo_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
                     android:hint="Ingrese el servicio que requiere..."
-                    android:inputType="textPersonName"
-                    android:background="@color/white" />
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -81,8 +81,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Describa brevemente su necesidad.."
                     android:inputType="textMultiLine"
-                    android:background="@color/white"
                     android:gravity="start|top"
+                    android:background="#00FFFFFF"
                     android:lines="5"
                     android:paddingBottom="5dp"/>
             </com.google.android.material.textfield.TextInputLayout>
