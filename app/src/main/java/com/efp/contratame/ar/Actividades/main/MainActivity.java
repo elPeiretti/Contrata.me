@@ -22,6 +22,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -101,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         Bundle extra = intent.getExtras();
         header = navigationView.getHeaderView(0);
         setearValoresDrawer();
-
-
     }
 
     private void createNotificationChannel() {

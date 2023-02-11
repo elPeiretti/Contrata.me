@@ -287,12 +287,14 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
 
     private void setAlarm() {
         Context cont = getActivity().getApplicationContext();
-
         AlarmManager alarmManager = (AlarmManager) cont.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(cont, AlarmReceiver.class);
+        Bundle extras = getActivity().getIntent().getExtras();
+        intent.putExtras(extras);
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(cont, 0, intent,PendingIntent.FLAG_IMMUTABLE);
         Log.i("Alarm", calendario.toString());
-        calendario.add(Calendar.SECOND, 30);
+        calendario.add(Calendar.SECOND, 10);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendario.getTimeInMillis(), pendingIntent);
         Toast.makeText(cont, "Alarm set successfully", Toast.LENGTH_SHORT).show();
     }
