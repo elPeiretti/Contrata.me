@@ -91,21 +91,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                     break;
                 case "presiona eliminar":
                     Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.misServiciosFragment);
-                     // Crear un builder y vincularlo a la actividad que lo mostrará
-                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                     //Configurar las características
-                     builder.setMessage("¿Está seguro que desea eliminarlo?").setTitle("Mensaje de confirmación");
-                     //Obtener una instancia de cuadro de dialogo
-                     builder.setIcon(R.drawable.icono_sin_fondo);
-                     builder.setPositiveButton("Si",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
-                                     "lo elimina",Toast.LENGTH_LONG)
-                             .show());
-                     builder.setNegativeButton("No",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
-                                     "no pasa nada",Toast.LENGTH_LONG)
-                             .show());
-                     AlertDialog dialog = builder.create();
-                     //Mostrarlo
-                     dialog.show();
+                    crearDialogo(this);
                     break;
                 case "presiona mantener":
                     //kkkk
@@ -259,4 +245,17 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     public Context getCtx() {
         return ctx;
     }
+
+    public void crearDialogo(Context ctx){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setMessage("¿Está seguro que desea eliminarlo?").setTitle("Mensaje de confirmación");
+        builder.setIcon(R.drawable.icono_sin_fondo);
+        builder.setPositiveButton("Si",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
+                        "lo elimina",Toast.LENGTH_LONG)
+                .show());
+        builder.setNegativeButton("No",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
+                        "no pasa nada",Toast.LENGTH_LONG)
+                .show());
+        AlertDialog dialog = builder.create();
+        dialog.show();
 }
