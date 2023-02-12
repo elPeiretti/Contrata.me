@@ -1,6 +1,7 @@
 package com.efp.contratame.ar.Actividades.main;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -88,8 +89,23 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                 case "presiona la noti":
                     //jjj
                     break;
-                case "perfil":
-                    Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.perfilUsuarioFragment);
+                case "presiona eliminar":
+                    Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.misServiciosFragment);
+                     // Crear un builder y vincularlo a la actividad que lo mostrará
+                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                     //Configurar las características
+                     builder.setMessage("¿Está seguro que desea eliminarlo?").setTitle("Mensaje de confirmación");
+                     //Obtener una instancia de cuadro de dialogo
+                     builder.setIcon(R.drawable.icono_sin_fondo);
+                     builder.setPositiveButton("Si",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
+                                     "lo elimina",Toast.LENGTH_LONG)
+                             .show());
+                     builder.setNegativeButton("No",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
+                                     "no pasa nada",Toast.LENGTH_LONG)
+                             .show());
+                     AlertDialog dialog = builder.create();
+                     //Mostrarlo
+                     dialog.show();
                     break;
                 case "presiona mantener":
                     //kkkk

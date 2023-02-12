@@ -41,7 +41,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         eliminar.putExtra("nombre", extras.getString("nombre"));
         eliminar.putExtra("foto", extras.getString("foto"));
         eliminar.putExtra("sesion", extras.getString("sesion"));
-        eliminar.putExtra("fragment", "perfil");
+        eliminar.putExtra("fragment", "presiona eliminar");
         eliminar.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent eliminarPIntent = PendingIntent.getActivity(context, 1, eliminar, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
 
