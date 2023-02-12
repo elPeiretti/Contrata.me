@@ -80,4 +80,16 @@
         android:name="com.efp.contratame.ar.Actividades.CambiarPerfilFragment"
         android:label="fragment_cambiar_perfil"
         tools:layout="@layout/fragment_cambiar_perfil" />
+    <fragment
+        android:id="@+id/misServiciosFragment"
+        android:name="com.efp.contratame.ar.Actividades.MisServiciosFragment"
+        android:label="fragment_mis_servicios"
+        tools:layout="@layout/fragment_mis_servicios" >
+        <action
+            android:id="@+id/action_misServiciosFragment_to_crearRequerimientoFragment"
+            app:destination="@id/crearRequerimientoFragment" />
+        <action
+            android:id="@+id/action_misServiciosFragment_to_detalleProveedorServicioFragment"
+            app:destination="@id/detalleProveedorServicioFragment" />
+    </fragment>
 </navigation>

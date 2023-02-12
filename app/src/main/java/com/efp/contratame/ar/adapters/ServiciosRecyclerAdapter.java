@@ -10,7 +10,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -131,8 +130,8 @@ public class ServiciosRecyclerAdapter extends RecyclerView.Adapter<ServiciosRecy
             super(itemView);
             layout = itemView.findViewById(R.id.contendor_servicio);
             imagen= itemView.findViewById(R.id.imagen_perfil);
-            nombrePersona= itemView.findViewById(R.id.nombre_persona);
-            descripcion = itemView.findViewById(R.id.descrpcion);
+            nombrePersona= itemView.findViewById(R.id.estado);
+            descripcion = itemView.findViewById(R.id.nombre_prestador);
             puntuacion = itemView.findViewById(R.id.ratingBar);
 
         }

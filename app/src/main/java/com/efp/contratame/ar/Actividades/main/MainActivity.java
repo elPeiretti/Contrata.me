@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                     break;
             }
         }
+
         setSupportActionBar(binding.appBarMain.toolbar);
         drawer = binding.drawerLayout;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                 Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.mensajesFragment);
                 break;
             case R.id.nav_servicios:
-                Toast.makeText(MainActivity.this, "Se selecciono servicios", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.misServiciosFragment);
                 break;
             case R.id.nav_configuraciones:
                 Toast.makeText(MainActivity.this, "Se selecciono configuraciones", Toast.LENGTH_SHORT).show();

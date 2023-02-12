@@ -6,6 +6,10 @@
         <item>A-Z</item>
         <item>Z-A</item>
     </array>
+    <array name="array_orden_requerimientos">
+        <item>A-Z</item>
+        <item>Z-A</item>
+    </array>
     <string-array name="rubros">
         <item>Instalaciones</item>
         <item>Construcción</item>

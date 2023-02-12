@@ -65,12 +65,8 @@ public class MenuPpalFragment extends Fragment implements ServicioIconRecyclerAd
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("¿Qué necesitás?");
     }
 
-
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedINstanceState){
         binding = FragmentMenuPpalBinding.inflate(inflater,container,false);
-
-
 
         //setup recyclerview
         rv = binding.rvServicios;
