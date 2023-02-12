@@ -49,7 +49,7 @@ public class RequerimientoRetrofitDataSource implements RequerimientoDataSource 
     @Override
     public void saveRequerimiento(Requerimiento req, String idUsuario, SaveRequerimientoCallback callback) {
         Call<RequerimientoRF> reqAsyn = requerimientoService
-                .saveRequerimiento(idUsuario, RequerimientoMapper.toEntity(req));
+                .saveRequerimiento(idUsuario, req.getIdRequerimiento().toString(), RequerimientoMapper.toEntity(req));
         reqAsyn.enqueue(new Callback<RequerimientoRF>() {
             @Override
             public void onResponse(@NonNull Call<RequerimientoRF> call, @NonNull Response<RequerimientoRF> response) {
@@ -96,9 +96,26 @@ public class RequerimientoRetrofitDataSource implements RequerimientoDataSource 
 
                     @Override
                     public void onFailure(@NonNull Call<Map<String, RequerimientoRF>> call, @NonNull Throwable t) {
-
+                        callback.onError();
                     }
                 });
+            }
+        });
+    }
+
+    @Override
+    public void eliminarRequerimiento(Requerimiento req, String idUsuario, EliminarRequerimientoCallback callback) {
+        Call<RequerimientoRF> reqAsyn = requerimientoService.deleteRequerimiento(idUsuario, req.getIdRequerimiento().toString());
+        reqAsyn.enqueue(new Callback<RequerimientoRF>() {
+            @Override
+            public void onResponse(@NonNull Call<RequerimientoRF> call, @NonNull Response<RequerimientoRF> response) {
+                if (response.code() == 200) callback.onResult();
+                else callback.onError();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RequerimientoRF> call, @NonNull Throwable t) {
+                callback.onError();
             }
         });
     }

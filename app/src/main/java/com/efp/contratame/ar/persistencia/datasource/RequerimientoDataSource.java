@@ -15,7 +15,12 @@ public interface RequerimientoDataSource {
         void onError();
         void onResult(List<Requerimiento> requerimientoList);
     }
+    interface EliminarRequerimientoCallback {
+        void onError();
+        void onResult();
+    }
 
     void saveRequerimiento(Requerimiento req, String idUsuario, SaveRequerimientoCallback callback);
     void getAllRequerimientosFrom(String idUsuario, GetAllRequerimientosFromCallback callback);
+    void eliminarRequerimiento(Requerimiento req, String idUsuario, EliminarRequerimientoCallback callback);
 }

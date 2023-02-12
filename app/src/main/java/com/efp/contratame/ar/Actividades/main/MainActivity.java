@@ -246,16 +246,17 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         return ctx;
     }
 
-    public void crearDialogo(Context ctx){
+    public void crearDialogo(Context ctx) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setMessage("¿Está seguro que desea eliminarlo?").setTitle("Mensaje de confirmación");
         builder.setIcon(R.drawable.icono_sin_fondo);
-        builder.setPositiveButton("Si",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
-                        "lo elimina",Toast.LENGTH_LONG)
+        builder.setPositiveButton("Si", (dialogInterface, i) -> Toast.makeText(MainActivity.this,
+                        "lo elimina", Toast.LENGTH_LONG)
                 .show());
-        builder.setNegativeButton("No",(dialogInterface, i) ->Toast.makeText(MainActivity.this,
-                        "no pasa nada",Toast.LENGTH_LONG)
+        builder.setNegativeButton("No", (dialogInterface, i) -> Toast.makeText(MainActivity.this,
+                        "no pasa nada", Toast.LENGTH_LONG)
                 .show());
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
 }

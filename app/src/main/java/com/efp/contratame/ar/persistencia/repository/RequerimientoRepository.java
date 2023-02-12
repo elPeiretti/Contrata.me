@@ -29,4 +29,9 @@ public class RequerimientoRepository implements RequerimientoDataSource {
     public void getAllRequerimientosFrom(String idUsuario, GetAllRequerimientosFromCallback callback) {
         reqDataSource.getAllRequerimientosFrom(idUsuario, callback);
     }
+
+    @Override
+    public void eliminarRequerimiento(Requerimiento req, String idUsuario, EliminarRequerimientoCallback callback) {
+        reqDataSource.eliminarRequerimiento(req, idUsuario, callback);
+    }
 }
