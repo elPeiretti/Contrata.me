@@ -21,9 +21,11 @@ import java.util.stream.Collectors;
 public class RequerimientoMapper {
 
     public static Requerimiento fromEntity(RequerimientoRF entity, TipoServicio tipoServicio){
-
-        byte[] fotoDecoded = Base64.getDecoder().decode(entity.getImagen());
-        Bitmap foto = BitmapFactory.decodeByteArray(fotoDecoded,0,fotoDecoded.length);
+        Bitmap foto = null;
+        if (!entity.getImagen().isEmpty()){
+            byte[] fotoDecoded = Base64.getDecoder().decode(entity.getImagen());
+            foto = BitmapFactory.decodeByteArray(fotoDecoded, 0, fotoDecoded.length);
+        }
 
         return new Requerimiento(
                 UUID.fromString(entity.getIdRequerimiento()),
@@ -47,18 +49,19 @@ public class RequerimientoMapper {
     }
 
     public static RequerimientoRF toEntity(Requerimiento req){
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        req.getImagen().compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] fotoByteArray = byteArrayOutputStream.toByteArray();
-
+        byte[] fotoByteArray = null;
+        if(req.getImagen() != null) {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            req.getImagen().compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            fotoByteArray = byteArrayOutputStream.toByteArray();
+        }
 
         return new RequerimientoRF(
                 req.getIdRequerimiento().toString(),
                 req.getTitulo(),
                 req.getRubro().getIdTipoServicio().toString(),
                 req.getDescripcion(),
-                Base64.getEncoder().encodeToString(fotoByteArray),
+                req.getImagen() == null ? "" : Base64.getEncoder().encodeToString(fotoByteArray),
                 String.valueOf(req.getUbicacion().latitude),
                 String.valueOf(req.getUbicacion().longitude)
         );

@@ -261,8 +261,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                         binding.tituloEditText.getText().toString(),
                         (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
                         binding.descripcionEditText.getText().toString(),
-                        MediaStore.Images.Media
-                                .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("android.resource://com.efp.contratame.ar/"+R.drawable.iconocolor) : fotoSeleccionada),
+                        fotoSeleccionada == null ? null : MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), fotoSeleccionada),
                         pos
                 );
                 EspressoIdlingResource.getInstance().increment(); // PARA TEST
