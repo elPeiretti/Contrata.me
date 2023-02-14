@@ -221,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         ImageView imagen = header.findViewById(R.id.imagenUsuario);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-
         tv_email.setText(user.getEmail());
         tv_nombre.setText(user.getDisplayName());
         Glide.with(imagen.getContext())

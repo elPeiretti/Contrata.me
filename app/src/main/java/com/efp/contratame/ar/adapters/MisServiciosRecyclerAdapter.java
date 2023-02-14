@@ -1,5 +1,6 @@
 package com.efp.contratame.ar.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +29,7 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
 
     private List<Requerimiento> requerimientos;
     private List<Requerimiento> listaOriginal;
+    private ViewGroup par;
 
     public MisServiciosRecyclerAdapter(List<Requerimiento> dataSet, Context context) {
         this.requerimientos = dataSet;
@@ -37,6 +40,7 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
     @NonNull
     @Override
     public MisServiciosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        par = parent;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_mis_servicios, parent, false);
         return new MisServiciosRecyclerAdapter.MisServiciosViewHolder(view);
     }
@@ -44,12 +48,18 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
     @Override
     public void onBindViewHolder(@NonNull MisServiciosViewHolder holder, int position) {
         //TODO cambiar porque no se si iria el nombre del prestador, si no tiene a nadie asignado entonces no tiene
-        holder.nombrePrestador.setText(requerimientos.get(position).getTitulo());
+
+        holder.descripcion.setText(requerimientos.get(position).getDescripcion());
         holder.estado.setText("PENDIENTE");
         holder.nombreServicio.setText(requerimientos.get(position).getTitulo());
-        //TODO falta imagen
-        //holder.imagen.setImageBitmap(requerimientos.get(position).getImagen());
 
+        //TODO falta imagen
+        //if(requerimientos.get(position).getImagen()){
+        //    Glide.with(holder.imagen.getContext()).load(android.R.drawable.ic_menu_gallery).into(holder.imagen);
+        //}
+        /*else {
+            holder.imagen.setImageBitmap(requerimientos.get(position).getImagen());
+        }*/
 
         Log.i("aca", holder.estado.getText().toString());
         Log.i("aca", holder.estado.getText().toString());
@@ -62,17 +72,32 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
             );
         }
 
-
         holder.eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("aca", "eliminar");
+                AlertDialog.Builder builder = new AlertDialog.Builder(par.getContext());
+                builder.setMessage("¿Está seguro que desea eliminarlo?").setTitle("Mensaje de confirmación");
+                builder.setIcon(R.drawable.icono_sin_fondo);
+                builder.setPositiveButton("Si", (dialogInterface, i) ->
+                        //TODO agregar método eliminar requerimiento
+                        Toast.makeText(par.getContext(),
+                                "lo elimina", Toast.LENGTH_LONG)
+                        .show());
+                builder.setNegativeButton("No", (dialogInterface, i) -> Toast.makeText(par.getContext(),
+                                "No se ha eliminado su requerimiento", Toast.LENGTH_LONG)
+                        .show());
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+
         holder.modificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("aca", "modificar");
+                //TODO navegar a fragmento modificar requerimiento, con valores pre seteados
+
             }
         });
         holder.calificar.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +123,7 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
     public class MisServiciosViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout layout;
         private ImageView imagen;
-        private TextView nombrePrestador;
+        private TextView descripcion;
         private TextView estado;
         private TextView nombreServicio;
         private ImageView eliminar;
@@ -109,7 +134,7 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
             super(itemView);
             layout = itemView.findViewById(R.id.contendor_mis_servicios);
             imagen = itemView.findViewById(R.id.imagen_perfil);
-            nombrePrestador = itemView.findViewById(R.id.nombre_mis_prestador);
+            descripcion = itemView.findViewById(R.id.descripcion_mis_servicios);
             nombreServicio = itemView.findViewById(R.id.nombre_mis_servicio);
             estado = itemView.findViewById(R.id.estado_mis_servicios);
             eliminar=itemView.findViewById(R.id.eliminar);
