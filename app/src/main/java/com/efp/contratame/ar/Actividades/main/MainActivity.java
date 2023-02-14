@@ -87,14 +87,18 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
         if(extras.containsKey("fragment")){
             switch (extras.getString("fragment")){
                 case "presiona la noti":
-                    //jjj
+                    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    manager.cancel(123);
                     break;
                 case "presiona eliminar":
                     Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.misServiciosFragment);
+                    NotificationManager manager1 = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    manager1.cancel(123);
                     crearDialogo(this);
                     break;
                 case "presiona mantener":
-                    //kkkk
+                    NotificationManager manager2 = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    manager2.cancel(123);
                     break;
             }
         }

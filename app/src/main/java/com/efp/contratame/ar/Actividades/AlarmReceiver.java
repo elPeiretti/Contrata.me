@@ -15,6 +15,8 @@ import com.efp.contratame.ar.Actividades.main.MenuPpalFragment;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.modelo.Usuario;
 
+import java.util.UUID;
+
 public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
@@ -23,6 +25,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         //presiona la notificacion
         Intent destino = new Intent(context.getApplicationContext(), MainActivity.class);
         Bundle extras = intent.getExtras();
+        String tituloRequerimiento = intent.getExtras().getString("tituloRequerimiento");
+        String id = intent.getExtras().getString("idRequerimiento");
 
         destino.putExtra("idUsuario", extras.getString("idUsuario"));
         destino.putExtra("mail", extras.getString("mail"));
@@ -59,7 +63,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channelid")
                 .setSmallIcon(R.drawable.icono_sin_fondo)
                 .setContentTitle("Acerca de su requerimiento")
-                .setContentText("¿Desea mantenerlo o eliminarlo?")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                .bigText(tituloRequerimiento + ", ¿Desea mantenerlo o eliminarlo?"))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setContentIntent(pendingIntent)
@@ -67,9 +72,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .addAction(android.R.drawable.checkbox_on_background,"Mantener",mantenerPIntent)
                 .setAutoCancel(true);
 
-        Log.i("Alarm", "notification");
+        //Log.i("Alarm", "notification");
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(123, builder.build());
-
     }
 }

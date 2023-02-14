@@ -81,7 +81,6 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
             }
         });
 
-        Log.i("aca1", this.user.getCurrentUsuario().getIdUsuario());
 
         //TODO falta agregar accion a botones de cada fila
         return binding.getRoot();
@@ -90,10 +89,8 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("aca", this.user.getCurrentUsuario().getIdUsuario());
         mAdapter= new MisServiciosRecyclerAdapter(new ArrayList<>(), ctx);
         RequerimientoRepository.createInstance().getAllRequerimientosFrom(user.getCurrentUsuario().getIdUsuario(),this);
-
         recyclerView = binding.recyclerMisServicios;
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(ctx);
@@ -105,13 +102,9 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
 
     @Override
     public void onResult(List<Requerimiento> requerimientoList) {
-        Log.i("aca", String.valueOf(requerimientoList.size()));
         recyclerView.setVisibility(requerimientoList.isEmpty() ? View.GONE : View.VISIBLE);
-        Log.i("aca", String.valueOf(requerimientoList.size()));
         binding.tvMensajeEmpty.setVisibility(requerimientoList.isEmpty() ? View.VISIBLE : View.GONE);
-        Log.i("aca", String.valueOf(requerimientoList.size()));
         mAdapter.updateData(requerimientoList);
-        Log.i("aca", String.valueOf(requerimientoList.size()));
     }
 
     @Override

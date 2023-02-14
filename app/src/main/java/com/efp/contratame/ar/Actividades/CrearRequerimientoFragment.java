@@ -86,6 +86,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private Context ctx= this.getContext();
     private UsuarioGetter usuarioGetter;
     private TipoServicioGetter tipoServicioGetter;
+    private Requerimiento nuevo_requerimiento;
     //cosas para el mapa
     private GoogleMap mapa;
     private ActivityResultLauncher<String> activityResultLauncher;
@@ -216,9 +217,9 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             }
         });
 
-        fecha = binding.BtnFecha;
+        //fecha = binding.BtnFecha;
         calendario = Calendar.getInstance();
-        fecha.setOnClickListener(new View.OnClickListener() {
+        /*fecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
@@ -238,7 +239,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 datePickerDialog.getDatePicker().setMinDate(calendario.getTimeInMillis());
                 datePickerDialog.show();
             }
-        });
+        });*/
 
         binding.buttonPublicar.setOnClickListener(view -> {
             if (!permitido){
@@ -255,7 +256,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             }
 
             try {
-                Requerimiento req = new Requerimiento(
+                nuevo_requerimiento = new Requerimiento(
                         UUID.randomUUID(),
                         binding.tituloEditText.getText().toString(),
                         (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
@@ -265,7 +266,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                         pos
                 );
                 EspressoIdlingResource.getInstance().increment(); // PARA TEST
-                RequerimientoRepository.createInstance().saveRequerimiento(req,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
+                RequerimientoRepository.createInstance().saveRequerimiento(nuevo_requerimiento,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
 
             } catch (IOException e) {
                 Log.e("error cargando la imagen",e.getMessage());
@@ -293,7 +294,6 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         //init mapa
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
-
         return binding.getRoot();
     }
 
@@ -311,7 +311,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     @Override
     public void onResult() {
         Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
-        setAlarm();
+        setAlarm(nuevo_requerimiento);
         NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
         Toast.makeText(getActivity(), "Requerimiento creado exitosamente", Toast.LENGTH_LONG).show();
         EspressoIdlingResource.getInstance().decrement();
@@ -331,21 +331,20 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             actualizarUbicacion();
     }
 
-
-    private void setAlarm() {
+    private void setAlarm(Requerimiento req) {
         Context cont = getActivity().getApplicationContext();
         AlarmManager alarmManager = (AlarmManager) cont.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(cont, AlarmReceiver.class);
         Bundle extras = getActivity().getIntent().getExtras();
         intent.putExtras(extras);
-
+        intent.putExtra("idRequerimiento", req.getIdRequerimiento());
+        intent.putExtra("tituloRequerimiento",req.getTitulo());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(cont, 0, intent,PendingIntent.FLAG_IMMUTABLE);
-        Log.i("Alarm", calendario.toString());
+        //Log.i("Alarm", calendario.toString());
         calendario.add(Calendar.SECOND, 10);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendario.getTimeInMillis(), pendingIntent);
-        Toast.makeText(cont, "Alarm set successfully", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(cont, "Alarm set successfully", Toast.LENGTH_SHORT).show();
     }
-
 
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void actualizarUbicacion(){
