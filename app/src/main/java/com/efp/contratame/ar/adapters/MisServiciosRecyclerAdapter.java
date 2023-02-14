@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.modelo.Requerimiento;
 
@@ -48,13 +49,13 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         holder.estado.setText("PENDIENTE");
         holder.nombreServicio.setText(requerimientos.get(position).getTitulo());
 
-        //TODO falta imagen
-        //if(requerimientos.get(position).getImagen()){
-        //    Glide.with(holder.imagen.getContext()).load(android.R.drawable.ic_menu_gallery).into(holder.imagen);
-        //}
-        /*else {
+
+        if(requerimientos.get(position).getImagen() == null){
+            Glide.with(holder.imagen.getContext()).load(android.R.drawable.ic_menu_gallery).into(holder.imagen);
+        }
+        else {
             holder.imagen.setImageBitmap(requerimientos.get(position).getImagen());
-        }*/
+        }
 
         Log.i("aca", holder.estado.getText().toString());
         Log.i("aca", holder.estado.getText().toString());
