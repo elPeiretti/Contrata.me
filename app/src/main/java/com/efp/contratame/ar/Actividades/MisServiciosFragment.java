@@ -86,9 +86,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
             public void onClick(View view) {
                 NavHostFragment.findNavController(MisServiciosFragment.this).navigate(R.id.action_misServiciosFragment_to_crearRequerimientoFragment);
             }
-
         });
-
         return binding.getRoot();
     }
 
@@ -110,10 +108,10 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
 
     @Override
     public void onResult(List<Requerimiento> requerimientoList) {
+        barra.setVisibility(View.GONE);
         recyclerView.setVisibility(requerimientoList.isEmpty() ? View.GONE : View.VISIBLE);
         binding.tvMensajeEmpty.setVisibility(requerimientoList.isEmpty() ? View.VISIBLE : View.GONE);
         mAdapter.updateData(requerimientoList);
-        barra.setVisibility(View.GONE);
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
@@ -69,7 +70,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
 
     private TipoServicioGetter getterServicio;
     private OnServicioSelectedListener servicioSelectedListener;
-
+    private ProgressBar barra;
 
     public ResultadosServiciosFragment() {
         // Required empty public constructor
@@ -125,14 +126,12 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
 
         viewModel = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
-
         //Funcionalidad de filtrado
         //TODO
 
         //Funcionalidad de búsqueda
         txtBusqueda = binding.txtBusqueda;
         txtBusqueda.setOnQueryTextListener(this);
-
 
         //Funcionalidad de orden
         spinner= binding.spinner;
@@ -152,7 +151,6 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(ResultadosServiciosFragment.this).navigate(R.id.action_resultadosServiciosFragment_to_crearRequerimientoFragment);
-
             }
         });
 
@@ -166,7 +164,8 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     public void onResume() {
         super.onResume();
         //RECYCLERVIEW
-
+        barra = binding.progressBar;
+        barra.setVisibility(View.VISIBLE);
         //Carga de servicios
         mAdapter= new ServiciosRecyclerAdapter(new ArrayList<>(), ctx, this);
         EspressoIdlingResource.getInstance().increment(); // Se usa para testing
@@ -217,10 +216,11 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     // METODOS DE GetAllServiciosDelTipoCallback
     @Override
     public void onResult(List<Servicio> servicios) {
-            recyclerView.setVisibility(servicios.isEmpty() ? View.GONE : View.VISIBLE);
-            binding.tvMensajeEmpty.setVisibility(servicios.isEmpty() ? View.VISIBLE : View.GONE);
-            mAdapter.updateData(servicios);
-            EspressoIdlingResource.getInstance().decrement(); // Se usa para testing
+        barra.setVisibility(View.GONE);
+        recyclerView.setVisibility(servicios.isEmpty() ? View.GONE : View.VISIBLE);
+        binding.tvMensajeEmpty.setVisibility(servicios.isEmpty() ? View.VISIBLE : View.GONE);
+        mAdapter.updateData(servicios);
+        EspressoIdlingResource.getInstance().decrement(); // Se usa para testing
     }
 
     @Override
