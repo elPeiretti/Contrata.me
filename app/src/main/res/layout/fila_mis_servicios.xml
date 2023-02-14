@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imagen_fila_mi_servicio"
                 android:layout_width="32dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"

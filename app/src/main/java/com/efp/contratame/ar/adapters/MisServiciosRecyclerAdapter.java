@@ -6,20 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.databinding.FilaMisServiciosBinding;
 import com.efp.contratame.ar.modelo.Requerimiento;
 
 import java.util.ArrayList;
@@ -133,7 +128,7 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         public MisServiciosViewHolder(@NonNull View itemView) {
             super(itemView);
             layout = itemView.findViewById(R.id.contendor_mis_servicios);
-            imagen = itemView.findViewById(R.id.imagen_perfil);
+            imagen = itemView.findViewById(R.id.imagen_fila_mi_servicio);
             descripcion = itemView.findViewById(R.id.descripcion_mis_servicios);
             nombreServicio = itemView.findViewById(R.id.nombre_mis_servicio);
             estado = itemView.findViewById(R.id.estado_mis_servicios);
