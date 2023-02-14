@@ -1,17 +1,23 @@
 package com.efp.contratame.ar.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.databinding.FilaMisServiciosBinding;
 import com.efp.contratame.ar.modelo.Requerimiento;
 
 import java.util.ArrayList;
@@ -43,6 +49,39 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         holder.nombreServicio.setText(requerimientos.get(position).getTitulo());
         //TODO falta imagen
         //holder.imagen.setImageBitmap(requerimientos.get(position).getImagen());
+
+
+        Log.i("aca", holder.estado.getText().toString());
+        Log.i("aca", holder.estado.getText().toString());
+        if( holder.estado.getText().toString().equals("PENDIENTE")){
+            holder.calificar.setEnabled(false);
+        }
+        else {
+            holder.modificar.setEnabled(false);
+            holder.eliminar.setEnabled(false
+            );
+        }
+
+
+        holder.eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("aca", "eliminar");
+            }
+        });
+        holder.modificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("aca", "modificar");
+            }
+        });
+        holder.calificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("aca", "calificar");
+            }
+        });
+
     }
 
     @Override
@@ -62,15 +101,23 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         private TextView nombrePrestador;
         private TextView estado;
         private TextView nombreServicio;
+        private ImageView eliminar;
+        private ImageView calificar;
+        private ImageView modificar;
 
         public MisServiciosViewHolder(@NonNull View itemView) {
             super(itemView);
             layout = itemView.findViewById(R.id.contendor_mis_servicios);
-            imagen= itemView.findViewById(R.id.imagen_perfil);
-            nombrePrestador=itemView.findViewById(R.id.nombre_mis_prestador);
-            nombreServicio= itemView.findViewById(R.id.nombre_mis_servicio);
+            imagen = itemView.findViewById(R.id.imagen_perfil);
+            nombrePrestador = itemView.findViewById(R.id.nombre_mis_prestador);
+            nombreServicio = itemView.findViewById(R.id.nombre_mis_servicio);
             estado = itemView.findViewById(R.id.estado_mis_servicios);
+            eliminar=itemView.findViewById(R.id.eliminar);
+            modificar=itemView.findViewById(R.id.modificar);
+            calificar=itemView.findViewById(R.id.calificar);
         }
+
+
     }
 
 
