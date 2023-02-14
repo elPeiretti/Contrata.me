@@ -1,11 +1,15 @@
 package com.efp.contratame.ar.Actividades;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -38,6 +42,10 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     private Context ctx= this.getContext();
     private MyViewModelRequerimiento viewModel;
     private UsuarioGetter user;
+    private ProgressBar barra;
+    private int progress;
+    private Handler handler = new Handler();
+    boolean bool_callback1 = false;
 
     public MisServiciosFragment() {}
 
@@ -73,16 +81,14 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Mis servicios");
 
         viewModel = new ViewModelProvider(requireActivity()).get(MyViewModelRequerimiento.class);
-
         binding.btnCrearRequerimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(MisServiciosFragment.this).navigate(R.id.action_misServiciosFragment_to_crearRequerimientoFragment);
             }
+
         });
 
-
-        //TODO falta agregar accion a botones de cada fila
         return binding.getRoot();
     }
 
@@ -90,6 +96,8 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     public void onResume() {
         super.onResume();
         mAdapter= new MisServiciosRecyclerAdapter(new ArrayList<>(), ctx);
+        barra = binding.progressBar;
+        barra.setVisibility(View.VISIBLE);
         RequerimientoRepository.createInstance().getAllRequerimientosFrom(user.getCurrentUsuario().getIdUsuario(),this);
         recyclerView = binding.recyclerMisServicios;
         recyclerView.setHasFixedSize(true);
@@ -105,6 +113,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         recyclerView.setVisibility(requerimientoList.isEmpty() ? View.GONE : View.VISIBLE);
         binding.tvMensajeEmpty.setVisibility(requerimientoList.isEmpty() ? View.VISIBLE : View.GONE);
         mAdapter.updateData(requerimientoList);
+        barra.setVisibility(View.GONE);
     }
 
     @Override
@@ -112,5 +121,4 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         //TODO
         Log.e("ERROR_RETROFIT","No se pudieron cargar los requerimientos");
     }
-
 }
