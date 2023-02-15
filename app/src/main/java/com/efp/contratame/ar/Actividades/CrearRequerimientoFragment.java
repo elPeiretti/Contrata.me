@@ -3,32 +3,14 @@ package com.efp.contratame.ar.Actividades;
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresPermission;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.test.espresso.matcher.ViewMatchers;
-
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,11 +19,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
@@ -57,22 +44,17 @@ import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-import kotlin.jvm.internal.Lambda;
 
 public class CrearRequerimientoFragment extends Fragment implements TipoServicioDataSource.GetAllTipoServiciosCallback,
         OnMapReadyCallback, RequerimientoDataSource.SaveRequerimientoCallback {
@@ -80,12 +62,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
     private FragmentCrearRequerimientoBinding binding;
-    private Spinner spinner;
     private ArrayAdapter<TipoServicio> adapterRubro;
-    private Context ctx= this.getContext();
     private UsuarioGetter usuarioGetter;
     private TipoServicioGetter tipoServicioGetter;
     private Requerimiento nuevo_requerimiento;
@@ -113,9 +91,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                             .setMessage("Para poder crear un nuevo requerimiento," +
                                     " necesitamos conocer tu ubicacion para que los" +
                                     " prestadores puedan saber donde se debe realizar el trabajo.")
-                            .setPositiveButton("Entendido", (dialogInterface, i) -> {
-                                activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-                            })
+                            .setPositiveButton("Entendido", (dialogInterface, i) -> activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION))
                             .setNegativeButton("Volver", (dialogInterface, i) -> {
                                 NavHostFragment.findNavController(ctx).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
                                 Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
@@ -145,24 +121,6 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         });
     }
 
-    public static CrearRequerimientoFragment newInstance(String param1, String param2) {
-        CrearRequerimientoFragment fragment = new CrearRequerimientoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -182,18 +140,15 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         binding = FragmentCrearRequerimientoBinding.inflate(inflater, container, false);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Crear requerimiento");
 
-        spinner = binding.spinnerRurbos;
+        Spinner spinner = binding.spinnerRurbos;
         adapterRubro = new ArrayAdapter<>(this.getContext(),
                 android.R.layout.simple_spinner_item, new ArrayList<>());
         adapterRubro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterRubro);
 
         binding.progressBarCrearReq.setVisibility(View.GONE);
-        binding.layoutLoading.setVisibility(View.GONE);
 
-        binding.buttonAgregarFoto.setOnClickListener(view -> {
-            fotoGetter.launch("image/*");
-        });
+        binding.buttonAgregarFoto.setOnClickListener(view -> fotoGetter.launch("image/*"));
 
         binding.tituloEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -263,9 +218,9 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 setLoadingScreen(View.VISIBLE);
                 nuevo_requerimiento = new Requerimiento(
                         UUID.randomUUID(),
-                        binding.tituloEditText.getText().toString(),
+                        Objects.requireNonNull(binding.tituloEditText.getText()).toString(),
                         (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
-                        binding.descripcionEditText.getText().toString(),
+                        Objects.requireNonNull(binding.descripcionEditText.getText()).toString(),
                         fotoSeleccionada == null ? null : MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), fotoSeleccionada),
                         pos
                 );
@@ -279,9 +234,9 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
 
         });
 
-        binding.buttonDescartar.setOnClickListener(view -> {
-            NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
-        });
+        binding.buttonDescartar.setOnClickListener(view ->
+                NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment)
+        );
 
         binding.buttonActualizarMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -297,14 +252,14 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
 
         //init mapa
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
         return binding.getRoot();
     }
 
     public void setLoadingScreen(int status) {
-        binding.layoutLoading.setVisibility(status);
-        binding.layoutCrearReq.setVisibility(status == View.VISIBLE ? View.GONE : View.VISIBLE);
         binding.progressBarCrearReq.setVisibility(status);
+        binding.scrollCrearReq.setVisibility(status == View.VISIBLE ? View.GONE : View.VISIBLE);
     }
 
     // GetAllTipoServicioCallback
@@ -385,11 +340,11 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
 
     public boolean tituloDescripcionAreOk(){
         boolean ok = true;
-        if(binding.tituloEditText.getText().toString().isEmpty()) {
+        if(Objects.requireNonNull(binding.tituloEditText.getText()).toString().isEmpty()) {
             ok = false;
             binding.tituloInputLayout.setError("Este campo no puede estar vacio.");
         }
-        if(binding.descripcionEditText.getText().toString().isEmpty()) {
+        if(Objects.requireNonNull(binding.descripcionEditText.getText()).toString().isEmpty()) {
             ok = false;
             binding.descripcionInputLayout.setError("Este campo no puede estar vacio.");
         }
