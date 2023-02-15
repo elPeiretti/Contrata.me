@@ -25,7 +25,7 @@
 
     <style name="toolbar_style" parent="@style/Base.TextAppearance.AppCompat.Title">
         <item name="android:titleMargin">@dimen/activity_horizontal_margin</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">25dp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
