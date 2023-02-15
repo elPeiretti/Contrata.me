@@ -62,7 +62,7 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -92,9 +92,12 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:max="100"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
                 android:progressDrawable="@drawable/custom_progress" />
 
-        </LinearLayout>
+        </RelativeLayout >
     </ScrollView>
 
     <Button
