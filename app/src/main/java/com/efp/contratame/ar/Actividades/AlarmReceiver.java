@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         destino.putExtra("fragment", "presiona la noti");
 
         destino.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, destino, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, destino, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         //presiona el boton eliminar
         Intent eliminar = new Intent(context.getApplicationContext(), MainActivity.class);
@@ -47,7 +47,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         eliminar.putExtra("sesion", extras.getString("sesion"));
         eliminar.putExtra("fragment", "presiona eliminar");
         eliminar.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent eliminarPIntent = PendingIntent.getActivity(context, 1, eliminar, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent eliminarPIntent = PendingIntent.getActivity(context, 1, eliminar, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         //presiona el boton mantener
         Intent mantener = new Intent (context.getApplicationContext(), MainActivity.class);
@@ -58,7 +58,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         mantener.putExtra("foto",extras.getString("foto"));
         mantener.putExtra("sesion",extras.getString("sesion"));
         mantener.putExtra("fragment", "presiona mantener");
-        PendingIntent mantenerPIntent = PendingIntent.getActivity(context,2,mantener,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent mantenerPIntent = PendingIntent.getActivity(context,2,mantener,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channelid")
                 .setSmallIcon(R.drawable.icono_sin_fondo)
