@@ -100,8 +100,6 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     private Uri fotoSeleccionada;
     private Calendar calendario;
 
-    private ProgressBar barra;
-
     public CrearRequerimientoFragment() {
 
         CrearRequerimientoFragment ctx = this;
@@ -190,8 +188,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         adapterRubro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterRubro);
 
-        barra = binding.progressBar;
-        barra.setVisibility(View.GONE);
+        binding.progressBarCrearReq.setVisibility(View.GONE);
+        binding.layoutLoading.setVisibility(View.GONE);
 
         binding.buttonAgregarFoto.setOnClickListener(view -> {
             fotoGetter.launch("image/*");
@@ -262,7 +260,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             }
 
             try {
-                barra.setVisibility(View.VISIBLE);
+                setLoadingScreen(View.VISIBLE);
                 nuevo_requerimiento = new Requerimiento(
                         UUID.randomUUID(),
                         binding.tituloEditText.getText().toString(),
@@ -273,9 +271,9 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
                 );
                 EspressoIdlingResource.getInstance().increment(); // PARA TEST
                 RequerimientoRepository.createInstance().saveRequerimiento(nuevo_requerimiento,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
-
             } catch (IOException e) {
                 Log.e("error cargando la imagen",e.getMessage());
+                NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
                 Toast.makeText(getActivity(), "Ha ocurrido un error, intentelo nuevamente.", Toast.LENGTH_LONG).show();
             }
 
@@ -303,10 +301,16 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         return binding.getRoot();
     }
 
+    public void setLoadingScreen(int status) {
+        binding.layoutLoading.setVisibility(status);
+        binding.layoutCrearReq.setVisibility(status == View.VISIBLE ? View.GONE : View.VISIBLE);
+        binding.progressBarCrearReq.setVisibility(status);
+    }
+
     // GetAllTipoServicioCallback
     @Override
     public void onResult(List<TipoServicio> tipos) {
-        barra.setVisibility(View.GONE);
+        setLoadingScreen(View.GONE);
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
         adapterRubro.addAll(tipos);
@@ -327,6 +331,8 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     @Override
     public void onError() {
         Log.e("ERROR-RETROFIT","SE HA PRODUCIDO UN ERROR CARGANDO/GUARDANDO DATOS");
+        NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
+        Toast.makeText(getActivity(), "Ha ocurrido un error, intentelo nuevamente mas tarde.", Toast.LENGTH_LONG).show();
     }
 
     @Override

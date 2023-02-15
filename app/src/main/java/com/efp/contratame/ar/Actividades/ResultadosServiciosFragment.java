@@ -164,7 +164,7 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
     public void onResume() {
         super.onResume();
         //RECYCLERVIEW
-        barra = binding.progressBar;
+        barra = binding.progressBarCrearReq;
         barra.setVisibility(View.VISIBLE);
         //Carga de servicios
         mAdapter= new ServiciosRecyclerAdapter(new ArrayList<>(), ctx, this);

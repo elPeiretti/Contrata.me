@@ -94,7 +94,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     public void onResume() {
         super.onResume();
         mAdapter= new MisServiciosRecyclerAdapter(new ArrayList<>(), ctx);
-        barra = binding.progressBar;
+        barra = binding.progressBarCrearReq;
         barra.setVisibility(View.VISIBLE);
         RequerimientoRepository.createInstance().getAllRequerimientosFrom(user.getCurrentUsuario().getIdUsuario(),this);
         recyclerView = binding.recyclerMisServicios;
