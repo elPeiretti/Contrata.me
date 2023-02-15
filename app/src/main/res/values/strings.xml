@@ -30,4 +30,14 @@
     <string name="rv_mis_servicios_no_hay">No cuenta con requerimientos finalizados o publicados. Pulse "Crear requerimiento" para comenzar</string>
 
     <string name="titulo_toolbar_ppal">¿Qué necesitas?</string>
+    <string name="tv_titulo_crear_req">Título</string>
+    <string name="hint_titulo_crear_req">Ingrese el servicio que requiere...</string>
+    <string name="tv_rubro_crear_req">Rubro</string>
+    <string name="tv_descripcion_crear_req">Descripción</string>
+    <string name="hint_descripcion_crear_req">Describa brevemente su necesidad..</string>
+    <string name="content_desc_subir_imagen_crear_req">Permite seleccionar una foto para subir</string>
+    <string name="tv_ubicacion_crear_req">Ubicación</string>
+    <string name="btn_actualizar_ubic_crear_req">Actualizar ubicacion</string>
+    <string name="btn_descartar_crear_req">Descartar</string>
+    <string name="btn_publicar_crear_req">Publicar</string>
 </resources>
