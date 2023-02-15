@@ -20,9 +20,10 @@
 
             <ImageView
                 android:id="@+id/imagen_fila_mi_servicio"
-                android:layout_width="32dp"
-                android:layout_height="100dp"
-                android:layout_weight="6"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:scaleType="fitXY"
+                android:padding="6dp"
                 app:srcCompat="@drawable/descarga" />
 
             <LinearLayout
