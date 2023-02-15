@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.test.espresso.matcher.ViewMatchers;
 
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -38,6 +39,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -96,8 +98,9 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     //cosas para la foto
     private final ActivityResultLauncher<String> fotoGetter;
     private Uri fotoSeleccionada;
-    private ImageButton fecha ;
     private Calendar calendario;
+
+    private ProgressBar barra;
 
     public CrearRequerimientoFragment() {
 
@@ -187,6 +190,9 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         adapterRubro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterRubro);
 
+        barra = binding.progressBar;
+        barra.setVisibility(View.GONE);
+
         binding.buttonAgregarFoto.setOnClickListener(view -> {
             fotoGetter.launch("image/*");
         });
@@ -256,6 +262,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
             }
 
             try {
+                barra.setVisibility(View.VISIBLE);
                 nuevo_requerimiento = new Requerimiento(
                         UUID.randomUUID(),
                         binding.tituloEditText.getText().toString(),
@@ -299,6 +306,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
     // GetAllTipoServicioCallback
     @Override
     public void onResult(List<TipoServicio> tipos) {
+        barra.setVisibility(View.GONE);
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
         adapterRubro.addAll(tipos);
