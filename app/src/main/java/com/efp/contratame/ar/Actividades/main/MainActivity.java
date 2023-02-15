@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_mensajes:
-                Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.mensajesFragment);
+                Toast.makeText(MainActivity.this, "Se selecciono mensajes", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_servicios:
                 Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.misServiciosFragment);
