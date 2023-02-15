@@ -83,10 +83,10 @@ public class PerfilUsuarioFragment extends Fragment {
         binding = FragmentPerfilUsuarioBinding.inflate(inflater, container, false);
         ctx = this.getContext();
 
-        Usuario user = usuarioGetter.getCurrentUsuario();
-        binding.tvNombrePerfil.setText(user.getNombre());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        binding.tvNombrePerfil.setText(user.getDisplayName());
         binding.tvEmailUsuario.setText(user.getEmail());
-        String tipo = user.getTipoSesion();
+        String tipo = user.getProviderData().get(1).getProviderId();
         if(tipo.equalsIgnoreCase("google.com")){
             binding.tvTipoSesion.setText("Google");
         }else  if(tipo.equalsIgnoreCase("facebook.com")){
@@ -97,7 +97,7 @@ public class PerfilUsuarioFragment extends Fragment {
         }
 
             Glide.with(binding.imagenUsuario.getContext())
-                    .load(user.getFoto_perfil())
+                    .load(user.getPhotoUrl())
                     .placeholder(R.drawable.blank_profile_picture_973460_1280)
                     .error(R.drawable.blank_profile_picture_973460_1280)
                     .into(binding.imagenUsuario);
