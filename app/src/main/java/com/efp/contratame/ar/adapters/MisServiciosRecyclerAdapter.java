@@ -98,14 +98,15 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
             @Override
             public void onClick(View view) {
                 Log.i("aca", "modificar");
-                //TODO navegar a fragmento modificar requerimiento, con valores pre seteados
                 listener.navigateToModificar(requerimientos.get(holder.getAdapterPosition()));
             }
         });
         holder.calificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("aca", "calificar");
+                Toast.makeText(par.getContext(),
+                                "Presiona calificar", Toast.LENGTH_LONG)
+                        .show();
             }
         });
     }
