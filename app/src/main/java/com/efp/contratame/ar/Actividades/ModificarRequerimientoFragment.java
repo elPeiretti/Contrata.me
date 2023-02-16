@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -53,6 +54,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -84,6 +86,8 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
     //cosas para la foto
     private final ActivityResultLauncher<String> fotoGetter;
     private Uri fotoSeleccionada;
+    private boolean modifica_imagen = false;
+    private Bitmap foto;
 
     public ModificarRequerimientoFragment() {
 
@@ -115,7 +119,6 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
             }
         });
 
-
         fotoGetter = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
             if (result != null) {
                 fotoSeleccionada = result;
@@ -124,9 +127,9 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
             else if (fotoSeleccionada != null){
                 binding.buttonAgregarFoto.setImageURI(fotoSeleccionada);
             }
-            else{
-                binding.buttonAgregarFoto.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.foto_presione_aqui));
-            }
+            /*else {
+                binding.buttonAgregarFoto.setImageBitmap(requerimiento_previo.getImagen());
+            }*/
         });
     }
 
@@ -175,6 +178,7 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
         TipoServicioRepository.createInstance().getAllTipoServicios(this);
 
         binding.buttonAgregarFoto.setOnClickListener(view -> {
+            modifica_imagen = true;
             fotoGetter.launch("image/*");
         });
 
@@ -225,13 +229,19 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
             }
 
             try {
+                if(!modifica_imagen) foto = requerimiento_previo.getImagen();
+                if(fotoSeleccionada==null){
+                    foto = requerimiento_previo.getImagen();
+                }
+                else{
+                    foto = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),fotoSeleccionada);
+                }
                 nuevo_requerimiento = new Requerimiento(
                         requerimiento_previo.getIdRequerimiento(),
                         binding.tituloEditText.getText().toString(),
                         (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
                         binding.descripcionEditText.getText().toString(),
-                        MediaStore.Images.Media
-                                .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("android.resource://com.efp.contratame.ar/"+R.drawable.iconocolor) : fotoSeleccionada),
+                        foto,
                         pos
                 );
                 RequerimientoRepository.createInstance().saveRequerimiento(nuevo_requerimiento,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
