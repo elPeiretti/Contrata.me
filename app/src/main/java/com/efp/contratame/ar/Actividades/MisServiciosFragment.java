@@ -1,12 +1,16 @@
 package com.efp.contratame.ar.Actividades;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,7 +34,7 @@ import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MisServiciosFragment extends Fragment implements RequerimientoDataSource.GetAllRequerimientosFromCallback, MisServiciosSelectListener {
+public class MisServiciosFragment extends Fragment implements RequerimientoDataSource.GetAllRequerimientosFromCallback, MisServiciosSelectListener, RequerimientoDataSource.EliminarRequerimientoCallback {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -44,7 +48,6 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     private MyViewModelRequerimiento viewModel;
     private UsuarioGetter user;
     private ProgressBar barra;
-    private MisServiciosSelectListener requerimientoSelectedListener;
 
     public MisServiciosFragment() {}
 
@@ -123,8 +126,35 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     }
 
     @Override
+    public void onResult() {
+        Log.i("elimina", "elimina");
+        Toast.makeText(getActivity(), "Requerimiento eliminado exitosamente", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void navigateToModificar(Requerimiento req) {
         viewModel.setSelected(req);
         NavHostFragment.findNavController(MisServiciosFragment.this).navigate(R.id.action_misServiciosFragment_to_modificarRequerimientoFragment);
+    }
+
+    @Override
+    public void navigateToEliminar(Requerimiento req) {
+        viewModel.setSelected(req);
+        RequerimientoRepository.createInstance().eliminarRequerimiento(req, user.getCurrentUsuario().getIdUsuario(),this);
+
+       /* //cancelar alarma
+        Intent alarmIntent = new Intent(this.ctx, MainActivity.class);
+        alarmIntent.putExtra("idRequerimiento", req.getIdRequerimiento());
+        alarmIntent.putExtra("idUsuario", user.getCurrentUsuario().getIdUsuario());
+        alarmIntent.putExtra("mail", user.getCurrentUsuario().getEmail());
+        alarmIntent.putExtra("nombre", user.getCurrentUsuario().getNombre());
+        alarmIntent.putExtra("foto", user.getCurrentUsuario().getFoto_perfil());
+        alarmIntent.putExtra("sesion", user.getCurrentUsuario().getTipoSesion());
+        alarmIntent.putExtra("fragment", "presiona eliminar");
+
+        AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent displayIntent = PendingIntent.getBroadcast(ctx.getApplicationContext(), 1, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+        alarmManager.cancel(displayIntent);
+*/
     }
 }

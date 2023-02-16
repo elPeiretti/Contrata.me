@@ -48,12 +48,10 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
 
     @Override
     public void onBindViewHolder(@NonNull MisServiciosViewHolder holder, int position) {
-        //TODO cambiar porque no se si iria el nombre del prestador, si no tiene a nadie asignado entonces no tiene
 
         holder.descripcion.setText(requerimientos.get(position).getDescripcion());
         holder.estado.setText("PENDIENTE");
         holder.nombreServicio.setText(requerimientos.get(position).getTitulo());
-
 
         if(requerimientos.get(position).getImagen() == null){
             Glide.with(holder.imagen.getContext()).load(android.R.drawable.ic_menu_gallery).into(holder.imagen);
@@ -83,9 +81,10 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
                 builder.setIcon(R.drawable.icono_sin_fondo);
                 builder.setPositiveButton("Si", (dialogInterface, i) ->
                         //TODO agregar método eliminar requerimiento
-                        Toast.makeText(par.getContext(),
+                        listener.navigateToEliminar(requerimientos.get(holder.getAdapterPosition())));
+                /*Toast.makeText(par.getContext(),
                                 "lo elimina", Toast.LENGTH_LONG)
-                        .show());
+                        .show());*/
                 builder.setNegativeButton("No", (dialogInterface, i) -> Toast.makeText(par.getContext(),
                                 "No se ha eliminado su requerimiento", Toast.LENGTH_LONG)
                         .show());
@@ -97,7 +96,6 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         holder.modificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("aca", "modificar");
                 listener.navigateToModificar(requerimientos.get(holder.getAdapterPosition()));
             }
         });
@@ -124,6 +122,11 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
 
     @Override
     public void navigateToModificar(Requerimiento req) {
+
+    }
+
+    @Override
+    public void navigateToEliminar(Requerimiento req) {
 
     }
 
