@@ -40,4 +40,5 @@
     <string name="btn_actualizar_ubic_crear_req">Actualizar ubicacion</string>
     <string name="btn_descartar_crear_req">Descartar</string>
     <string name="btn_publicar_crear_req">Publicar</string>
+    <string name="tv_ordenar_result_servicios">Ordenar por:</string>
 </resources>

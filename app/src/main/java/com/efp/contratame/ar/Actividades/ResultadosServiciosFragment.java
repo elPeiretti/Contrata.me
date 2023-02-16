@@ -202,15 +202,6 @@ public class ResultadosServiciosFragment extends Fragment implements SearchView.
         servicioSelectedListener.onServicioSelected(s);
         NavHostFragment.findNavController(ResultadosServiciosFragment.this).navigate(R.id.action_resultadosServiciosFragment_to_detalleProveedorServicioFragment2);
 
-       /* Intent intent = new Intent( ResutladosServicios.this,DetalleProveedorServicio.class);
-        intent.putExtra("nombre", s.getPrestador().getNombre());
-        intent.putExtra("puntuacion", s.getPuntuacion());
-        intent.putExtra("imagen", s.getPrestador().getImagen_perfil());
-        intent.putExtra("descripcion", s.getDescripcion());
-        intent.putExtra("listaImagenes", new ArrayList<String>(s.getGaleriaImagenes()));
-        startActivity(intent);
-
-        */
     }
 
     // METODOS DE GetAllServiciosDelTipoCallback
