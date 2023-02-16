@@ -308,7 +308,7 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         intent.putExtra("idRequerimiento", req.getIdRequerimiento());
         intent.putExtra("tituloRequerimiento",req.getTitulo());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(cont, 0, intent,PendingIntent.FLAG_IMMUTABLE);
-        calendario.add(Calendar.SECOND, 50);
+        calendario.add(Calendar.SECOND, 10);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendario.getTimeInMillis(), pendingIntent);
 
     }
