@@ -145,8 +145,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         viewModel.setSelected(req);
         RequerimientoRepository.createInstance().eliminarRequerimiento(req, user.getCurrentUsuario().getIdUsuario(),this);
 
-       /* //cancelar alarma
-        Intent alarmIntent = new Intent(this.ctx, MainActivity.class);
+        Intent alarmIntent = new Intent(getContext(), MainActivity.class);
         alarmIntent.putExtra("idRequerimiento", req.getIdRequerimiento());
         alarmIntent.putExtra("idUsuario", user.getCurrentUsuario().getIdUsuario());
         alarmIntent.putExtra("mail", user.getCurrentUsuario().getEmail());
@@ -155,9 +154,19 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         alarmIntent.putExtra("sesion", user.getCurrentUsuario().getTipoSesion());
         alarmIntent.putExtra("fragment", "presiona eliminar");
 
-        AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent displayIntent = PendingIntent.getBroadcast(ctx.getApplicationContext(), 1, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
-        alarmManager.cancel(displayIntent);
-*/
+      
+        Intent intent = new Intent(getContext(), AlarmReceiver.class);
+        Bundle extras = getActivity().getIntent().getExtras();
+        intent.putExtras(extras);
+        intent.putExtra("idRequerimiento", req.getIdRequerimiento());
+        intent.putExtra("tituloRequerimiento",req.getTitulo());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent,PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager)getActivity().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+
+
+
+
+
     }
 }
