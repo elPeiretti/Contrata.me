@@ -85,9 +85,12 @@ public class RequerimientoRetrofitDataSource implements RequerimientoDataSource 
                     @Override
                     public void onResponse(@NonNull Call<Map<String, RequerimientoRF>> call, @NonNull Response<Map<String, RequerimientoRF>> response) {
 
-                        if (response.code() == 200 && response.body() != null) {
+                        if (response.code() == 200 ) {
                             Map<String, RequerimientoRF> data = response.body();
-                            callback.onResult(RequerimientoMapper.fromEntities(new ArrayList<>(data.values()), tipos));
+                            callback.onResult(
+                                    data == null ? new ArrayList<>() :
+                                    RequerimientoMapper.fromEntities(new ArrayList<>(data.values()), tipos)
+                            );
                         }
                         else{
                             callback.onError();
