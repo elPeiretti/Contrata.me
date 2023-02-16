@@ -29,10 +29,20 @@ El desarrollo de esta aplicacion es parte del trabajo practico de la electiva De
 - Autenticacion de usuarios con Firebase.
 ## TODO Features
 
-- Creacion de servicios.
-- Busqueda de requerimientos por tipo y postulacion.
+#### Funcionalidades generales:
 - Chat entre prestadores y clientes.
-- Carga de imagen del requerimiento a traves de la camara.
-- Seleccion de posibles prestadores para un requerimiento.
-- Recomendacion de otro prestador en caso de no tomar un requerimiento.
 - Sistema de cobro y pagos.
+
+#### Funcionalidades del lado cliente:
+- Carga de imagen del requerimiento a través de la cámara.
+- Ordenar y filtrar los servicios y requerimientos de la interfaz Mis Servicios.
+- Realizar comentarios sobre un servicio .
+- Selección de posibles prestadores para un requerimiento (invitación).
+- Requerimientos con prioridad (pagar para aparecer primero).
+
+#### Funcionalidades del lado del proveedor:
+- Publicar (crear) un servicio.
+- Visualizar requerimientos publicados por los clientes por tipo.
+- Postulación a un requerimiento.
+- Visualizar servicios actuales y pasados.
+- Recomendación de otro prestador en caso de no aceptar una invitación.
