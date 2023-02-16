@@ -131,6 +131,10 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         Log.i("elimina", "elimina");
         mAdapter.removeItem(viewModel.getSelected().getValue());
         Toast.makeText(getActivity(), "Requerimiento eliminado exitosamente", Toast.LENGTH_LONG).show();
+        //hay que ver si se quedo sin requerimientos
+        recyclerView.setVisibility(mAdapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
+        binding.tvMensajeEmpty.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+
     }
 
     @Override
