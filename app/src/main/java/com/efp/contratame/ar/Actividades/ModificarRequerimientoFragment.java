@@ -229,6 +229,7 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
             }
 
             try {
+                setLoadingScreen(View.VISIBLE);
                 if(!modifica_imagen) foto = requerimiento_previo.getImagen();
                 if(fotoSeleccionada==null){
                     foto = requerimiento_previo.getImagen();
@@ -291,6 +292,7 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
     // GetAllTipoServicioCallback
     @Override
     public void onResult(List<TipoServicio> tipos) {
+        setLoadingScreen(View.GONE);
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
         adapterRubro.addAll(tipos);
@@ -368,6 +370,10 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
         }
 
         return ok;
+    }
+    public void setLoadingScreen(int status) {
+        binding.progressBarModificarReq.setVisibility(status);
+        binding.scrollCrearReq.setVisibility(status == View.VISIBLE ? View.GONE : View.VISIBLE);
     }
 
 }

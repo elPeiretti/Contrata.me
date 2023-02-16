@@ -9,6 +9,18 @@
     android:paddingVertical="10dp"
     tools:context=".Actividades.CrearRequerimientoFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBar_ModificarReq"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:max="100"
+        android:progressDrawable="@drawable/custom_progress" />
+
     <ScrollView
         android:id="@+id/scroll_crear_req"
         android:layout_width="match_parent"
