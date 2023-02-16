@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServiciosRecyclerAdapter.MisServiciosViewHolder> implements MisServiciosSelectListener {
+public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServiciosRecyclerAdapter.MisServiciosViewHolder> {
 
     private List<Requerimiento> requerimientos;
     private List<Requerimiento> listaOriginal;
@@ -118,17 +118,6 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
                         .filter(r -> !r.getIdRequerimiento().equals(item.getIdRequerimiento()))
                         .collect(Collectors.toList()));
     }
-
-    @Override
-    public void navigateToModificar(Requerimiento req) {
-
-    }
-
-    @Override
-    public void navigateToEliminar(Requerimiento req) {
-
-    }
-
 
     public class MisServiciosViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout layout;
