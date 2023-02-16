@@ -1,9 +1,7 @@
 package com.efp.contratame.ar.Actividades;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,19 +15,22 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.Actividades.main.UsuarioGetter;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.adapters.MisServiciosRecyclerAdapter;
 import com.efp.contratame.ar.auxiliares.MyViewModelRequerimiento;
+import com.efp.contratame.ar.auxiliares.MisServiciosSelectListener;
 import com.efp.contratame.ar.databinding.FragmentMisServiciosBinding;
 import com.efp.contratame.ar.modelo.Requerimiento;
+import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.RequerimientoDataSource;
 import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MisServiciosFragment extends Fragment implements RequerimientoDataSource.GetAllRequerimientosFromCallback {
+public class MisServiciosFragment extends Fragment implements RequerimientoDataSource.GetAllRequerimientosFromCallback, MisServiciosSelectListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -43,9 +44,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     private MyViewModelRequerimiento viewModel;
     private UsuarioGetter user;
     private ProgressBar barra;
-    private int progress;
-    private Handler handler = new Handler();
-    boolean bool_callback1 = false;
+    private MisServiciosSelectListener requerimientoSelectedListener;
 
     public MisServiciosFragment() {}
 
@@ -73,6 +72,9 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         if (context instanceof UsuarioGetter) {
             user = (UsuarioGetter) context;
         }
+        /*if (context instanceof OnRequerimientoSelectedListener){
+            requerimientoSelectedListener = (OnRequerimientoSelectedListener) context;
+        }*/
     }
 
     @Override
@@ -93,7 +95,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter= new MisServiciosRecyclerAdapter(new ArrayList<>(), ctx);
+        mAdapter= new MisServiciosRecyclerAdapter(new ArrayList<>(), ctx,this);
         barra = binding.progressBarCrearReq;
         barra.setVisibility(View.VISIBLE);
         RequerimientoRepository.createInstance().getAllRequerimientosFrom(user.getCurrentUsuario().getIdUsuario(),this);
@@ -118,5 +120,11 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     public void onError() {
         //TODO
         Log.e("ERROR_RETROFIT","No se pudieron cargar los requerimientos");
+    }
+
+    @Override
+    public void navigateToModificar(Requerimiento req) {
+        viewModel.setSelected(req);
+        NavHostFragment.findNavController(MisServiciosFragment.this).navigate(R.id.action_misServiciosFragment_to_modificarRequerimientoFragment);
     }
 }

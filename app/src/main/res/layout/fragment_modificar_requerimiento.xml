@@ -38,7 +38,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
-                    android:hint="Ingrese el servicio que requiere..."
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,20 +79,12 @@
                     android:id="@+id/descripcion_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Describa brevemente su necesidad.."
                     android:inputType="textMultiLine"
                     android:gravity="start|top"
                     android:background="#00FFFFFF"
                     android:lines="5"
                     android:paddingBottom="5dp"/>
             </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageButton
-                android:id="@+id/BtnFecha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:src="@android:drawable/ic_menu_today" />
 
             <ImageButton
                 android:id="@+id/button_agregar_foto"

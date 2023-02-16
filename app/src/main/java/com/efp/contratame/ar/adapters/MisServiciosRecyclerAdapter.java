@@ -15,22 +15,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.R;
+import com.efp.contratame.ar.auxiliares.MisServiciosSelectListener;
 import com.efp.contratame.ar.modelo.Requerimiento;
+import com.efp.contratame.ar.modelo.TipoServicio;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServiciosRecyclerAdapter.MisServiciosViewHolder>{
+public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServiciosRecyclerAdapter.MisServiciosViewHolder> implements MisServiciosSelectListener {
 
     private List<Requerimiento> requerimientos;
     private List<Requerimiento> listaOriginal;
     private ViewGroup par;
+    private MisServiciosSelectListener listener;
 
-    public MisServiciosRecyclerAdapter(List<Requerimiento> dataSet, Context context) {
+    public MisServiciosRecyclerAdapter(List<Requerimiento> dataSet, Context context, MisServiciosSelectListener listener) {
         this.requerimientos = dataSet;
         listaOriginal = new ArrayList<>();
         listaOriginal.addAll(dataSet);
+        this.listener=listener;
     }
 
     @NonNull
@@ -68,6 +73,7 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
             );
         }
 
+
         holder.eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +99,7 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
             public void onClick(View view) {
                 Log.i("aca", "modificar");
                 //TODO navegar a fragmento modificar requerimiento, con valores pre seteados
-
+                listener.navigateToModificar(requerimientos.get(holder.getAdapterPosition()));
             }
         });
         holder.calificar.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +108,6 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
                 Log.i("aca", "calificar");
             }
         });
-
     }
 
     @Override
@@ -115,6 +120,12 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         requerimientos.addAll(req);
         notifyDataSetChanged();
     }
+
+    @Override
+    public void navigateToModificar(Requerimiento req) {
+
+    }
+
 
     public class MisServiciosViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout layout;

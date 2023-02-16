@@ -91,5 +91,16 @@
         <action
             android:id="@+id/action_misServiciosFragment_to_detalleProveedorServicioFragment"
             app:destination="@id/detalleProveedorServicioFragment" />
+        <action
+            android:id="@+id/action_misServiciosFragment_to_modificarRequerimientoFragment"
+            app:destination="@id/modificarRequerimientoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modificarRequerimientoFragment"
+        android:name="com.efp.contratame.ar.Actividades.ModificarRequerimientoFragment"
+        android:label="ModificarRequerimientoFragment" >
+        <action
+            android:id="@+id/action_modificarRequerimientoFragment_to_misServiciosFragment"
+            app:destination="@id/misServiciosFragment" />
     </fragment>
 </navigation>

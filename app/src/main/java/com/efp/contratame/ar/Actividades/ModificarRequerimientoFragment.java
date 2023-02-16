@@ -29,13 +29,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.Actividades.main.UsuarioGetter;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.auxiliares.EspressoIdlingResource;
+import com.efp.contratame.ar.auxiliares.MyViewModelRequerimiento;
 import com.efp.contratame.ar.databinding.FragmentModificarRequerimientoBinding;
 import com.efp.contratame.ar.modelo.Requerimiento;
 import com.efp.contratame.ar.modelo.TipoServicio;
@@ -43,6 +45,7 @@ import com.efp.contratame.ar.persistencia.datasource.RequerimientoDataSource;
 import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
 import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -71,6 +74,7 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
     private UsuarioGetter usuarioGetter;
     private TipoServicioGetter tipoServicioGetter;
     private Requerimiento nuevo_requerimiento;
+    private Requerimiento requerimiento_previo;
     //cosas para el mapa
     private GoogleMap mapa;
     private ActivityResultLauncher<String> activityResultLauncher;
@@ -80,8 +84,6 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
     //cosas para la foto
     private final ActivityResultLauncher<String> fotoGetter;
     private Uri fotoSeleccionada;
-    private ImageButton fecha ;
-    private Calendar calendario;
 
     public ModificarRequerimientoFragment() {
 
@@ -163,17 +165,24 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
         activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
 
         binding = FragmentModificarRequerimientoBinding.inflate(inflater, container, false);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Crear requerimiento");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Modificar requerimiento");
 
         spinner = binding.spinnerRurbos;
         adapterRubro = new ArrayAdapter<>(this.getContext(),
                 android.R.layout.simple_spinner_item, new ArrayList<>());
         adapterRubro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapterRubro);
+        TipoServicioRepository.createInstance().getAllTipoServicios(this);
 
         binding.buttonAgregarFoto.setOnClickListener(view -> {
             fotoGetter.launch("image/*");
         });
+
+        //init mapa
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
+
 
         binding.tituloEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -201,9 +210,6 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
             }
         });
 
-        //fecha = binding.BtnFecha;
-        calendario = Calendar.getInstance();
-
         binding.buttonPublicar.setOnClickListener(view -> {
             if (!permitido){
                 Toast.makeText(getActivity(), "Se requieren los permisos de ubicacion para continuar.", Toast.LENGTH_LONG).show();
@@ -220,7 +226,7 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
 
             try {
                 nuevo_requerimiento = new Requerimiento(
-                        UUID.randomUUID(),
+                        requerimiento_previo.getIdRequerimiento(),
                         binding.tituloEditText.getText().toString(),
                         (TipoServicio) binding.spinnerRurbos.getSelectedItem(),
                         binding.descripcionEditText.getText().toString(),
@@ -228,9 +234,8 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
                                 .getBitmap(getActivity().getContentResolver(), fotoSeleccionada == null ? Uri.parse("android.resource://com.efp.contratame.ar/"+R.drawable.iconocolor) : fotoSeleccionada),
                         pos
                 );
-                EspressoIdlingResource.getInstance().increment(); // PARA TEST
                 RequerimientoRepository.createInstance().saveRequerimiento(nuevo_requerimiento,usuarioGetter.getCurrentUsuario().getIdUsuario(),this);
-
+                Log.i("actualiza", "actualiza");
             } catch (IOException e) {
                 Log.e("error cargando la imagen",e.getMessage());
                 Toast.makeText(getActivity(), "Ha ocurrido un error, intentelo nuevamente.", Toast.LENGTH_LONG).show();
@@ -239,7 +244,7 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
         });
 
         binding.buttonDescartar.setOnClickListener(view -> {
-            NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_resultadosServiciosFragment);
+            NavHostFragment.findNavController(this).navigate(R.id.action_modificarRequerimientoFragment_to_misServiciosFragment);
         });
 
         binding.buttonActualizarMap.setOnClickListener(new View.OnClickListener() {
@@ -250,14 +255,27 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
             }
         });
 
-        //seria mejor guardar en la actividad los tipos servicios cuando los busco para el menu ppal?
-        EspressoIdlingResource.getInstance().increment(); // PARA TEST
-        TipoServicioRepository.createInstance().getAllTipoServicios(this);
+        MyViewModelRequerimiento viewModel = new ViewModelProvider(requireActivity()).get(MyViewModelRequerimiento.class);
+        viewModel.getSelected().observe(getViewLifecycleOwner(), item -> {
+            requerimiento_previo=item;
+            binding.tituloEditText.setText(item.getTitulo());
+            binding.descripcionEditText.setText(item.getDescripcion());
+            binding.buttonAgregarFoto.setImageBitmap(item.getImagen());
+        });
 
-        //init mapa
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
-        mapFragment.getMapAsync(this);
         return binding.getRoot();
+    }
+
+    private void selectValue(Spinner spinner, Object value) {
+        Log.i("rubro1", value.toString());
+        for (int i = 0; i < spinner.getCount(); i++) {
+            Log.i("rubro2", spinner.getItemAtPosition(i).toString());
+
+            if (spinner.getItemAtPosition(i).equals(value)) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
     }
 
     // GetAllTipoServicioCallback
@@ -266,17 +284,16 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
         adapterRubro.clear();
         tipos.add(TipoServicioRepository.OTRO);
         adapterRubro.addAll(tipos);
-        binding.spinnerRurbos.setSelection(adapterRubro.getPosition(tipoServicioGetter.getTipoSeleccionado()),true);
-        EspressoIdlingResource.getInstance().decrement(); // PARA TEST
+        Log.i("rubro0", String.valueOf(spinner.getCount()));
+        binding.spinnerRurbos.setSelection(adapterRubro.getPosition(requerimiento_previo.getRubro()),true);
     }
 
     // SaveRequerimientoCallback
     @Override
     public void onResult() {
         Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
-        NavHostFragment.findNavController(this).navigate(R.id.action_crearRequerimientoFragment_to_menuPpalFragment2);
+        NavHostFragment.findNavController(this).navigate(R.id.action_modificarRequerimientoFragment_to_misServiciosFragment);
         Toast.makeText(getActivity(), "Requerimiento actualizado exitosamente", Toast.LENGTH_LONG).show();
-        EspressoIdlingResource.getInstance().decrement();
     }
 
     @Override
@@ -288,9 +305,19 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mapa = googleMap;
+        cargarUbicacionPrevia(requerimiento_previo);
+    }
 
-        if (permitido)
-            actualizarUbicacion();
+    public void cargarUbicacionPrevia(Requerimiento req){
+        pos = new LatLng(req.getUbicacion().latitude, req.getUbicacion().longitude);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(pos)
+                .zoom(14.5f)
+                .bearing(90)
+                .tilt(40)
+                .build();
+        mapa.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        ubicacionOk = true;
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -299,7 +326,9 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
         mapa.setMyLocationEnabled(true);
         LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         Location currLoc = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
+        if(requerimiento_previo!= null){
 
+        }
         if(currLoc != null){
             pos = new LatLng(currLoc.getLatitude(), currLoc.getLongitude());
             CameraPosition cameraPosition = new CameraPosition.Builder()
