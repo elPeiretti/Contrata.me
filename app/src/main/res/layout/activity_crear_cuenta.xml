@@ -66,13 +66,21 @@
         android:textSize="14dp"
         android:text="Contraseña" />
 
-    <EditText
-        android:id="@+id/txt_contrasenaCrear"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtPassText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:ems="10"
-        android:inputType="textPassword" />
+        app:boxBackgroundColor="#00FFFFFF"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_contrasenaCrear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:hint=""
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <RadioGroup

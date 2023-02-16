@@ -102,7 +102,7 @@ public class CambiarPerfilFragment extends Fragment {
                         .setDisplayName(binding.editTextName.getText().toString())
                         .setPhotoUri(imagenUri)
                         .build();
-                Log.d("IMAGEN", imagenUri.toString());
+
 
                 user.updateProfile(profileUpdates)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
