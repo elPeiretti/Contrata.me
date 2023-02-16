@@ -23,6 +23,7 @@ import com.efp.contratame.ar.modelo.TipoServicio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServiciosRecyclerAdapter.MisServiciosViewHolder> implements MisServiciosSelectListener {
 
@@ -79,12 +80,11 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
                 AlertDialog.Builder builder = new AlertDialog.Builder(par.getContext());
                 builder.setMessage("¿Está seguro que desea eliminarlo?").setTitle("Mensaje de confirmación");
                 builder.setIcon(R.drawable.icono_sin_fondo);
-                builder.setPositiveButton("Si", (dialogInterface, i) ->
-                        //TODO agregar método eliminar requerimiento
-                        listener.navigateToEliminar(requerimientos.get(holder.getAdapterPosition())));
-                /*Toast.makeText(par.getContext(),
-                                "lo elimina", Toast.LENGTH_LONG)
-                        .show());*/
+                builder.setPositiveButton("Si", (dialogInterface, i) -> {
+                    //TODO agregar método eliminar requerimiento
+                    Requerimiento reqElim = requerimientos.get(holder.getBindingAdapterPosition());
+                    listener.navigateToEliminar(reqElim);
+                });
                 builder.setNegativeButton("No", (dialogInterface, i) -> Toast.makeText(par.getContext(),
                                 "No se ha eliminado su requerimiento", Toast.LENGTH_LONG)
                         .show());
@@ -93,20 +93,12 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
             }
         });
 
-        holder.modificar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.navigateToModificar(requerimientos.get(holder.getAdapterPosition()));
-            }
-        });
-        holder.calificar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(par.getContext(),
-                                "Presiona calificar", Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+        holder.modificar.setOnClickListener(view ->
+                listener.navigateToModificar(requerimientos.get(holder.getBindingAdapterPosition()))
+        );
+        holder.calificar.setOnClickListener(view ->
+                Toast.makeText(par.getContext(),"Presiona calificar", Toast.LENGTH_LONG).show()
+        );
     }
 
     @Override
@@ -118,6 +110,13 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         requerimientos.clear();
         requerimientos.addAll(req);
         notifyDataSetChanged();
+    }
+
+    public void removeItem(Requerimiento item) {
+        updateData(
+                requerimientos.stream()
+                        .filter(r -> !r.getIdRequerimiento().equals(item.getIdRequerimiento()))
+                        .collect(Collectors.toList()));
     }
 
     @Override

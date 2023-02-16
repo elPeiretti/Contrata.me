@@ -33,6 +33,7 @@ import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MisServiciosFragment extends Fragment implements RequerimientoDataSource.GetAllRequerimientosFromCallback, MisServiciosSelectListener, RequerimientoDataSource.EliminarRequerimientoCallback {
 
@@ -128,6 +129,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     @Override
     public void onResult() {
         Log.i("elimina", "elimina");
+        mAdapter.removeItem(viewModel.getSelected().getValue());
         Toast.makeText(getActivity(), "Requerimiento eliminado exitosamente", Toast.LENGTH_LONG).show();
     }
 
