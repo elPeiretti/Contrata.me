@@ -8,12 +8,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
@@ -107,11 +109,13 @@ public class CambiarPerfilFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Log.d("USUARIO", "User profile updated.");
+                                    Toast.makeText(getContext(), "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show();
                                     ((MainActivity)getActivity()).setearValoresDrawer();
+                                    NavHostFragment.findNavController(CambiarPerfilFragment.this).navigate(R.id.action_cambiarPerfilFragment_to_perfilUsuarioFragment);
                                 }
                             }
                         });
+
             }
         });
 

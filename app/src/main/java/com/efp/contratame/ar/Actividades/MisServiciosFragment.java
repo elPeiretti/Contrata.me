@@ -115,6 +115,7 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
     @Override
     public void onResult(List<Requerimiento> requerimientoList) {
         barra.setVisibility(View.GONE);
+        Log.d("PROGRESS - List size", String.valueOf(requerimientoList.isEmpty()));
         recyclerView.setVisibility(requerimientoList.isEmpty() ? View.GONE : View.VISIBLE);
         binding.tvMensajeEmpty.setVisibility(requerimientoList.isEmpty() ? View.VISIBLE : View.GONE);
         mAdapter.updateData(requerimientoList);

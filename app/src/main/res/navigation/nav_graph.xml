@@ -79,7 +79,11 @@
         android:id="@+id/cambiarPerfilFragment"
         android:name="com.efp.contratame.ar.Actividades.CambiarPerfilFragment"
         android:label="fragment_cambiar_perfil"
-        tools:layout="@layout/fragment_cambiar_perfil" />
+        tools:layout="@layout/fragment_cambiar_perfil" >
+        <action
+            android:id="@+id/action_cambiarPerfilFragment_to_perfilUsuarioFragment"
+            app:destination="@id/perfilUsuarioFragment" />
+    </fragment>
     <fragment
         android:id="@+id/misServiciosFragment"
         android:name="com.efp.contratame.ar.Actividades.MisServiciosFragment"
