@@ -76,12 +76,11 @@ public class MisServiciosRecyclerAdapter extends RecyclerView.Adapter<MisServici
         holder.eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("aca", "eliminar");
+                //Log.i("aca", "eliminar");
                 AlertDialog.Builder builder = new AlertDialog.Builder(par.getContext());
                 builder.setMessage("¿Está seguro que desea eliminarlo?").setTitle("Mensaje de confirmación");
                 builder.setIcon(R.drawable.icono_sin_fondo);
                 builder.setPositiveButton("Si", (dialogInterface, i) -> {
-                    //TODO agregar método eliminar requerimiento
                     Requerimiento reqElim = requerimientos.get(holder.getBindingAdapterPosition());
                     listener.navigateToEliminar(reqElim);
                 });

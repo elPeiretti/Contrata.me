@@ -303,7 +303,7 @@ public class ModificarRequerimientoFragment extends Fragment implements TipoServ
     // SaveRequerimientoCallback
     @Override
     public void onResult() {
-        Log.i("REQ_FRAGMENT","REQUERIMIENTO CREADO");
+        Log.i("REQ_FRAGMENT","REQUERIMIENTO ACTUALIZADO");
         NavHostFragment.findNavController(this).navigate(R.id.action_modificarRequerimientoFragment_to_misServiciosFragment);
         Toast.makeText(getActivity(), "Requerimiento actualizado exitosamente", Toast.LENGTH_LONG).show();
     }

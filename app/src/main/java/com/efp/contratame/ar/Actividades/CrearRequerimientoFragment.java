@@ -305,12 +305,15 @@ public class CrearRequerimientoFragment extends Fragment implements TipoServicio
         Intent intent = new Intent(cont, AlarmReceiver.class);
         Bundle extras = getActivity().getIntent().getExtras();
         intent.putExtras(extras);
-        intent.putExtra("idRequerimiento", req.getIdRequerimiento());
+        intent.putExtra("idRequerimiento", req.getIdRequerimiento().toString());
+
+        Log.i("IdRequerimiento1", req.getIdRequerimiento().toString());
+
+
         intent.putExtra("tituloRequerimiento",req.getTitulo());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(cont, 0, intent,PendingIntent.FLAG_IMMUTABLE);
         calendario.add(Calendar.SECOND, 10);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendario.getTimeInMillis(), pendingIntent);
-
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)

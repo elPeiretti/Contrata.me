@@ -135,7 +135,6 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         //hay que ver si se quedo sin requerimientos
         recyclerView.setVisibility(mAdapter.getItemCount() == 0 ? View.GONE : View.VISIBLE);
         binding.tvMensajeEmpty.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-
     }
 
     @Override
@@ -158,7 +157,6 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         alarmIntent.putExtra("sesion", user.getCurrentUsuario().getTipoSesion());
         alarmIntent.putExtra("fragment", "presiona eliminar");
 
-      
         Intent intent = new Intent(getContext(), AlarmReceiver.class);
         Bundle extras = getActivity().getIntent().getExtras();
         intent.putExtras(extras);
@@ -167,10 +165,5 @@ public class MisServiciosFragment extends Fragment implements RequerimientoDataS
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent,PendingIntent.FLAG_IMMUTABLE);
         AlarmManager alarmManager = (AlarmManager)getActivity().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
-
-
-
-
-
     }
 }

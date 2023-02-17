@@ -23,6 +23,9 @@ public class Requerimiento {
         this.ubicacion = ubicacion;
     }
 
+    public Requerimiento( ){
+
+    }
     public UUID getIdRequerimiento() {
         return idRequerimiento;
     }

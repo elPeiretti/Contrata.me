@@ -27,13 +27,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         Bundle extras = intent.getExtras();
         String tituloRequerimiento = intent.getExtras().getString("tituloRequerimiento");
         String id = intent.getExtras().getString("idRequerimiento");
-
+        Log.i("IdRequerimiento", id);
         destino.putExtra("idUsuario", extras.getString("idUsuario"));
         destino.putExtra("mail", extras.getString("mail"));
         destino.putExtra("nombre", extras.getString("nombre"));
         destino.putExtra("foto", extras.getString("foto"));
         destino.putExtra("sesion", extras.getString("sesion"));
         destino.putExtra("fragment", "presiona la noti");
+        destino.putExtra("idRequerimiento", id);
 
         destino.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, destino, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
@@ -46,6 +47,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         eliminar.putExtra("foto", extras.getString("foto"));
         eliminar.putExtra("sesion", extras.getString("sesion"));
         eliminar.putExtra("fragment", "presiona eliminar");
+        eliminar.putExtra("idRequerimiento",id);
+
         eliminar.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent eliminarPIntent = PendingIntent.getActivity(context, 1, eliminar, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
@@ -58,6 +61,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         mantener.putExtra("foto",extras.getString("foto"));
         mantener.putExtra("sesion",extras.getString("sesion"));
         mantener.putExtra("fragment", "presiona mantener");
+        mantener.putExtra("idRequerimiento", id);
+
         PendingIntent mantenerPIntent = PendingIntent.getActivity(context,2,mantener,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channelid")
