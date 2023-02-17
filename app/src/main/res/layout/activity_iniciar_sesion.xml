@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Actividades.IniciarSesion">
+    tools:context=".Actividades.login.IniciarSesionActivity">
 
     <ImageView
         android:id="@+id/icono"

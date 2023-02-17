@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="15dp"
     android:paddingVertical="10dp"
-    tools:context=".Actividades.CrearRequerimientoFragment">
+    tools:context=".Actividades.main.fragments.CrearRequerimientoFragment">
 
     <ProgressBar
         android:id="@+id/progressBar_ModificarReq"

@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades.main;
+package com.efp.contratame.ar.Actividades.main.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.modelo.Servicio;
 import com.efp.contratame.ar.modelo.TipoServicio;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class ServicioIconRecyclerAdapter extends RecyclerView.Adapter<ServicioIc
     private LayoutInflater mInflater;
     private OnTipoServicioSelectedListener comListener;
 
-    ServicioIconRecyclerAdapter(Context ctx, List<TipoServicio> dataSet, OnTipoServicioSelectedListener handler){
+    public ServicioIconRecyclerAdapter(Context ctx, List<TipoServicio> dataSet, OnTipoServicioSelectedListener handler){
         this.mInflater = LayoutInflater.from(ctx);
         this.listaTipos = dataSet;
         listaOriginal = listaTipos;

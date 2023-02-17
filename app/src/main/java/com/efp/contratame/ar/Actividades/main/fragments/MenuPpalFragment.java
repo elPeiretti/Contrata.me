@@ -1,24 +1,22 @@
-package com.efp.contratame.ar.Actividades.main;
+package com.efp.contratame.ar.Actividades.main.fragments;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.efp.contratame.ar.Actividades.main.MainActivity;
+import com.efp.contratame.ar.Actividades.main.adapters.ServicioIconRecyclerAdapter;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.auxiliares.EspressoIdlingResource;
+import com.efp.contratame.ar.misc.EspressoIdlingResource;
 import com.efp.contratame.ar.databinding.FragmentMenuPpalBinding;
 import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.TipoServicioDataSource;

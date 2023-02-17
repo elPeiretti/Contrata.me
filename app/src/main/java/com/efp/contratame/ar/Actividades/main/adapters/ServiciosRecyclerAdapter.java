@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.adapters;
+package com.efp.contratame.ar.Actividades.main.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.auxiliares.SelectListener;
+import com.efp.contratame.ar.Actividades.main.misc.SelectListener;
 import com.efp.contratame.ar.modelo.Servicio;
 
 import java.util.ArrayList;

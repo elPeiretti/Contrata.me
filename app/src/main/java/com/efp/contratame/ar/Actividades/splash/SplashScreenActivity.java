@@ -1,6 +1,5 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.splash;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.efp.contratame.ar.Actividades.login.IniciarSesionActivity;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,7 +59,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    startActivity(new Intent(SplashScreenActivity.this, IniciarSesion.class));
+                    startActivity(new Intent(SplashScreenActivity.this, IniciarSesionActivity.class));
                     finish();
                 }
             }

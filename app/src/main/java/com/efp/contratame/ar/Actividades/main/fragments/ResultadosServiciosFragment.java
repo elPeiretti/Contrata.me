@@ -1,7 +1,6 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,25 +22,17 @@ import android.widget.Spinner;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.auxiliares.EspressoIdlingResource;
+import com.efp.contratame.ar.misc.EspressoIdlingResource;
 import com.efp.contratame.ar.persistencia.datasource.ServicioDataSource;
 import com.efp.contratame.ar.persistencia.repository.ServicioRepository;
-import com.efp.contratame.ar.adapters.ServiciosRecyclerAdapter;
-import com.efp.contratame.ar.auxiliares.MyViewModel;
-import com.efp.contratame.ar.auxiliares.SelectListener;
+import com.efp.contratame.ar.Actividades.main.adapters.ServiciosRecyclerAdapter;
+import com.efp.contratame.ar.Actividades.main.misc.MyViewModel;
+import com.efp.contratame.ar.Actividades.main.misc.SelectListener;
 import com.efp.contratame.ar.databinding.FragmentResultadosServiciosBinding;
 import com.efp.contratame.ar.modelo.Servicio;
-import com.efp.contratame.ar.modelo.TipoServicio;
-import com.efp.contratame.ar.persistencia.repository.TipoServicioRepository;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.

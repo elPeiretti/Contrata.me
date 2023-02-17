@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.adapters;
+package com.efp.contratame.ar.Actividades.main.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,11 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.auxiliares.MisServiciosSelectListener;
+import com.efp.contratame.ar.Actividades.main.misc.MisServiciosSelectListener;
 import com.efp.contratame.ar.modelo.Requerimiento;
-import com.efp.contratame.ar.modelo.TipoServicio;
 
 import java.util.ArrayList;
 import java.util.List;

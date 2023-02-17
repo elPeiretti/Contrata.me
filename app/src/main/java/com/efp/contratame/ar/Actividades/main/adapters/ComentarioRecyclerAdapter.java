@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ public class ComentarioRecyclerAdapter extends RecyclerView.Adapter<ComentarioRe
     private List<Comentario> comentarioList;
     private final LayoutInflater mInflater;
 
-    ComentarioRecyclerAdapter(Context ctx, List<Comentario> dataSet){
+    public ComentarioRecyclerAdapter(Context ctx, List<Comentario> dataSet){
         this.mInflater = LayoutInflater.from(ctx);
         this.comentarioList = dataSet;
     }

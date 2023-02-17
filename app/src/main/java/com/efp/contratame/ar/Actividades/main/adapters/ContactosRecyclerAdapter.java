@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.adapters;
+package com.efp.contratame.ar.Actividades.main.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 

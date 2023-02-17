@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.FragmentCambiarPerfilBinding;
-import com.facebook.AccessToken;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

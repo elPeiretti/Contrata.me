@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main.fragments;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -19,21 +19,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
-import com.efp.contratame.ar.Actividades.main.TipoServicioGetter;
 import com.efp.contratame.ar.Actividades.main.UsuarioGetter;
+import com.efp.contratame.ar.Actividades.main.misc.AlarmReceiver;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.adapters.MisServiciosRecyclerAdapter;
-import com.efp.contratame.ar.auxiliares.MyViewModelRequerimiento;
-import com.efp.contratame.ar.auxiliares.MisServiciosSelectListener;
+import com.efp.contratame.ar.Actividades.main.adapters.MisServiciosRecyclerAdapter;
+import com.efp.contratame.ar.Actividades.main.misc.MyViewModelRequerimiento;
+import com.efp.contratame.ar.Actividades.main.misc.MisServiciosSelectListener;
 import com.efp.contratame.ar.databinding.FragmentMisServiciosBinding;
 import com.efp.contratame.ar.modelo.Requerimiento;
-import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.persistencia.datasource.RequerimientoDataSource;
 import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MisServiciosFragment extends Fragment implements RequerimientoDataSource.GetAllRequerimientosFromCallback, MisServiciosSelectListener, RequerimientoDataSource.EliminarRequerimientoCallback {
 

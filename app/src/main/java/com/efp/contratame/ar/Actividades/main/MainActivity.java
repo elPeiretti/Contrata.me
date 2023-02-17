@@ -1,6 +1,5 @@
 package com.efp.contratame.ar.Actividades.main;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,23 +20,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
-import com.efp.contratame.ar.Actividades.AlarmReceiver;
-import com.efp.contratame.ar.Actividades.DetalleProveedorServicioFragment;
-import com.efp.contratame.ar.Actividades.IniciarSesion;
-import com.efp.contratame.ar.Actividades.PerfilUsuarioFragment;
-import com.efp.contratame.ar.Actividades.ResultadosServiciosFragment;
+import com.efp.contratame.ar.Actividades.main.fragments.DetalleProveedorServicioFragment;
+import com.efp.contratame.ar.Actividades.login.IniciarSesionActivity;
+import com.efp.contratame.ar.Actividades.main.fragments.ResultadosServiciosFragment;
+import com.efp.contratame.ar.Actividades.main.fragments.MenuPpalFragment;
 import com.efp.contratame.ar.R;
 import com.efp.contratame.ar.databinding.ActivityMainBinding;
 import com.efp.contratame.ar.modelo.Requerimiento;
@@ -47,7 +39,6 @@ import com.efp.contratame.ar.modelo.TipoServicio;
 import com.efp.contratame.ar.modelo.Usuario;
 import com.efp.contratame.ar.persistencia.datasource.RequerimientoDataSource;
 import com.efp.contratame.ar.persistencia.repository.RequerimientoRepository;
-import com.facebook.AccessToken;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -222,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements MenuPpalFragment.
                 break;
             case R.id.nav_cerrar_sesion:
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent( ctx, IniciarSesion.class);
+                Intent intent = new Intent( ctx, IniciarSesionActivity.class);
                 startActivity(intent);
                 break;
         }

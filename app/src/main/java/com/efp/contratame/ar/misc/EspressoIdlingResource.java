@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.auxiliares;
+package com.efp.contratame.ar.misc;
 
 import androidx.test.espresso.idling.CountingIdlingResource;
 

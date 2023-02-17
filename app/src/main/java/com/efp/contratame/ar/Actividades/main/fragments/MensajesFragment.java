@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,8 +14,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
-import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.adapters.ContactosRecyclerAdapter;
+import com.efp.contratame.ar.Actividades.main.adapters.ContactosRecyclerAdapter;
 import com.efp.contratame.ar.databinding.FragmentMensajesBinding;
 import com.efp.contratame.ar.modelo.Prestador;
 

@@ -14,6 +14,8 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+
+import com.efp.contratame.ar.Actividades.login.CrearCuentaActivity;
 import com.efp.contratame.ar.R;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,13 +23,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class CrearCuentaTest {
+public class CrearCuentaActivityTest {
 
-    public ActivityScenario<CrearCuenta> activityScenario;
+    public ActivityScenario<CrearCuentaActivity> activityScenario;
 
     @Before
     public void setup(){
-        activityScenario = ActivityScenario.launchActivityForResult(CrearCuenta.class);
+        activityScenario = ActivityScenario.launchActivityForResult(CrearCuentaActivity.class);
         activityScenario.moveToState(Lifecycle.State.RESUMED);
     }
 

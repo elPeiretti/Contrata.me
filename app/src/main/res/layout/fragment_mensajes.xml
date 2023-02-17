@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layoutDescription="@xml/activity_mensajes_scene"
-    tools:context=".Actividades.MensajesFragment">
+    tools:context=".Actividades.main.fragments.MensajesFragment">
 
     <SearchView
         android:id="@+id/txt_busqueda"

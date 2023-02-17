@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main.misc;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -11,11 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
-import com.efp.contratame.ar.Actividades.main.MenuPpalFragment;
 import com.efp.contratame.ar.R;
-import com.efp.contratame.ar.modelo.Usuario;
-
-import java.util.UUID;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

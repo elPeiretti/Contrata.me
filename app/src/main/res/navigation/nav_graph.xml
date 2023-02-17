@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/detalleProveedorServicioFragment"
-        android:name="com.efp.contratame.ar.Actividades.DetalleProveedorServicioFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.DetalleProveedorServicioFragment"
         android:label="fragment_detalle_proveedor_servicio"
         tools:layout="@layout/fragment_detalle_proveedor_servicio"/>
     <fragment
         android:id="@+id/resultadosServiciosFragment"
-        android:name="com.efp.contratame.ar.Actividades.ResultadosServiciosFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.ResultadosServiciosFragment"
         android:label="fragment_resultados_servicios"
         tools:layout="@layout/fragment_resultados_servicios" >
         <action
@@ -32,12 +32,12 @@
     </fragment>
     <fragment
         android:id="@+id/mensajesFragment"
-        android:name="com.efp.contratame.ar.Actividades.MensajesFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.MensajesFragment"
         android:label="fragment_mensajes"
         tools:layout="@layout/fragment_mensajes" />
     <fragment
         android:id="@+id/crearRequerimientoFragment"
-        android:name="com.efp.contratame.ar.Actividades.CrearRequerimientoFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.CrearRequerimientoFragment"
         android:label="fragment_crear_requerimiento"
         tools:layout="@layout/fragment_crear_requerimiento" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuPpalFragment2"
-        android:name="com.efp.contratame.ar.Actividades.main.MenuPpalFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.MenuPpalFragment"
         android:label="MenuPpalFragment" >
         <action
             android:id="@+id/action_menuPpalFragment2_to_resultadosServiciosFragment"
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/perfilUsuarioFragment"
-        android:name="com.efp.contratame.ar.Actividades.PerfilUsuarioFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.PerfilUsuarioFragment"
         android:label="fragment_perfil_usuario"
         tools:layout="@layout/fragment_perfil_usuario" >
         <action
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/cambiarPerfilFragment"
-        android:name="com.efp.contratame.ar.Actividades.CambiarPerfilFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.CambiarPerfilFragment"
         android:label="fragment_cambiar_perfil"
         tools:layout="@layout/fragment_cambiar_perfil" >
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/misServiciosFragment"
-        android:name="com.efp.contratame.ar.Actividades.MisServiciosFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.MisServiciosFragment"
         android:label="fragment_mis_servicios"
         tools:layout="@layout/fragment_mis_servicios" >
         <action
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/modificarRequerimientoFragment"
-        android:name="com.efp.contratame.ar.Actividades.ModificarRequerimientoFragment"
+        android:name="com.efp.contratame.ar.Actividades.main.fragments.ModificarRequerimientoFragment"
         android:label="ModificarRequerimientoFragment" >
         <action
             android:id="@+id/action_modificarRequerimientoFragment_to_misServiciosFragment"

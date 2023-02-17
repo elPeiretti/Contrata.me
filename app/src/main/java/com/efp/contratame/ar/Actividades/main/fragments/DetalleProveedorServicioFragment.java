@@ -1,31 +1,27 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.main.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.bumptech.glide.Glide;
 import com.efp.contratame.ar.Actividades.main.MainActivity;
-import com.efp.contratame.ar.Actividades.main.MenuPpalFragment;
-import com.efp.contratame.ar.Actividades.main.ServicioIconRecyclerAdapter;
-import com.efp.contratame.ar.adapters.GaleriaRecyclerAdapter;
-import com.efp.contratame.ar.auxiliares.MyViewModel;
+import com.efp.contratame.ar.Actividades.main.adapters.ComentarioRecyclerAdapter;
+import com.efp.contratame.ar.Actividades.main.adapters.GaleriaRecyclerAdapter;
+import com.efp.contratame.ar.Actividades.main.misc.MyViewModel;
 import com.efp.contratame.ar.databinding.FragmentDetalleProveedorServicioBinding;
 import com.efp.contratame.ar.modelo.Comentario;
 import com.efp.contratame.ar.persistencia.datasource.ComentarioDataSource;
 import com.efp.contratame.ar.persistencia.repository.ComentarioRepository;
 
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

@@ -29,7 +29,7 @@
             android:value="@string/facebook_client_token" />
 
         <activity
-            android:name=".Actividades.SplashScreenActivity"
+            android:name=".Actividades.splash.SplashScreenActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
 
@@ -41,7 +41,7 @@
         </activity>
 
         <activity
-            android:name=".Actividades.IniciarSesion"
+            android:name=".Actividades.login.IniciarSesionActivity"
             android:exported="true">
             <!--
             <intent-filter>
@@ -62,10 +62,10 @@
         </activity>
 
         <activity
-            android:name=".Actividades.CrearCuenta"
+            android:name=".Actividades.login.CrearCuentaActivity"
             android:exported="true"/>
 
-        <receiver android:name=".Actividades.AlarmReceiver">
+        <receiver android:name=".Actividades.main.misc.AlarmReceiver">
         </receiver>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

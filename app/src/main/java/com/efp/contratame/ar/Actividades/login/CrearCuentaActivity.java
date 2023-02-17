@@ -1,4 +1,4 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
-public class CrearCuenta extends AppCompatActivity {
+public class CrearCuentaActivity extends AppCompatActivity {
 
     private ActivityCrearCuentaBinding binding;
     private TextView iniciarSesion;
@@ -54,7 +54,7 @@ public class CrearCuenta extends AppCompatActivity {
         iniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ctx, IniciarSesion.class);
+                Intent intent = new Intent(ctx, IniciarSesionActivity.class);
                 startActivity(intent);
             }
         });
@@ -65,7 +65,7 @@ public class CrearCuenta extends AppCompatActivity {
             public void onClick(View view) {
                 email= binding.txtEmaillCrear.getText().toString().trim();
                 password= binding.txtContrasenaCrear.getText().toString().trim();
-                switch (CrearCuenta.validarCampos(email, password)){
+                switch (CrearCuentaActivity.validarCampos(email, password)){
                     case 0:
                         firebaseCrearCuenta();
                         break;
@@ -103,8 +103,8 @@ public class CrearCuenta extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(CrearCuenta.this, "Se ha creado su cuenta con éxito", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent( ctx,IniciarSesion.class);
+                        Toast.makeText(CrearCuentaActivity.this, "Se ha creado su cuenta con éxito", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent( ctx, IniciarSesionActivity.class);
                         intent.putExtra("idUsuario",authResult.getUser().getUid());
                         intent.putExtra("nombre", authResult.getUser().getDisplayName() == null ? "" : authResult.getUser().getDisplayName());
                         intent.putExtra("mail", authResult.getUser().getEmail());
@@ -117,7 +117,7 @@ public class CrearCuenta extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CrearCuenta.this, "Se ha producido un error, vuelva a intentarlo más tarde", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CrearCuentaActivity.this, "Se ha producido un error, vuelva a intentarlo más tarde", Toast.LENGTH_SHORT).show();
                         Log.d("FIREBASE", e.getMessage());
                     }
                 });

@@ -1,8 +1,7 @@
-package com.efp.contratame.ar.Actividades;
+package com.efp.contratame.ar.Actividades.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.strictmode.FragmentStrictMode;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.efp.contratame.ar.Actividades.main.MainActivity;
-import com.efp.contratame.ar.Actividades.main.MenuPpalFragment;
 import com.efp.contratame.ar.databinding.ActivityIniciarSesionBinding;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -43,7 +41,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
 
-public class IniciarSesion extends AppCompatActivity {
+public class IniciarSesionActivity extends AppCompatActivity {
 
     private ActivityIniciarSesionBinding binding;
     private Button btnLogin;
@@ -108,7 +106,7 @@ public class IniciarSesion extends AppCompatActivity {
         btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginManager.getInstance().logInWithReadPermissions(IniciarSesion.this, Arrays.asList("public_profile", "email","user_birthday"));
+                LoginManager.getInstance().logInWithReadPermissions(IniciarSesionActivity.this, Arrays.asList("public_profile", "email","user_birthday"));
             }
         });
 
@@ -117,7 +115,7 @@ public class IniciarSesion extends AppCompatActivity {
         registrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( ctx,CrearCuenta.class);
+                Intent intent = new Intent( ctx, CrearCuentaActivity.class);
                 startActivity(intent);
             }
         });
@@ -195,7 +193,7 @@ public class IniciarSesion extends AppCompatActivity {
                                         else
                                         {
                                             if(task.getException().toString().contains("network error")){
-                                                Toast.makeText(IniciarSesion.this, "Debe contar con conexión a internet. Inténtelo más tarde",
+                                                Toast.makeText(IniciarSesionActivity.this, "Debe contar con conexión a internet. Inténtelo más tarde",
                                                         Toast.LENGTH_SHORT).show();
                                             }
                                            Log.d("GOOGLE","Authentication Failed :"+task.getException().getMessage());
@@ -252,7 +250,7 @@ public class IniciarSesion extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(IniciarSesion.this, "Authentication failed.",
+                            Toast.makeText(IniciarSesionActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -264,7 +262,7 @@ public class IniciarSesion extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(IniciarSesion.this, "Se ha iniciado sesión con éxito", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(IniciarSesionActivity.this, "Se ha iniciado sesión con éxito", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent( ctx, MainActivity.class);
 
                         intent.putExtra("idUsuario",authResult.getUser().getUid());
@@ -279,7 +277,7 @@ public class IniciarSesion extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(IniciarSesion.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(IniciarSesionActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

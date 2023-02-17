@@ -1,7 +1,6 @@
-package com.efp.contratame.ar.adapters;
+package com.efp.contratame.ar.Actividades.main.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Actividades.CrearCuenta">
+    tools:context=".Actividades.login.CrearCuentaActivity">
 
     <ImageView
         android:id="@+id/icono"
