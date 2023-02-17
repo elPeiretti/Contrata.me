@@ -15,7 +15,6 @@ El desarrollo de esta aplicacion es parte del trabajo practico de la electiva De
 - Visualizacion de servicios realizados y requerimientos actuales.
 - Edicion y/o eliminacion de requerimientos.
 
-[aca poner algunos gif]
 ## Herramientas implementadas
 - Persistencia de datos con Retrofit + Firebase Realtime Database.
 - Fragmentos.
